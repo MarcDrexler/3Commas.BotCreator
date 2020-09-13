@@ -20,8 +20,9 @@ Also if you think something is broken or have any questions, please open an [Iss
 
 - Add as many bots you want
 - Uses pairs at the highest volume first
-  - If there is an existing bot with the name of the new bot, it will be skipped. Name Schema is: "{prefix} {Long/Short} Bot {Pair}". You can specify a prefix for the bot name.
+  - If there is an existing bot with the name of the new bot, it will be skipped.
     This way you can create 10 Bots, and another day the next 10 Bots without having to worry about duplicates.
+    You can specify your own name schema. There are existing placeholders for Strategy and Pair.
 - Signals currently available: Manual, Nonstop, TradingView, RSI
 - Buys tokens for your new Short bots via market buy order
 
