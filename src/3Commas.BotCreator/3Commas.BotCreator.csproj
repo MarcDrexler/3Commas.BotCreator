@@ -181,7 +181,6 @@
     <Compile Include="Views\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Misc\BotManager.cs" />
     <Compile Include="Views\ChooseSignal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,8 +188,6 @@
       <DependentUpon>ChooseSignal.cs</DependentUpon>
     </Compile>
     <Compile Include="Misc\ControlHelper.cs" />
-    <Compile Include="Misc\Keys.cs" />
-    <Compile Include="Misc\Logic.cs" />
     <Compile Include="Views\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -278,6 +275,10 @@
     <ProjectReference Include="..\..\..\3Commas.Net\XCommas.Net\XCommas.Net\XCommas.Net.csproj">
       <Project>{3A83C228-4100-477C-B047-93E9C712370D}</Project>
       <Name>XCommas.Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\3Commas.BotCreator.Logic\3Commas.BotCreator.Logic.csproj">
+      <Project>{fdc52f9f-d126-4902-b3f5-b1a4f84a18e4}</Project>
+      <Name>3Commas.BotCreator.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

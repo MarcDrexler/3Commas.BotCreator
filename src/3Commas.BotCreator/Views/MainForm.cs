@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Windows.Forms;
+using _3Commas.BotCreator.Logic.Misc;
 using _3Commas.BotCreator.Misc;
 using Microsoft.Extensions.Logging;
 using XCommas.Net.Objects;
-using Keys = _3Commas.BotCreator.Misc.Keys;
+using Binance = _3Commas.BotCreator.Logic.ExchangeImplementations.Binance.Binance;
+using Keys = _3Commas.BotCreator.Logic.Keys;
 
 namespace _3Commas.BotCreator.Views
 {
@@ -38,7 +40,7 @@ namespace _3Commas.BotCreator.Views
                 if (dr == DialogResult.Yes)
                 {
                     btnCreate.Enabled = false;
-                    BotManager botMgr = new BotManager(_keys, _logger);
+                    BotManager botMgr = new BotManager(_keys, _logger, new Logic.ExchangeImplementations.Binance.Binance(_keys));
 
                     Strategy.TryParse(cmbStrategy.SelectedItem.ToString(), out Strategy strategy);
                     Strategy.TryParse(cmbStartOrderType.SelectedItem.ToString(), out StartOrderType startOrderType);
@@ -109,7 +111,7 @@ namespace _3Commas.BotCreator.Views
             var quoteCurrency = (!String.IsNullOrWhiteSpace(txtQuoteCurrency.Text)) ? txtQuoteCurrency.Text + "_XXX" : "";
             var strategy = cmbStrategy.SelectedItem?.ToString();
 
-            lblBotNamePreview.Text = Logic.GenerateBotName(txtBotname.Text, quoteCurrency, strategy);
+            lblBotNamePreview.Text = Logic.Misc.Logic.GenerateBotName(txtBotname.Text, quoteCurrency, strategy);
         }
 
         private void chkTrailing_CheckedChanged(object sender, EventArgs e)

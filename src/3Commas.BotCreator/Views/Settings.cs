@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using Keys = _3Commas.BotCreator.Misc.Keys;
+using Keys = _3Commas.BotCreator.Logic.Keys;
 
 namespace _3Commas.BotCreator.Views
 {

@@ -1,16 +1,22 @@
-﻿using _3Commas.BotCreator;
-using _3Commas.BotCreator.Misc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BusinessLogicTests
+namespace _3Commas.BotCreator.Tests.Misc
 {
     [TestClass()]
     public class LogicTests
     {
         [TestMethod()]
+        public void GenerateBotNameTest()
+        {
+            var actual = Logic.Misc.Logic.GenerateBotName("My new {pair} {strategy} bot", "USDT_BNB", "Long");
+
+            Assert.AreEqual("My new USDT_BNB Long bot", actual);
+        }
+
+        [TestMethod()]
         public void GetOrderVolumeTest()
         {
-            var target = new Logic();
+            var target = new Logic.Misc.Logic();
 
             Assert.AreEqual(28, target.GetOrderVolume(42321));
             Assert.AreEqual(23, target.GetOrderVolume(34567));

@@ -2,25 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Binance.Net;
-using Binance.Net.Enums;
-using Binance.Net.Objects.Spot;
-using CryptoExchange.Net.Authentication;
+using _3Commas.BotCreator.Logic.ExchangeImplementations;
 using Microsoft.Extensions.Logging;
 using XCommas.Net;
 using XCommas.Net.Objects;
 
-namespace _3Commas.BotCreator.Misc
+namespace _3Commas.BotCreator.Logic.Misc
 {
     public class BotManager
     {
         private readonly ILogger logger;
+        private readonly IExchange _exchange;
         private readonly XCommasApi _3CommasClient;
 
-        public BotManager(Keys settings, ILogger logger)
+        public BotManager(Keys settings, ILogger logger, IExchange exchange)
         {
             this.logger = logger;
-            BinanceClient.SetDefaultOptions(new BinanceClientOptions { ApiCredentials = new ApiCredentials(settings.ApiKeyBinance, settings.SecretBinance) });
+            _exchange = exchange;
             _3CommasClient = new XCommasApi(settings.ApiKey3Commas, settings.Secret3Commas);
         }
 
@@ -35,80 +33,77 @@ namespace _3Commas.BotCreator.Misc
             logger.LogInformation("Retrieving existing Bots from 3commas...");
             var existingBots = await GetAllBots();
             logger.LogInformation($"{existingBots.Count} Bots found");
+            
+            int created = 0;
 
-            using (var binance = new BinanceClient())
+            logger.LogInformation("Retrieving pairs from binance...");
+            var prices = await _exchange.GetAllPairsByQuoteCurrency(quoteCurrency);
+            logger.LogInformation($"{prices.Count} Pairs for {quoteCurrency.ToUpper()} found");
+
+            foreach (var pair in prices.OrderByDescending(x => x.TotalTradedQuoteAssetVolume))
             {
-                int created = 0;
+                var symbol = TransformPairTo3CommasSymbolString(pair.QuoteCurrency, pair.BaseCurrency);
 
-                logger.LogInformation("Retrieving pairs from binance...");
-                var prices = (await binance.Get24HPricesListAsync()).Data.Where(x => x.Symbol.ToLower().Contains(quoteCurrency.ToLower())).ToList();
-                logger.LogInformation($"{prices.Count} Pairs for {quoteCurrency.ToUpper()} found");
-
-                foreach (var binanceSymbol in prices.OrderByDescending(x => x.TotalTradedQuoteAssetVolume).Select(x => x.Symbol))
+                if (IsSymbolIgnored(symbol))
                 {
-                    var symbol = TransformBinanceSymbolTo3CommasSymbol(quoteCurrency, binanceSymbol, out string baseCurrency);
+                    logger.LogInformation($"Skipping {symbol}");
+                    continue;
+                }
 
-                    if (IsSymbolIgnored(symbol))
-                    {
-                        logger.LogInformation($"Skipping {symbol}");
-                        continue;
-                    }
+                var botName = Logic.GenerateBotName(nameFormula, symbol, strategy.ToString());
+                if (existingBots.Any(x => x.Name.ToLower() == botName.ToLower()))
+                {
+                    logger.LogInformation($"Bot for {symbol} already exist");
+                    continue;
+                }
 
-                    var botName = Logic.GenerateBotName(nameFormula, symbol, strategy.ToString());
-                    if (existingBots.Any(x => x.Name.ToLower() == botName.ToLower()))
-                    {
-                        logger.LogInformation($"Bot for {symbol} already exist");
-                        continue;
-                    }
+                var bot = CreateBot(strategy, startOrderType, maxSafetyOrders, activeSafetyOrdersCount, safetyOrderStepPercentage, martingaleVolumeCoefficient, martingaleStepCoefficient, takeProfitPercentage, trailingEnabled, trailingDeviation, baseOrderVolume, safetyOrderVolume, enable, dealStartConditions, cooldownBetweenDeals, botName, symbol);
+                var response = await _3CommasClient.CreateBotAsync(account.Id, strategy, bot);
+                if (!response.IsSuccess)
+                {
+                    logger.LogError($"Could not create bot for {symbol}: {response.Error.Replace(Environment.NewLine, " ")}");
+                    continue;
+                }
 
-                    var bot = CreateBot(strategy, startOrderType, maxSafetyOrders, activeSafetyOrdersCount, safetyOrderStepPercentage, martingaleVolumeCoefficient, martingaleStepCoefficient, takeProfitPercentage, trailingEnabled, trailingDeviation, baseOrderVolume, safetyOrderVolume, enable, dealStartConditions, cooldownBetweenDeals, botName, symbol);
-                    var response = await _3CommasClient.CreateBotAsync(account.Id, strategy, bot);
-                    if (!response.IsSuccess)
+                if (enable)
+                {
+                    var res = await _3CommasClient.EnableBotAsync(response.Data.Id);
+                    if (!res.IsSuccess)
                     {
-                        logger.LogError($"Could not create bot for {symbol}: {response.Error.Replace(Environment.NewLine, " ")}");
-                        continue;
-                    }
-
-                    if (enable)
-                    {
-                        var res = await _3CommasClient.EnableBotAsync(response.Data.Id);
-                        if (!res.IsSuccess)
-                        {
-                            logger.LogError($"Bot '{botName}' created but there was an error with activation: {res.Error.Replace(Environment.NewLine, " ")}");
-                        }
-                        else
-                        {
-                            logger.LogInformation($"Bot created and started: '{botName}'");
-                        }
+                        logger.LogError($"Bot '{botName}' created but there was an error with activation: {res.Error.Replace(Environment.NewLine, " ")}");
                     }
                     else
                     {
-                        logger.LogInformation($"Bot created: '{botName}'");
+                        logger.LogInformation($"Bot created and started: '{botName}'");
                     }
+                }
+                else
+                {
+                    logger.LogInformation($"Bot created: '{botName}'");
+                }
 
-                    if (amountToBuyInQuoteCurrency.HasValue && amountToBuyInQuoteCurrency.Value > 0)
+                if (amountToBuyInQuoteCurrency.HasValue && amountToBuyInQuoteCurrency.Value > 0)
+                {
+                    var placeOrderResult = await _exchange.PlaceOrder(pair, amountToBuyInQuoteCurrency.Value);
+                    if (placeOrderResult.Success)
                     {
-                        var placeOrderResult = await binance.PlaceOrderAsync(binanceSymbol, OrderSide.Buy, OrderType.Market, quoteOrderQuantity: amountToBuyInQuoteCurrency.Value);
-                        if (placeOrderResult.Success)
-                        {
-                            logger.LogInformation($"Market Buy Order placed: {placeOrderResult.Data.Quantity} {baseCurrency} / {placeOrderResult.Data.QuoteQuantityFilled} {quoteCurrency}");
-                        }
-                        else
-                        {
-                            logger.LogError($"Error while placing Order: {placeOrderResult.Error?.Message}");
-                        }
+                        logger.LogInformation(placeOrderResult.Message);
                     }
-
-                    created++;
-
-                    if (created == numberOfNewBots)
+                    else
                     {
-                        break;
+                        logger.LogError(placeOrderResult.Message);
                     }
                 }
 
-                logger.LogInformation($"{created} bots created");
+                created++;
+
+                if (created == numberOfNewBots)
+                {
+                    break;
+                }
             }
+
+            logger.LogInformation($"{created} bots created");
         }
 
         private Bot CreateBot(Strategy strategy, StartOrderType startOrderType, int maxSafetyOrders, int activeSafetyOrdersCount, decimal safetyOrderStepPercentage, decimal martingaleVolumeCoefficient, decimal martingaleStepCoefficient, decimal takeProfitPercentage, bool trailingEnabled, decimal trailingDeviation, decimal baseOrderVolume, decimal safetyOrderVolume, bool enable, List<BotStrategy> dealStartConditions, int cooldownBetweenDeals, string botName, string symbol)
@@ -176,9 +171,8 @@ namespace _3Commas.BotCreator.Misc
                     || pairsToIgnore.Contains(symbol));
         }
 
-        private static string TransformBinanceSymbolTo3CommasSymbol(string quoteCurrency, string binanceSymbol, out string baseCurrency)
+        public static string TransformPairTo3CommasSymbolString(string quoteCurrency, string baseCurrency)
         {
-            baseCurrency = binanceSymbol.ToUpper().Replace(quoteCurrency.ToUpper(), "");
             return $"{quoteCurrency.ToUpper()}_{baseCurrency}";
         }
 

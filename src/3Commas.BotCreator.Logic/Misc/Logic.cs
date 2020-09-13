@@ -1,4 +1,4 @@
-﻿namespace _3Commas.BotCreator.Misc
+﻿namespace _3Commas.BotCreator.Logic.Misc
 {
     public class Logic
     {
