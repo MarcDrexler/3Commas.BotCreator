@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using _3Commas.BotCreator.Logic.ExchangeImplementations;
+using _3Commas.BotCreator.Logic.ExchangeImplementations.Huobi;
 using _3Commas.BotCreator.Logic.Misc;
 using _3Commas.BotCreator.Misc;
 using Microsoft.Extensions.Logging;
@@ -26,6 +29,8 @@ namespace _3Commas.BotCreator.Views
             _keys.Secret3Commas = ConfigurationManager.AppSettings["3CommasSecret"];
             _keys.ApiKeyBinance = ConfigurationManager.AppSettings["BinanceApiKey"];
             _keys.SecretBinance = ConfigurationManager.AppSettings["BinanceSecret"];
+            _keys.ApiKeyHuobi = ConfigurationManager.AppSettings["HuobiApiKey"];
+            _keys.SecretHuobi = ConfigurationManager.AppSettings["HuobiSecret"];
 
             ControlHelper.AddValuesToCombobox<Strategy>(cmbStrategy, Strategy.Long);
             ControlHelper.AddValuesToCombobox<StartOrderType>(cmbStartOrderType);
@@ -40,19 +45,32 @@ namespace _3Commas.BotCreator.Views
                 if (dr == DialogResult.Yes)
                 {
                     btnCreate.Enabled = false;
-                    BotManager botMgr = new BotManager(_keys, _logger, new Logic.ExchangeImplementations.Binance.Binance(_keys));
+
+                    Account account = (Account)cmbExchange.SelectedItem;
+
+                    IExchange exchange = null;
+                    if (account.Name == "binance")
+                    {
+                        exchange = new Logic.ExchangeImplementations.Binance.Binance(_keys);
+                    }
+                    else
+                    {
+                        exchange = new Logic.ExchangeImplementations.Huobi.Huobi(_keys);
+                    }
+
+                    BotManager botMgr = new BotManager(_keys, _logger);
 
                     Strategy.TryParse(cmbStrategy.SelectedItem.ToString(), out Strategy strategy);
                     Strategy.TryParse(cmbStartOrderType.SelectedItem.ToString(), out StartOrderType startOrderType);
                     var dealStartConditions = new List<BotStrategy>();
                     foreach (ListViewItem listViewItem in listViewStartConditions.Items)
                     {
-                        dealStartConditions.Add((BotStrategy) listViewItem.Tag);
+                        dealStartConditions.Add((BotStrategy)listViewItem.Tag);
                     }
 
                     try
                     {
-                        await botMgr.CreateBots((int)numAmount.Value, txtQuoteCurrency.Text, strategy, startOrderType, (int)numMaxSafetyTradesCount.Value, (int)numMaxActiveSafetyTradesCount.Value, numPriceDeviationToOpenSafetyOrders.Value, numSafetyOrderVolumeScale.Value, numSafetyOrderStepScale.Value, numTargetProfit.Value, chkTrailing.Checked, numTrailingDeviation.Value, txtBotname.Text, numBaseOrderVolume.Value, numSafetyOrderVolume.Value, chkEnable.Checked, dealStartConditions, (int)numCooldownBetweenDeals.Value, numAmountToBuy.Value);
+                        await botMgr.CreateBots((int)numAmount.Value, txtQuoteCurrency.Text, strategy, startOrderType, (int)numMaxSafetyTradesCount.Value, (int)numMaxActiveSafetyTradesCount.Value, numPriceDeviationToOpenSafetyOrders.Value, numSafetyOrderVolumeScale.Value, numSafetyOrderStepScale.Value, numTargetProfit.Value, chkTrailing.Checked, numTrailingDeviation.Value, txtBotname.Text, numBaseOrderVolume.Value, numSafetyOrderVolume.Value, chkEnable.Checked, dealStartConditions, (int)numCooldownBetweenDeals.Value, exchange, account.Id, numAmountToBuy.Value);
                         MessageBox.Show("Finished.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception exception)
@@ -72,13 +90,33 @@ namespace _3Commas.BotCreator.Views
         private bool IsValid()
         {
             var errors = new List<string>();
-            if (string.IsNullOrWhiteSpace(_keys.Secret3Commas)) errors.Add("3Commas Secret missing");
-            if (string.IsNullOrWhiteSpace(_keys.ApiKey3Commas)) errors.Add("3Commas API Key missing");
-            if (string.IsNullOrWhiteSpace(_keys.SecretBinance)) errors.Add("Binance Secret missing");
-            if (string.IsNullOrWhiteSpace(_keys.ApiKeyBinance)) errors.Add("Binance API Key missing");
+            if (cmbExchange.Items.Count == 0)
+            {
+                errors.Add("Please specify 3Commas API Credentials and select your 3Commas Exchange Account.");
+            }
+            else if (cmbExchange.SelectedItem == null)
+            {
+                errors.Add("3Commas Exchange Account not selected.");
+            }
+
+            if (!rbBinance.Checked && !rbHuobi.Checked)
+            {
+                errors.Add("Choose your preferred Exchange.");
+            }
+
+            if (rbBinance.Checked && (String.IsNullOrWhiteSpace(_keys.ApiKeyBinance) || String.IsNullOrWhiteSpace(_keys.SecretBinance)))
+            {
+                errors.Add("API Credentials for Binance missing");
+            }
+
+            if (rbHuobi.Checked && (String.IsNullOrWhiteSpace(_keys.ApiKeyHuobi) || String.IsNullOrWhiteSpace(_keys.SecretHuobi)))
+            {
+                errors.Add("API Credentials for Huobi missing");
+            }
+
+            if (string.IsNullOrWhiteSpace(txtBotname.Text)) errors.Add("Bot name missing");
             if (string.IsNullOrWhiteSpace(txtQuoteCurrency.Text)) errors.Add("Quote Currency missing");
             if (listViewStartConditions.Items.Count == 0) errors.Add("Deal Start Condition missing");
-
             if (cmbStrategy.SelectedItem == null || !Strategy.TryParse(cmbStrategy.SelectedItem.ToString(), out Strategy _)) errors.Add("Strategy not selected");
             if (cmbStartOrderType.SelectedItem == null || !StartOrderType.TryParse(cmbStartOrderType.SelectedItem.ToString(), out StartOrderType _)) errors.Add("Start Order Type not selected");
             if (errors.Any())
@@ -100,7 +138,7 @@ namespace _3Commas.BotCreator.Views
 
             RefreshNamePreview();
         }
-        
+
         private void cmbStrategy_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshNamePreview();
@@ -121,10 +159,22 @@ namespace _3Commas.BotCreator.Views
             lblTrailingUnit.Visible = chkTrailing.Checked;
         }
 
-        private void btnEditSettings_Click(object sender, EventArgs e)
+        private async Task RefreshExchanges()
         {
-            var settingsForm = new Settings(_keys);
-            settingsForm.ShowDialog(this);
+            if (!String.IsNullOrWhiteSpace(_keys.Secret3Commas) && !String.IsNullOrWhiteSpace(_keys.ApiKey3Commas))
+            {
+                var selection = cmbExchange.SelectedItem as Account;
+                var botMgr = new BotManager(_keys, _logger);
+                var accounts = await botMgr.RetrieveAccounts();
+                cmbExchange.DataSource = accounts;
+                cmbExchange.ValueMember = nameof(Account.Id);
+                cmbExchange.DisplayMember = nameof(Account.Name);
+                cmbExchange.SelectedItem = selection;
+            }
+            else
+            {
+                cmbExchange.DataSource = null;
+            }
         }
 
         private void btnAbout_Click(object sender, EventArgs e)
@@ -139,7 +189,7 @@ namespace _3Commas.BotCreator.Views
             var dr = form.ShowDialog(this);
             if (dr == DialogResult.OK)
             {
-                listViewStartConditions.Items.Add(new ListViewItem() {Tag = form.Strategy, Text = form.Strategy.Name, Name = Guid.NewGuid().ToString()});
+                listViewStartConditions.Items.Add(new ListViewItem() { Tag = form.Strategy, Text = form.Strategy.Name, Name = Guid.NewGuid().ToString() });
             }
         }
 
@@ -154,6 +204,40 @@ namespace _3Commas.BotCreator.Views
         private void txtBotname_TextChanged(object sender, EventArgs e)
         {
             RefreshNamePreview();
+        }
+
+        private async void linkLabel3Commas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var settings = new Settings("3Commas API Credentials", "Permissions Needed: BotsRead, BotsWrite, AccountsRead", _keys.ApiKey3Commas, _keys.Secret3Commas);
+            var dr = settings.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                _keys.ApiKey3Commas = settings.ApiKey;
+                _keys.Secret3Commas = settings.Secret;
+                await RefreshExchanges();
+            }
+        }
+
+        private void linkLabelBinance_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var settings = new Settings("Binance API Credentials", "Permissions Needed: Can Read, Enable Spot Trading", _keys.ApiKeyBinance, _keys.SecretBinance);
+            var dr = settings.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                _keys.ApiKeyBinance = settings.ApiKey;
+                _keys.SecretBinance = settings.Secret;
+            }
+        }
+
+        private void linkLabelHuobi_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var settings = new Settings("Huobi API Credentials", "Permissions Needed: Read-Only, Trade", _keys.ApiKeyHuobi, _keys.SecretHuobi);
+            var dr = settings.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                _keys.ApiKeyHuobi = settings.ApiKey;
+                _keys.SecretHuobi = settings.Secret;
+            }
         }
     }
 }

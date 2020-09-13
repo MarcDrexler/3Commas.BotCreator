@@ -12,32 +12,43 @@ namespace _3Commas.BotCreator.Logic.Misc
     public class BotManager
     {
         private readonly ILogger logger;
-        private readonly IExchange _exchange;
         private readonly XCommasApi _3CommasClient;
 
-        public BotManager(Keys settings, ILogger logger, IExchange exchange)
+        public BotManager(Keys settings, ILogger logger)
         {
             this.logger = logger;
-            _exchange = exchange;
             _3CommasClient = new XCommasApi(settings.ApiKey3Commas, settings.Secret3Commas);
         }
 
-        public async Task CreateBots(int numberOfNewBots, string quoteCurrency, Strategy strategy, StartOrderType startOrderType, int maxSafetyOrders, int activeSafetyOrdersCount, decimal safetyOrderStepPercentage, decimal martingaleVolumeCoefficient, decimal martingaleStepCoefficient, decimal takeProfitPercentage, bool trailingEnabled, decimal trailingDeviation, string nameFormula, decimal baseOrderVolume, decimal safetyOrderVolume, bool enable, List<BotStrategy> dealStartConditions, int cooldownBetweenDeals, decimal? amountToBuyInQuoteCurrency = null)
+        public async Task<List<Account>> RetrieveAccounts()
         {
-            var accounts = await _3CommasClient.GetAccountsAsync();
-            logger.LogInformation("Retrieving exchange information from 3commas...");
-            if (!accounts.IsSuccess) throw new Exception("Problem with Binance connection: " + accounts.Error);
-            logger.LogInformation($"{accounts.Data.Length} Exchanges found");
-            var account = accounts.Data.Single();
+            var accounts = new List<Account>();
 
+            var response = await _3CommasClient.GetAccountsAsync();
+            logger.LogInformation("Retrieving exchange information from 3Commas...");
+            if (!response.IsSuccess)
+            {
+                this.logger.LogError("Problem with 3Commas connection: " + response.Error);
+            }
+            else
+            {
+                logger.LogInformation($"{response.Data.Length} Exchanges found");
+                accounts = response.Data.ToList();
+            }
+
+            return accounts;
+        }
+
+        public async Task CreateBots(int numberOfNewBots, string quoteCurrency, Strategy strategy, StartOrderType startOrderType, int maxSafetyOrders, int activeSafetyOrdersCount, decimal safetyOrderStepPercentage, decimal martingaleVolumeCoefficient, decimal martingaleStepCoefficient, decimal takeProfitPercentage, bool trailingEnabled, decimal trailingDeviation, string nameFormula, decimal baseOrderVolume, decimal safetyOrderVolume, bool enable, List<BotStrategy> dealStartConditions, int cooldownBetweenDeals, IExchange exchange, int accountId, decimal? amountToBuyInQuoteCurrency = null)
+        {
             logger.LogInformation("Retrieving existing Bots from 3commas...");
             var existingBots = await GetAllBots();
             logger.LogInformation($"{existingBots.Count} Bots found");
-            
+
             int created = 0;
 
-            logger.LogInformation("Retrieving pairs from binance...");
-            var prices = await _exchange.GetAllPairsByQuoteCurrency(quoteCurrency);
+            logger.LogInformation($"Retrieving pairs from {exchange.Name}...");
+            var prices = await exchange.GetAllPairsByQuoteCurrency(quoteCurrency);
             logger.LogInformation($"{prices.Count} Pairs for {quoteCurrency.ToUpper()} found");
 
             foreach (var pair in prices.OrderByDescending(x => x.TotalTradedQuoteAssetVolume))
@@ -58,7 +69,7 @@ namespace _3Commas.BotCreator.Logic.Misc
                 }
 
                 var bot = CreateBot(strategy, startOrderType, maxSafetyOrders, activeSafetyOrdersCount, safetyOrderStepPercentage, martingaleVolumeCoefficient, martingaleStepCoefficient, takeProfitPercentage, trailingEnabled, trailingDeviation, baseOrderVolume, safetyOrderVolume, enable, dealStartConditions, cooldownBetweenDeals, botName, symbol);
-                var response = await _3CommasClient.CreateBotAsync(account.Id, strategy, bot);
+                var response = await _3CommasClient.CreateBotAsync(accountId, strategy, bot);
                 if (!response.IsSuccess)
                 {
                     logger.LogError($"Could not create bot for {symbol}: {response.Error.Replace(Environment.NewLine, " ")}");
@@ -84,7 +95,7 @@ namespace _3Commas.BotCreator.Logic.Misc
 
                 if (amountToBuyInQuoteCurrency.HasValue && amountToBuyInQuoteCurrency.Value > 0)
                 {
-                    var placeOrderResult = await _exchange.PlaceOrder(pair, amountToBuyInQuoteCurrency.Value);
+                    var placeOrderResult = await exchange.PlaceOrder(pair, amountToBuyInQuoteCurrency.Value);
                     if (placeOrderResult.Success)
                     {
                         logger.LogInformation(placeOrderResult.Message);

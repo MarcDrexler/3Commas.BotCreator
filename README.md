@@ -7,7 +7,7 @@ This unofficial tool makes it possible to create several simple DCA bots at once
 The implementation is based on .Net Framework. I actually wanted to create it with .Net Core, but the View Designer isn't really ready for production yet. I will probably upgrade to .NET 5 in November.
 Therefore I created the tool more or less quick & dirty because I needed this functionality quickly. Time was money in this case :)
 
-Implementation is build upon the CryptoExchange.Net, 3Commas.Net and Binance.Net libraries. Thanks for the brilliant work!
+Implementation is build upon the CryptoExchange.Net, 3Commas.Net, Binance.Net and Huobi.Net libraries. Thanks for the brilliant work!
 
 The only use cases available are the ones I needed for myself. But if you need something, [let me know](https://github.com/MarcDrexler/3Commas.BotCreator/issues).
 
@@ -24,7 +24,7 @@ Also if you think something is broken or have any questions, please open an [Iss
     This way you can create 10 Bots, and another day the next 10 Bots without having to worry about duplicates.
     You can specify your own name schema. There are existing placeholders for Strategy and Pair.
 - Signals currently available: Manual, Nonstop, TradingView, RSI
-- Buys tokens for your new Short bots via market buy order
+- Buys tokens for your new Short bots via market buy order (Binance & Huobi only)
 
 ### Excluded Pairs
 
@@ -35,15 +35,13 @@ The blacklist is currently hard coded and will be configurable in the future
 
 ## Screenshots
 
-![Settings](https://github.com/MarcDrexler/3Commas.BotCreator/blob/master/screenshots/Settings.png)
-
 ![Main Screen](https://github.com/MarcDrexler/3Commas.BotCreator/blob/master/screenshots/Mainscreen.png)
 
 ## Prerequisites
 
 - .NET Framework 4.7.2 (which already might be installed on your Windows machine)
 - 3Commas API key and secret
-- Binance API key and secret
+- Exchange API key and secret (Binance or Huobi)
 
 Note: API Keys will never be stored on your machine. They are only available in memory and you have to provide them again next time you start the application.
 

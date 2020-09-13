@@ -1,32 +1,32 @@
 ﻿using System;
 using System.Windows.Forms;
-using Keys = _3Commas.BotCreator.Logic.Keys;
 
 namespace _3Commas.BotCreator.Views
 {
     public partial class Settings : Form
     {
-        private readonly Keys keys;
-
-        public Settings(Keys keys)
+        public Settings(string title, string permissionsNeeded, string apiKey, string secret)
         {
-            this.keys = keys;
             InitializeComponent();
+            Text = title;
+            lblPermissionsNeeded.Text = permissionsNeeded;
 
-            txtBinanceApiKey.Text = keys.ApiKeyBinance;
-            txtBinanceSecret.Text = keys.SecretBinance;
-            txt3CommasApiKey.Text = keys.ApiKey3Commas;
-            txt3CommasSecret.Text = keys.Secret3Commas;
+            ApiKey = apiKey;
+            Secret = secret;
+            txtBinanceApiKey.Text = apiKey;
+            txtBinanceSecret.Text = secret;
         }
 
         private void btnApply_Click(object sender, EventArgs e)
         {
-            keys.ApiKeyBinance = txtBinanceApiKey.Text;
-            keys.SecretBinance = txtBinanceSecret.Text;
-            keys.ApiKey3Commas = txt3CommasApiKey.Text;
-            keys.Secret3Commas = txt3CommasSecret.Text;
-            this.Close();
+            ApiKey = txtBinanceApiKey.Text;
+            Secret = txtBinanceSecret.Text;
+            DialogResult = DialogResult.OK;
         }
+
+        public string ApiKey { get; set; } 
+    
+        public string Secret { get; set; }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {

@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Binance.Net" Version="5.1.14" />
+    <PackageReference Include="Huobi.Net" Version="2.0.13" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.0" />
   </ItemGroup>
 

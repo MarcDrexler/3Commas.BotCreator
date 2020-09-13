@@ -16,6 +16,8 @@ namespace _3Commas.BotCreator.Logic.ExchangeImplementations.Binance
             BinanceClient.SetDefaultOptions(new BinanceClientOptions { ApiCredentials = new ApiCredentials(settings.ApiKeyBinance, settings.SecretBinance) });
         }
 
+        public string Name => "Binance";
+
         public async Task<List<Pair>> GetAllPairsByQuoteCurrency(string quoteCurrency)
         {
             using (var binance = new BinanceClient())

@@ -8,5 +8,6 @@ namespace _3Commas.BotCreator.Logic.ExchangeImplementations
     {
         Task<List<Pair>> GetAllPairsByQuoteCurrency(string quoteCurrency);
         Task<PlaceOrderResult> PlaceOrder(Pair pair, decimal amountToBuyInQuoteCurrency);
+        string Name { get; }
     }
 }
