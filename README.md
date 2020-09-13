@@ -36,6 +36,8 @@ Also if you think something is broken or have any questions, please open an [Iss
 - 3Commas API key and secret
 - Binance API key and secret
 
+Note: API Keys will never be stored on your machine. They are only available in memory and you have to provide them again next time you start the application.
+
 ### Why Binance API Keys?
 
 The App will find suitable Pairs for you. It simply query Binance for pairs and orders them by Volume descending.
