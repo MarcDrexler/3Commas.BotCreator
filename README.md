@@ -9,11 +9,10 @@ Therefore I created the tool more or less quick & dirty because I needed this fu
 
 Implementation is build upon the CryptoExchange.Net, 3Commas.Net and Binance.Net libraries. Thanks for the brilliant work!
 
-I develop and maintain this package on my own for free in my spare time.
-
 The only use cases available are the ones I needed for myself. But if you need something, [let me know](https://github.com/MarcDrexler/3Commas.BotCreator/issues).
 
 Also if you think something is broken or have any questions, please open an [Issue](https://github.com/MarcDrexler/3Commas.BotCreator/issues).
+
 
 
 
@@ -68,6 +67,16 @@ Updates are automatically checked for each start.
 
 Code will be avilable soon. Only a few days. :-)
 
+## Support
+
+I develop and maintain this package on my own for free in my spare time.
+Donations are greatly appreciated and a motivation to keep improving.
+
+XMR: 89rmrxDAGAWWhSZXhnNf335qYfyXz4vQsNAM1VFSg6Y7Tve9BGF9pwte9ps61E9FY76r4onhWw7e19eu7fM8BARQMRHNBt7
+
+or
+
+<a href="https://www.buymeacoffee.com/marcdrexler" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-orange.png" alt="Buy Me A Coffee" style="height: 30px !important;width: 109px !important;" ></a>
 
 
 
