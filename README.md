@@ -65,7 +65,7 @@ Updates are automatically checked for each start.
 
 ## Source
 
-Code will be avilable soon. Only a few days. :-)
+Code will be available soon. Only a few days. :-)
 
 ## Support
 
