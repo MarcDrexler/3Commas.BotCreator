@@ -33,8 +33,6 @@ Also EUR Pairs.
 
 The blacklist is currently hard coded and will be configurable in the future
 
-
-
 ## Screenshots
 
 ![Settings](https://github.com/MarcDrexler/3Commas.BotCreator/blob/master/screenshots/Settings.png)
@@ -63,10 +61,6 @@ I use MS ClickOnce for installation and updates.
 An installer with the current version is hosted [here](https://marcdrexler.blob.core.windows.net/botcreator/BotCreator.application)
 
 Updates are automatically checked for each start.
-
-## Source
-
-Code will be available soon. Only a few days. :-)
 
 ## Support
 
