@@ -37,9 +37,9 @@ The blacklist is currently hard coded and will be configurable in the future
 
 ## Screenshots
 
-![Settings](https://github.com/MarcDrexler/3Commas.BotCreator/blob/master/Settings.png)
+![Settings](https://github.com/MarcDrexler/3Commas.BotCreator/blob/master/screenshots/Settings.png)
 
-![Main Screen](https://github.com/MarcDrexler/3Commas.BotCreator/blob/master/Mainscreen.png)
+![Main Screen](https://github.com/MarcDrexler/3Commas.BotCreator/blob/master/screenshots/Mainscreen.png)
 
 ## Prerequisites
 
