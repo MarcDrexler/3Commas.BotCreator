@@ -1,21 +1,34 @@
 # 3Commas.BotCreator
 
-Unofficial Tool to bulk create 3commas bots.
-
-This tool makes it possible to create several simple DCA bots at once.
+This unofficial tool makes it possible to create several simple DCA bots at once.
 
 ---
 
-Implementation is build upon the CryptoExchange.Net, 3Commas.Net and Binance.Net libraries, make sure to also check out the documentation on that: docs
+The implementation is based on .Net Framework. I actually wanted to create it with .Net Core, but the View Designer isn't really ready for production yet. I will probably upgrade to .NET 5 in November.
+Therefore I created the tool more or less quick & dirty because I needed this functionality quickly. Time was money in this case :)
 
+Implementation is build upon the CryptoExchange.Net, 3Commas.Net and Binance.Net libraries. Thanks for the brilliant work!
 
 I develop and maintain this package on my own for free in my spare time.
-The only use cases available are those, I needed for myself. But if you need something, [let me know](https://github.com/MarcDrexler/3Commas.BotCreator/issues).
+
+The only use cases available are the ones I needed for myself. But if you need something, [let me know](https://github.com/MarcDrexler/3Commas.BotCreator/issues).
+
 Also if you think something is broken or have any questions, please open an [Issue](https://github.com/MarcDrexler/3Commas.BotCreator/issues).
 
 
-![Screenshot](https://github.com/MarcDrexler/3Commas.BotCreator/blob/master/Bot%20Creator.png)
 
+## Features
+
+- Add as many bots you want
+- Uses pairs at the highest volume first
+- Signals currently available: Manual, Nonstop, TradingView, RSI
+- Buys tokens for your new Short bots via market buy order
+
+## Screenshots
+
+![Settings](https://github.com/MarcDrexler/3Commas.BotCreator/blob/master/Settings.png)
+
+![Main Screen](https://github.com/MarcDrexler/3Commas.BotCreator/blob/master/Bot%20Creator.png)
 
 ## Prerequisites
 
