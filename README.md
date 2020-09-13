@@ -21,8 +21,19 @@ Also if you think something is broken or have any questions, please open an [Iss
 
 - Add as many bots you want
 - Uses pairs at the highest volume first
+  - If there is an existing bot with the name of the new bot, it will be skipped. Name Schema is: "{prefix} {Long/Short} Bot {Pair}". You can specify a prefix for the bot name.
+    This way you can create 10 Bots, and another day the next 10 Bots without having to worry about duplicates.
 - Signals currently available: Manual, Nonstop, TradingView, RSI
 - Buys tokens for your new Short bots via market buy order
+
+### Excluded Pairs
+
+All pairs that end with UP, DOWN, BEAR, BULL and are skipped.
+Also EUR Pairs.
+
+The blacklist is currently hard coded and will be configurable in the future
+
+
 
 ## Screenshots
 
