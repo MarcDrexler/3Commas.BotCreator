@@ -76,7 +76,7 @@ XMR: 89rmrxDAGAWWhSZXhnNf335qYfyXz4vQsNAM1VFSg6Y7Tve9BGF9pwte9ps61E9FY76r4onhWw7
 
 or
 
-<a href="https://www.buymeacoffee.com/marcdrexler" target="_blank"><img width="109" height="30" src="https://cdn.buymeacoffee.com/buttons/v2/default-orange.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 136px !important;" ></a>
+<a href="https://www.buymeacoffee.com/marcdrexler" target="_blank"><img width="136" height="40" src="https://cdn.buymeacoffee.com/buttons/v2/default-orange.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 136px !important;" ></a>
 
 
 
