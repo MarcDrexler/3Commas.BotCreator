@@ -68,9 +68,15 @@ namespace _3Commas.BotCreator.Views
                         dealStartConditions.Add((BotStrategy)listViewItem.Tag);
                     }
 
+                    decimal amountToBuy = 0;
+                    if (chkBuyBase.Checked)
+                    {
+                        amountToBuy = numAmountToBuy.Value;
+                    }
+
                     try
                     {
-                        await botMgr.CreateBots((int)numAmount.Value, txtQuoteCurrency.Text, strategy, startOrderType, (int)numMaxSafetyTradesCount.Value, (int)numMaxActiveSafetyTradesCount.Value, numPriceDeviationToOpenSafetyOrders.Value, numSafetyOrderVolumeScale.Value, numSafetyOrderStepScale.Value, numTargetProfit.Value, chkTrailing.Checked, numTrailingDeviation.Value, txtBotname.Text, numBaseOrderVolume.Value, numSafetyOrderVolume.Value, chkEnable.Checked, dealStartConditions, (int)numCooldownBetweenDeals.Value, exchange, account.Id, numAmountToBuy.Value);
+                        await botMgr.CreateBots((int)numAmount.Value, txtQuoteCurrency.Text, strategy, startOrderType, (int)numMaxSafetyTradesCount.Value, (int)numMaxActiveSafetyTradesCount.Value, numPriceDeviationToOpenSafetyOrders.Value, numSafetyOrderVolumeScale.Value, numSafetyOrderStepScale.Value, numTargetProfit.Value, chkTrailing.Checked, numTrailingDeviation.Value, txtBotname.Text, numBaseOrderVolume.Value, numSafetyOrderVolume.Value, chkEnable.Checked, dealStartConditions, (int)numCooldownBetweenDeals.Value, exchange, account.Id, amountToBuy);
                         MessageBox.Show("Finished.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception exception)
@@ -154,9 +160,9 @@ namespace _3Commas.BotCreator.Views
 
         private void chkTrailing_CheckedChanged(object sender, EventArgs e)
         {
-            lblTrailing.Visible = chkTrailing.Checked;
-            numTrailingDeviation.Visible = chkTrailing.Checked;
-            lblTrailingUnit.Visible = chkTrailing.Checked;
+            lblTrailing.Enabled = chkTrailing.Checked;
+            numTrailingDeviation.Enabled = chkTrailing.Checked;
+            lblTrailingUnit.Enabled = chkTrailing.Checked;
         }
 
         private async Task RefreshExchanges()
@@ -238,6 +244,13 @@ namespace _3Commas.BotCreator.Views
                 _keys.ApiKeyHuobi = settings.ApiKey;
                 _keys.SecretHuobi = settings.Secret;
             }
+        }
+
+        private void chkBuyBase_CheckedChanged(object sender, EventArgs e)
+        {
+            lblBuyTitle.Enabled = chkBuyBase.Checked;
+            lblQuoteCurrency.Enabled = chkBuyBase.Checked;
+            numAmountToBuy.Enabled = chkBuyBase.Checked;
         }
     }
 }
