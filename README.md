@@ -13,9 +13,6 @@ The only use cases available are the ones I needed for myself. But if you need s
 
 Also if you think something is broken or have any questions, please open an [Issue](https://github.com/MarcDrexler/3Commas.BotCreator/issues).
 
-
-
-
 ## Features
 
 - Add as many bots you want
@@ -45,12 +42,10 @@ The blacklist is currently hard coded and will be configurable in the future
 
 Note: API Keys will never be stored on your machine. They are only available in memory and you have to provide them again next time you start the application.
 
-### Why Binance API Keys?
+### Why PI Keys for my Exchange?
 
-The App will find suitable Pairs for you. It simply query Binance for pairs and orders them by Volume descending.
+The App will find suitable Pairs for you. It simply query your Exchange for pairs and orders them by Volume descending.
 If you want to create Short Bots and you don't have tokens for the new pairs, it will automatically buys tokens for you (if you want that).
-
-I might add other exchanges in the future.
 
 ## Installer
 
