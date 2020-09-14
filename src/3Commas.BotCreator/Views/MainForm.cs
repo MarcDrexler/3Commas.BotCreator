@@ -49,11 +49,11 @@ namespace _3Commas.BotCreator.Views
                     Account account = (Account)cmbExchange.SelectedItem;
 
                     IExchange exchange = null;
-                    if (account.Name == "binance")
+                    if (rbBinance.Checked)
                     {
                         exchange = new Logic.ExchangeImplementations.Binance.Binance(_keys);
                     }
-                    else
+                    else if (rbHuobi.Checked)
                     {
                         exchange = new Logic.ExchangeImplementations.Huobi.Huobi(_keys);
                     }
