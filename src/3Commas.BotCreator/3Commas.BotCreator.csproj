@@ -178,46 +178,52 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\IMessageBoxService.cs" />
+    <Compile Include="Infrastructure\MessageBoxService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\AboutBox.cs">
+    <Compile Include="Views\AboutBox\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\AboutBox.Designer.cs">
+    <Compile Include="Views\AboutBox\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ChooseSignal.cs">
+    <Compile Include="Views\ChooseSignal\ChooseSignal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ChooseSignal.Designer.cs">
+    <Compile Include="Views\ChooseSignal\ChooseSignal.Designer.cs">
       <DependentUpon>ChooseSignal.cs</DependentUpon>
     </Compile>
     <Compile Include="Misc\ControlHelper.cs" />
-    <Compile Include="Views\MainForm.cs">
+    <Compile Include="Views\MainForm\IMainForm.cs" />
+    <Compile Include="Infrastructure\IViewBase.cs" />
+    <Compile Include="Views\MainForm\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\MainForm.Designer.cs">
+    <Compile Include="Views\MainForm\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\Settings.cs">
+    <Compile Include="Views\MainForm\MainFormPresenter.cs" />
+    <Compile Include="Infrastructure\Presenter.cs" />
+    <Compile Include="Views\Settings\Settings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Settings.Designer.cs">
+    <Compile Include="Views\Settings\Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
     <Compile Include="Misc\TextBoxLogger.cs" />
-    <EmbeddedResource Include="Views\AboutBox.resx">
+    <EmbeddedResource Include="Views\AboutBox\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ChooseSignal.resx">
+    <EmbeddedResource Include="Views\ChooseSignal\ChooseSignal.resx">
       <DependentUpon>ChooseSignal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\MainForm.resx">
+    <EmbeddedResource Include="Views\MainForm\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -225,7 +231,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Settings.resx">
+    <EmbeddedResource Include="Views\Settings\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="3Commas.Clients.Winforms_TemporaryKey.pfx" />

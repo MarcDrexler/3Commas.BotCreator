@@ -78,7 +78,7 @@
             this.lblBotNamePreview = new System.Windows.Forms.Label();
             this.cmbExchange = new System.Windows.Forms.ComboBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBoxCredentials = new System.Windows.Forms.GroupBox();
             this.linkLabelHuobi = new System.Windows.Forms.LinkLabel();
             this.linkLabelBinance = new System.Windows.Forms.LinkLabel();
             this.linkLabel3Commas = new System.Windows.Forms.LinkLabel();
@@ -90,7 +90,7 @@
             this.btnAbout = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelBotSettings = new System.Windows.Forms.Panel();
             this.chkBuyBase = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numAmount)).BeginInit();
@@ -105,9 +105,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numSafetyOrderStepScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTargetProfit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCooldownBetweenDeals)).BeginInit();
-            this.groupBox2.SuspendLayout();
+            this.groupBoxCredentials.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.panelBotSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // numAmount
@@ -673,20 +673,20 @@
             this.label22.TabIndex = 59;
             this.label22.Text = "3Commas Exchange Account";
             // 
-            // groupBox2
+            // groupBoxCredentials
             // 
-            this.groupBox2.Controls.Add(this.linkLabelHuobi);
-            this.groupBox2.Controls.Add(this.linkLabelBinance);
-            this.groupBox2.Controls.Add(this.linkLabel3Commas);
-            this.groupBox2.Controls.Add(this.pictureBox1);
-            this.groupBox2.Controls.Add(this.rbBinance);
-            this.groupBox2.Controls.Add(this.rbHuobi);
-            this.groupBox2.Location = new System.Drawing.Point(12, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(489, 89);
-            this.groupBox2.TabIndex = 64;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "API Credentials";
+            this.groupBoxCredentials.Controls.Add(this.linkLabelHuobi);
+            this.groupBoxCredentials.Controls.Add(this.linkLabelBinance);
+            this.groupBoxCredentials.Controls.Add(this.linkLabel3Commas);
+            this.groupBoxCredentials.Controls.Add(this.pictureBox1);
+            this.groupBoxCredentials.Controls.Add(this.rbBinance);
+            this.groupBoxCredentials.Controls.Add(this.rbHuobi);
+            this.groupBoxCredentials.Location = new System.Drawing.Point(12, 12);
+            this.groupBoxCredentials.Name = "groupBoxCredentials";
+            this.groupBoxCredentials.Size = new System.Drawing.Size(489, 89);
+            this.groupBoxCredentials.TabIndex = 64;
+            this.groupBoxCredentials.TabStop = false;
+            this.groupBoxCredentials.Text = "API Credentials";
             // 
             // linkLabelHuobi
             // 
@@ -801,7 +801,7 @@
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnCreate
             // 
@@ -816,67 +816,67 @@
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
-            // panel1
+            // panelBotSettings
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panelBotSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.chkBuyBase);
-            this.panel1.Controls.Add(this.label23);
-            this.panel1.Controls.Add(this.txtQuoteCurrency);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.numAmountToBuy);
-            this.panel1.Controls.Add(this.lblQuoteCurrency);
-            this.panel1.Controls.Add(this.cmbExchange);
-            this.panel1.Controls.Add(this.lblBuyTitle);
-            this.panel1.Controls.Add(this.label22);
-            this.panel1.Controls.Add(this.cmbStrategy);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.lblBotNamePreview);
-            this.panel1.Controls.Add(this.numBaseOrderVolume);
-            this.panel1.Controls.Add(this.chkEnable);
-            this.panel1.Controls.Add(this.label20);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.numAmount);
-            this.panel1.Controls.Add(this.label10);
-            this.panel1.Controls.Add(this.numSafetyOrderVolume);
-            this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.numCooldownBetweenDeals);
-            this.panel1.Controls.Add(this.btnCreate);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.btnRemove);
-            this.panel1.Controls.Add(this.btnAddStartCondition);
-            this.panel1.Controls.Add(this.label11);
-            this.panel1.Controls.Add(this.listViewStartConditions);
-            this.panel1.Controls.Add(this.txtBotname);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.label12);
-            this.panel1.Controls.Add(this.cmbStartOrderType);
-            this.panel1.Controls.Add(this.label21);
-            this.panel1.Controls.Add(this.label14);
-            this.panel1.Controls.Add(this.lblTrailingUnit);
-            this.panel1.Controls.Add(this.numPriceDeviationToOpenSafetyOrders);
-            this.panel1.Controls.Add(this.label16);
-            this.panel1.Controls.Add(this.label13);
-            this.panel1.Controls.Add(this.numSafetyOrderVolumeScale);
-            this.panel1.Controls.Add(this.numTargetProfit);
-            this.panel1.Controls.Add(this.chkTrailing);
-            this.panel1.Controls.Add(this.label19);
-            this.panel1.Controls.Add(this.label15);
-            this.panel1.Controls.Add(this.numSafetyOrderStepScale);
-            this.panel1.Controls.Add(this.lblTrailing);
-            this.panel1.Controls.Add(this.label17);
-            this.panel1.Controls.Add(this.numTrailingDeviation);
-            this.panel1.Controls.Add(this.label18);
-            this.panel1.Controls.Add(this.numMaxSafetyTradesCount);
-            this.panel1.Controls.Add(this.numMaxActiveSafetyTradesCount);
-            this.panel1.Controls.Add(this.lblMaxSafetyTradesCount);
-            this.panel1.Location = new System.Drawing.Point(12, 107);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(489, 647);
-            this.panel1.TabIndex = 65;
+            this.panelBotSettings.AutoScroll = true;
+            this.panelBotSettings.Controls.Add(this.chkBuyBase);
+            this.panelBotSettings.Controls.Add(this.label23);
+            this.panelBotSettings.Controls.Add(this.txtQuoteCurrency);
+            this.panelBotSettings.Controls.Add(this.label2);
+            this.panelBotSettings.Controls.Add(this.numAmountToBuy);
+            this.panelBotSettings.Controls.Add(this.lblQuoteCurrency);
+            this.panelBotSettings.Controls.Add(this.cmbExchange);
+            this.panelBotSettings.Controls.Add(this.lblBuyTitle);
+            this.panelBotSettings.Controls.Add(this.label22);
+            this.panelBotSettings.Controls.Add(this.cmbStrategy);
+            this.panelBotSettings.Controls.Add(this.label3);
+            this.panelBotSettings.Controls.Add(this.lblBotNamePreview);
+            this.panelBotSettings.Controls.Add(this.numBaseOrderVolume);
+            this.panelBotSettings.Controls.Add(this.chkEnable);
+            this.panelBotSettings.Controls.Add(this.label20);
+            this.panelBotSettings.Controls.Add(this.label1);
+            this.panelBotSettings.Controls.Add(this.label4);
+            this.panelBotSettings.Controls.Add(this.numAmount);
+            this.panelBotSettings.Controls.Add(this.label10);
+            this.panelBotSettings.Controls.Add(this.numSafetyOrderVolume);
+            this.panelBotSettings.Controls.Add(this.label9);
+            this.panelBotSettings.Controls.Add(this.label5);
+            this.panelBotSettings.Controls.Add(this.numCooldownBetweenDeals);
+            this.panelBotSettings.Controls.Add(this.btnCreate);
+            this.panelBotSettings.Controls.Add(this.label8);
+            this.panelBotSettings.Controls.Add(this.btnRemove);
+            this.panelBotSettings.Controls.Add(this.btnAddStartCondition);
+            this.panelBotSettings.Controls.Add(this.label11);
+            this.panelBotSettings.Controls.Add(this.listViewStartConditions);
+            this.panelBotSettings.Controls.Add(this.txtBotname);
+            this.panelBotSettings.Controls.Add(this.label7);
+            this.panelBotSettings.Controls.Add(this.label12);
+            this.panelBotSettings.Controls.Add(this.cmbStartOrderType);
+            this.panelBotSettings.Controls.Add(this.label21);
+            this.panelBotSettings.Controls.Add(this.label14);
+            this.panelBotSettings.Controls.Add(this.lblTrailingUnit);
+            this.panelBotSettings.Controls.Add(this.numPriceDeviationToOpenSafetyOrders);
+            this.panelBotSettings.Controls.Add(this.label16);
+            this.panelBotSettings.Controls.Add(this.label13);
+            this.panelBotSettings.Controls.Add(this.numSafetyOrderVolumeScale);
+            this.panelBotSettings.Controls.Add(this.numTargetProfit);
+            this.panelBotSettings.Controls.Add(this.chkTrailing);
+            this.panelBotSettings.Controls.Add(this.label19);
+            this.panelBotSettings.Controls.Add(this.label15);
+            this.panelBotSettings.Controls.Add(this.numSafetyOrderStepScale);
+            this.panelBotSettings.Controls.Add(this.lblTrailing);
+            this.panelBotSettings.Controls.Add(this.label17);
+            this.panelBotSettings.Controls.Add(this.numTrailingDeviation);
+            this.panelBotSettings.Controls.Add(this.label18);
+            this.panelBotSettings.Controls.Add(this.numMaxSafetyTradesCount);
+            this.panelBotSettings.Controls.Add(this.numMaxActiveSafetyTradesCount);
+            this.panelBotSettings.Controls.Add(this.lblMaxSafetyTradesCount);
+            this.panelBotSettings.Location = new System.Drawing.Point(12, 107);
+            this.panelBotSettings.Name = "panelBotSettings";
+            this.panelBotSettings.Size = new System.Drawing.Size(489, 647);
+            this.panelBotSettings.TabIndex = 65;
             // 
             // chkBuyBase
             // 
@@ -902,8 +902,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1032, 777);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.panelBotSettings);
+            this.Controls.Add(this.groupBoxCredentials);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txtOutput);
@@ -912,6 +912,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bot Creator";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numBaseOrderVolume)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSafetyOrderVolume)).EndInit();
@@ -924,11 +925,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numSafetyOrderStepScale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTargetProfit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCooldownBetweenDeals)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBoxCredentials.ResumeLayout(false);
+            this.groupBoxCredentials.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panelBotSettings.ResumeLayout(false);
+            this.panelBotSettings.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -992,12 +993,12 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.RadioButton rbHuobi;
         private System.Windows.Forms.RadioButton rbBinance;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxCredentials;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.LinkLabel linkLabelHuobi;
         private System.Windows.Forms.LinkLabel linkLabelBinance;
         private System.Windows.Forms.LinkLabel linkLabel3Commas;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelBotSettings;
         private System.Windows.Forms.CheckBox chkBuyBase;
         private System.Windows.Forms.Label label23;
     }
