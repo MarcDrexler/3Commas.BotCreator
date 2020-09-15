@@ -98,7 +98,7 @@ namespace _3Commas.BotCreator.Views
         
         private void pbBuyMeACoffee_Click(object sender, EventArgs e)
         {
-            Process.Start("https://www.buymeacoffee.com/pineapplepen");
+            Process.Start("https://www.buymeacoffee.com/marcdrexler");
         }
     }
 }

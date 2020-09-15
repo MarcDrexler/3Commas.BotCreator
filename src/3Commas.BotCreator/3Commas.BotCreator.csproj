@@ -26,11 +26,11 @@
     <InstallUrl>https://marcdrexler.blob.core.windows.net/botcreator/</InstallUrl>
     <ProductName>Bot Creator</ProductName>
     <PublisherName>Marc</PublisherName>
-    <MinimumRequiredVersion>1.0.0.15</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.16</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>16</ApplicationRevision>
+    <ApplicationRevision>17</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -139,6 +139,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
       <Private>True</Private>
@@ -175,6 +176,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="WebSocket4Net, Version=0.15.2.11, Culture=neutral, PublicKeyToken=eb4e154b696bf72a, processorArchitecture=MSIL">
       <HintPath>..\packages\WebSocket4Net.0.15.2\lib\net45\WebSocket4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="XCommas.Net, Version=1.0.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\XCommas.Net.1.0.15\lib\net472\XCommas.Net.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -284,10 +288,6 @@
     <Content Include="robot.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\3Commas.Net\XCommas.Net\XCommas.Net\XCommas.Net.csproj">
-      <Project>{3A83C228-4100-477C-B047-93E9C712370D}</Project>
-      <Name>XCommas.Net</Name>
-    </ProjectReference>
     <ProjectReference Include="..\3Commas.BotCreator.Logic\3Commas.BotCreator.Logic.csproj">
       <Project>{fdc52f9f-d126-4902-b3f5-b1a4f84a18e4}</Project>
       <Name>3Commas.BotCreator.Logic</Name>

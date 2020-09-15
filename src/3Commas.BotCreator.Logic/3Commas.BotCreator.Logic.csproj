@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -9,10 +9,7 @@
     <PackageReference Include="Binance.Net" Version="5.1.14" />
     <PackageReference Include="Huobi.Net" Version="2.0.13" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\3Commas.Net\XCommas.Net\XCommas.Net\XCommas.Net.csproj" />
+    <PackageReference Include="XCommas.Net" Version="1.0.15" />
   </ItemGroup>
 
 </Project>
