@@ -2,7 +2,17 @@
 
 This unofficial tool makes it possible to create several simple DCA bots at once.
 
+**Note that only this use case is covered:**
+
+I needed something that would allow me to create multiple simple DCA bots with the same quote currency. It will automatically find the next base currency ordered by Volume descending.
+If a bot with the same name already exists, then the next pair will be used. So you can add more bots from time to time and you won't have duplicates.
+If short bots are created, the tool can buy base coins for you directly on your exchange (if desired).
+
+
+
 ---
+
+## Technical description
 
 The implementation is based on .Net Framework. I actually wanted to create it with .Net Core, but the View Designer isn't really ready for production yet. I will probably upgrade to .NET 5 in November.
 Therefore I created the tool more or less quick & dirty because I needed this functionality quickly. Time was money in this case :)
@@ -40,12 +50,12 @@ The blacklist is currently hard coded and will be configurable in the future
 - 3Commas API key and secret
 - Exchange API key and secret (Binance or Huobi)
 
-Note: API Keys will never be stored on your machine. They are only available in memory and you have to provide them again next time you start the application.
+Note: API Keys will never be stored on your machine. They are only available in memory and must be provisioned again the next time the application is started.
 
-### Why PI Keys for my Exchange?
+### Why API Keys for my Exchange?
 
-The App will find suitable Pairs for you. It simply query your Exchange for pairs and orders them by Volume descending.
-If you want to create Short Bots and you don't have tokens for the new pairs, it will automatically buys tokens for you (if you want that).
+The app will find suitable pairs for you. It simply queries your exchange for pairs and ranks them in descending order of volume.
+If you want to create short bots and don't have tokens for the new pairs, tokens are automatically bought for you (if you choose to).
 
 ## Installer
 
@@ -54,6 +64,8 @@ I use MS ClickOnce for installation and updates.
 An installer with the current version is hosted [here](https://marcdrexler.blob.core.windows.net/botcreator/BotCreator.application)
 
 Updates are automatically checked for each start.
+
+Because the package is not signed with a public certificate, you might see some security warnings when installing and starting the app if you are using Windows 7 or later.
 
 ## Support
 
