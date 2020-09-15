@@ -65,6 +65,8 @@ An installer with the current version is hosted [here](https://marcdrexler.blob.
 
 Updates are automatically checked for each start.
 
+Because the package is not signed with a public certificate, you might see some security warnings when installing and starting the app if you are using Windows 7 or later.
+
 ## Support
 
 I develop and maintain this package on my own for free in my spare time.
