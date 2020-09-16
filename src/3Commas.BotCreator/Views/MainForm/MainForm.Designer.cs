@@ -265,7 +265,7 @@
             // 
             // numAmountToBuy
             // 
-            this.numAmountToBuy.DecimalPlaces = 8;
+            this.numAmountToBuy.DecimalPlaces = 6;
             this.numAmountToBuy.Enabled = false;
             this.numAmountToBuy.Location = new System.Drawing.Point(197, 590);
             this.numAmountToBuy.Maximum = new decimal(new int[] {

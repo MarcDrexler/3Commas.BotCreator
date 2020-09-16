@@ -95,10 +95,15 @@ namespace _3Commas.BotCreator.Views
             }
         }
         #endregion
-        
+
         private void pbBuyMeACoffee_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.buymeacoffee.com/marcdrexler");
+        }
+
+        private void linkGithubProject_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/MarcDrexler/3Commas.BotCreator/issues/new");
         }
     }
 }
