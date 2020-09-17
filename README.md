@@ -5,7 +5,6 @@ This unofficial tool makes it possible to create several simple DCA bots at once
 **Note that only this use case is covered:**
 
 I needed something that would allow me to create multiple simple DCA bots with the same quote currency. It will automatically find the next base currency ordered by Volume descending.
-If a bot with the same name already exists, then the next pair will be used. So you can add more bots from time to time and you won't have duplicates.
 If short bots are created, the tool can buy base coins for you directly on your exchange (if desired).
 
 
@@ -27,9 +26,9 @@ Also if you think something is broken or have any questions, please open an [Iss
 
 - Add as many bots you want
 - Uses pairs at the highest volume first
-  - If there is an existing bot with the name of the new bot, it will be skipped.
-    This way you can create 10 Bots, and another day the next 10 Bots without having to worry about duplicates.
-    You can specify your own name schema. There are existing placeholders for Strategy and Pair.
+- Skip bot creation for existing pair + strategy (if desired).
+    - This way you can create 10 Bots, and another day the next 10 Bots without having to worry about duplicates.
+- Specify your own name schema. There are existing placeholders for Strategy and Pair.
 - Signals currently available: Manual, Nonstop, TradingView, RSI
 - Buys tokens for your new Short bots via market buy order (Binance & Huobi only)
 
