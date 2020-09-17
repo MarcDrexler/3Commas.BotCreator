@@ -49,7 +49,8 @@ The blacklist is currently hard coded and will be configurable in the future
 - 3Commas API key and secret
 - Exchange API key and secret (Binance or Huobi)
 
-Note: API Keys will never be stored on your machine. They are only available in memory and must be provisioned again the next time the application is started.
+**Note:** By default, API keys are not stored on your computer and must be entered again the next time the application is started. 
+There is an option to persist ApiKey and Secret. However, use is at your own risk. Other programs could read this information.
 
 ### Why API Keys for my Exchange?
 
