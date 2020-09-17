@@ -25,12 +25,12 @@ namespace _3Commas.BotCreator.Views
         {
             _logger = logger;
             _mbs = mbs;
-            _keys.ApiKey3Commas = ConfigurationManager.AppSettings["3CommasApiKey"];
-            _keys.Secret3Commas = ConfigurationManager.AppSettings["3CommasSecret"];
-            _keys.ApiKeyBinance = ConfigurationManager.AppSettings["BinanceApiKey"];
-            _keys.SecretBinance = ConfigurationManager.AppSettings["BinanceSecret"];
-            _keys.ApiKeyHuobi = ConfigurationManager.AppSettings["HuobiApiKey"];
-            _keys.SecretHuobi = ConfigurationManager.AppSettings["HuobiSecret"];
+            _keys.ApiKey3Commas = Properties.Settings.Default.ApiKey3Commas;
+            _keys.Secret3Commas = Properties.Settings.Default.Secret3Commas;
+            _keys.ApiKeyBinance = Properties.Settings.Default.ApiKeyBinance;
+            _keys.SecretBinance = Properties.Settings.Default.SecretBinance;
+            _keys.ApiKeyHuobi = Properties.Settings.Default.ApiKeyHuobi;
+            _keys.SecretHuobi = Properties.Settings.Default.SecretHuobi;
         }
 
         internal void OnViewReady()
@@ -55,34 +55,50 @@ namespace _3Commas.BotCreator.Views
 
         public void OnHuobiLinkClicked()
         {
-            var settings = new Settings("Huobi API Credentials", "Permissions Needed: Read-Only, Trade", _keys.ApiKeyHuobi, _keys.SecretHuobi);
+            var settingsPersisted = !string.IsNullOrWhiteSpace(Properties.Settings.Default.ApiKeyHuobi);
+            var settings = new Settings(settingsPersisted, "Huobi API Credentials", "Permissions Needed: Read-Only, Trade", _keys.ApiKeyHuobi, _keys.SecretHuobi);
             var dr = settings.ShowDialog();
             if (dr == DialogResult.OK)
             {
                 _keys.ApiKeyHuobi = settings.ApiKey;
                 _keys.SecretHuobi = settings.Secret;
+
+                Properties.Settings.Default.ApiKeyHuobi = settings.PersistKeys ? settings.ApiKey : "";
+                Properties.Settings.Default.SecretHuobi = settings.PersistKeys ? settings.Secret : "";
+                Properties.Settings.Default.Save();
             }
         }
 
         public void OnBinanceLinkClicked()
         {
-            var settings = new Settings("Binance API Credentials", "Permissions Needed: Can Read, Enable Spot Trading", _keys.ApiKeyBinance, _keys.SecretBinance);
+            var settingsPersisted = !string.IsNullOrWhiteSpace(Properties.Settings.Default.ApiKeyBinance);
+            var settings = new Settings(settingsPersisted, "Binance API Credentials", "Permissions Needed: Can Read, Enable Spot Trading", _keys.ApiKeyBinance, _keys.SecretBinance);
             var dr = settings.ShowDialog();
             if (dr == DialogResult.OK)
             {
                 _keys.ApiKeyBinance = settings.ApiKey;
                 _keys.SecretBinance = settings.Secret;
+
+                Properties.Settings.Default.ApiKeyBinance = settings.PersistKeys ? settings.ApiKey : "";
+                Properties.Settings.Default.SecretBinance = settings.PersistKeys ? settings.Secret : "";
+                Properties.Settings.Default.Save();
             }
         }
 
         public async Task On3CommasLinkClicked()
         {
-            var settings = new Settings("3Commas API Credentials", "Permissions Needed: BotsRead, BotsWrite, AccountsRead", _keys.ApiKey3Commas, _keys.Secret3Commas);
+            var settingsPersisted = !string.IsNullOrWhiteSpace(Properties.Settings.Default.ApiKey3Commas);
+            var settings = new Settings(settingsPersisted, "3Commas API Credentials", "Permissions Needed: BotsRead, BotsWrite, AccountsRead", _keys.ApiKey3Commas, _keys.Secret3Commas);
             var dr = settings.ShowDialog();
             if (dr == DialogResult.OK)
             {
                 _keys.ApiKey3Commas = settings.ApiKey;
                 _keys.Secret3Commas = settings.Secret;
+                
+                Properties.Settings.Default.ApiKey3Commas = settings.PersistKeys ? settings.ApiKey : "";
+                Properties.Settings.Default.Secret3Commas = settings.PersistKeys ? settings.Secret : "";
+                Properties.Settings.Default.Save();
+
                 await RefreshExchanges();
             }
         }

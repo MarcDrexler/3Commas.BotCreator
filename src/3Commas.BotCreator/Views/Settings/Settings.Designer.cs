@@ -36,6 +36,7 @@
             this.lblPermissionsNeeded = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.chkPersist = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,11 +119,23 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // chkPersist
+            // 
+            this.chkPersist.AutoSize = true;
+            this.chkPersist.Location = new System.Drawing.Point(79, 99);
+            this.chkPersist.Name = "chkPersist";
+            this.chkPersist.Size = new System.Drawing.Size(98, 17);
+            this.chkPersist.TabIndex = 31;
+            this.chkPersist.Text = "Persist Settings";
+            this.chkPersist.UseVisualStyleBackColor = true;
+            this.chkPersist.CheckedChanged += new System.EventHandler(this.chkPersist_CheckedChanged);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(574, 130);
+            this.Controls.Add(this.chkPersist);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.label1);
@@ -154,5 +167,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label lblPermissionsNeeded;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.CheckBox chkPersist;
     }
 }

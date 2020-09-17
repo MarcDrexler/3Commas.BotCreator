@@ -22,5 +22,77 @@ namespace _3Commas.BotCreator.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ApiKey3Commas {
+            get {
+                return ((string)(this["ApiKey3Commas"]));
+            }
+            set {
+                this["ApiKey3Commas"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ApiKeyBinance {
+            get {
+                return ((string)(this["ApiKeyBinance"]));
+            }
+            set {
+                this["ApiKeyBinance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ApiKeyHuobi {
+            get {
+                return ((string)(this["ApiKeyHuobi"]));
+            }
+            set {
+                this["ApiKeyHuobi"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Secret3Commas {
+            get {
+                return ((string)(this["Secret3Commas"]));
+            }
+            set {
+                this["Secret3Commas"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SecretBinance {
+            get {
+                return ((string)(this["SecretBinance"]));
+            }
+            set {
+                this["SecretBinance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SecretHuobi {
+            get {
+                return ((string)(this["SecretHuobi"]));
+            }
+            set {
+                this["SecretHuobi"] = value;
+            }
+        }
     }
 }
