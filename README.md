@@ -26,8 +26,8 @@ Also if you think something is broken or have any questions, please open an [Iss
 
 - Add as many bots you want
 - Uses pairs at the highest volume first
-- Skip Bot Creation for existing pair + strategy (if desired)
-    This way you can create 10 Bots, and another day the next 10 Bots without having to worry about duplicates.
+- Skip bot creation for existing pair + strategy (if desired).
+    - This way you can create 10 Bots, and another day the next 10 Bots without having to worry about duplicates.
 - Specify your own name schema. There are existing placeholders for Strategy and Pair.
 - Signals currently available: Manual, Nonstop, TradingView, RSI
 - Buys tokens for your new Short bots via market buy order (Binance & Huobi only)
