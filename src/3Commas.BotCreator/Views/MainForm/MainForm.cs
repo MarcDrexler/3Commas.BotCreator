@@ -122,6 +122,7 @@ namespace _3Commas.BotCreator.Views
         public int MaxSafetyTradesCount => (int) numMaxSafetyTradesCount.Value;
         public bool IsBuyEnabled => chkBuyBase.Checked;
         public decimal AmountToBuy => numAmountToBuy.Value;
+        public bool CheckForExistingBots => chkCheckForExistingBots.Checked;
 
         public void SetNamePreview(string name)
         {

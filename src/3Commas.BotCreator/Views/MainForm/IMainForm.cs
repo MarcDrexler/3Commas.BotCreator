@@ -30,6 +30,7 @@ namespace _3Commas.BotCreator.Views
         int MaxSafetyTradesCount { get; }
         bool IsBuyEnabled { get; }
         decimal AmountToBuy { get; }
+        bool CheckForExistingBots { get; }
         void SetNamePreview(string name);
         void BindAccountsAndSetSelection(List<Account> accounts, Account account);
         void ClearLog();

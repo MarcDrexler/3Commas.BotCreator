@@ -39,7 +39,7 @@ namespace _3Commas.BotCreator.Logic.Misc
             return accounts;
         }
 
-        public async Task CreateBots(int numberOfNewBots, string quoteCurrency, Strategy strategy, StartOrderType startOrderType, int maxSafetyOrders, int activeSafetyOrdersCount, decimal safetyOrderStepPercentage, decimal martingaleVolumeCoefficient, decimal martingaleStepCoefficient, decimal takeProfitPercentage, bool trailingEnabled, decimal trailingDeviation, string nameFormula, decimal baseOrderVolume, decimal safetyOrderVolume, bool enable, List<BotStrategy> dealStartConditions, int cooldownBetweenDeals, IExchange exchange, int accountId, decimal? amountToBuyInQuoteCurrency = null)
+        public async Task CreateBots(bool checkForExistingBots, int numberOfNewBots, string quoteCurrency, Strategy strategy, StartOrderType startOrderType, int maxSafetyOrders, int activeSafetyOrdersCount, decimal safetyOrderStepPercentage, decimal martingaleVolumeCoefficient, decimal martingaleStepCoefficient, decimal takeProfitPercentage, bool trailingEnabled, decimal trailingDeviation, string nameFormula, decimal baseOrderVolume, decimal safetyOrderVolume, bool enable, List<BotStrategy> dealStartConditions, int cooldownBetweenDeals, IExchange exchange, int accountId, decimal? amountToBuyInQuoteCurrency = null)
         {
             logger.LogInformation("Retrieving existing Bots from 3commas...");
             var existingBots = await GetAllBots();
@@ -61,13 +61,15 @@ namespace _3Commas.BotCreator.Logic.Misc
                     continue;
                 }
 
-                var botName = Logic.GenerateBotName(nameFormula, symbol, strategy.ToString());
-                if (existingBots.Any(x => x.Name.ToLower() == botName.ToLower()))
+                if (checkForExistingBots && existingBots.Any(x => 
+                    x.Pairs.Any(p => p.ToLower() == $"{pair.QuoteCurrency.ToLower()}_{pair.BaseCurrency.ToLower()}") &&
+                    x.Strategy == strategy))
                 {
-                    logger.LogInformation($"Bot for {symbol} already exist");
+                    logger.LogInformation($"Bot for {strategy} {symbol} already exist");
                     continue;
                 }
 
+                var botName = Logic.GenerateBotName(nameFormula, symbol, strategy.ToString());
                 var bot = CreateBot(strategy, startOrderType, maxSafetyOrders, activeSafetyOrdersCount, safetyOrderStepPercentage, martingaleVolumeCoefficient, martingaleStepCoefficient, takeProfitPercentage, trailingEnabled, trailingDeviation, baseOrderVolume, safetyOrderVolume, enable, dealStartConditions, cooldownBetweenDeals, botName, symbol);
                 var response = await _3CommasClient.CreateBotAsync(accountId, strategy, bot);
                 if (!response.IsSuccess)

@@ -93,6 +93,8 @@
             this.panelBotSettings = new System.Windows.Forms.Panel();
             this.chkBuyBase = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.chkCheckForExistingBots = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numBaseOrderVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSafetyOrderVolume)).BeginInit();
@@ -112,7 +114,7 @@
             // 
             // numAmount
             // 
-            this.numAmount.Location = new System.Drawing.Point(197, 19);
+            this.numAmount.Location = new System.Drawing.Point(223, 20);
             this.numAmount.Maximum = new decimal(new int[] {
             999,
             0,
@@ -135,7 +137,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(111, 22);
+            this.label1.Location = new System.Drawing.Point(137, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 1;
@@ -144,7 +146,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(147, 101);
+            this.label2.Location = new System.Drawing.Point(172, 128);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 2;
@@ -153,7 +155,7 @@
             // chkEnable
             // 
             this.chkEnable.AutoSize = true;
-            this.chkEnable.Location = new System.Drawing.Point(254, 21);
+            this.chkEnable.Location = new System.Drawing.Point(280, 22);
             this.chkEnable.Name = "chkEnable";
             this.chkEnable.Size = new System.Drawing.Size(59, 17);
             this.chkEnable.TabIndex = 1;
@@ -163,16 +165,16 @@
             // cmbStrategy
             // 
             this.cmbStrategy.FormattingEnabled = true;
-            this.cmbStrategy.Location = new System.Drawing.Point(198, 98);
+            this.cmbStrategy.Location = new System.Drawing.Point(223, 125);
             this.cmbStrategy.Name = "cmbStrategy";
             this.cmbStrategy.Size = new System.Drawing.Size(121, 21);
-            this.cmbStrategy.TabIndex = 4;
+            this.cmbStrategy.TabIndex = 5;
             this.cmbStrategy.SelectedIndexChanged += new System.EventHandler(this.cmbStrategy_SelectedIndexChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(114, 289);
+            this.label3.Location = new System.Drawing.Point(139, 316);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(79, 13);
             this.label3.TabIndex = 5;
@@ -181,7 +183,7 @@
             // numBaseOrderVolume
             // 
             this.numBaseOrderVolume.DecimalPlaces = 8;
-            this.numBaseOrderVolume.Location = new System.Drawing.Point(197, 286);
+            this.numBaseOrderVolume.Location = new System.Drawing.Point(222, 313);
             this.numBaseOrderVolume.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -189,7 +191,7 @@
             0});
             this.numBaseOrderVolume.Name = "numBaseOrderVolume";
             this.numBaseOrderVolume.Size = new System.Drawing.Size(121, 20);
-            this.numBaseOrderVolume.TabIndex = 8;
+            this.numBaseOrderVolume.TabIndex = 9;
             this.numBaseOrderVolume.Value = new decimal(new int[] {
             10,
             0,
@@ -199,7 +201,7 @@
             // numSafetyOrderVolume
             // 
             this.numSafetyOrderVolume.DecimalPlaces = 8;
-            this.numSafetyOrderVolume.Location = new System.Drawing.Point(197, 312);
+            this.numSafetyOrderVolume.Location = new System.Drawing.Point(222, 339);
             this.numSafetyOrderVolume.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -207,7 +209,7 @@
             0});
             this.numSafetyOrderVolume.Name = "numSafetyOrderVolume";
             this.numSafetyOrderVolume.Size = new System.Drawing.Size(121, 20);
-            this.numSafetyOrderVolume.TabIndex = 9;
+            this.numSafetyOrderVolume.TabIndex = 10;
             this.numSafetyOrderVolume.Value = new decimal(new int[] {
             11,
             0,
@@ -217,7 +219,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(108, 315);
+            this.label4.Location = new System.Drawing.Point(133, 342);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 13);
             this.label4.TabIndex = 7;
@@ -226,7 +228,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(111, 75);
+            this.label5.Location = new System.Drawing.Point(136, 102);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(81, 13);
             this.label5.TabIndex = 9;
@@ -234,10 +236,10 @@
             // 
             // txtQuoteCurrency
             // 
-            this.txtQuoteCurrency.Location = new System.Drawing.Point(198, 72);
+            this.txtQuoteCurrency.Location = new System.Drawing.Point(223, 99);
             this.txtQuoteCurrency.Name = "txtQuoteCurrency";
             this.txtQuoteCurrency.Size = new System.Drawing.Size(120, 20);
-            this.txtQuoteCurrency.TabIndex = 3;
+            this.txtQuoteCurrency.TabIndex = 4;
             this.txtQuoteCurrency.Text = "USDT";
             this.txtQuoteCurrency.TextChanged += new System.EventHandler(this.txtQuoteCurrency_TextChanged);
             // 
@@ -250,14 +252,14 @@
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ReadOnly = true;
-            this.txtOutput.Size = new System.Drawing.Size(492, 692);
+            this.txtOutput.Size = new System.Drawing.Size(492, 725);
             this.txtOutput.TabIndex = 0;
             // 
             // lblBuyTitle
             // 
             this.lblBuyTitle.AutoSize = true;
             this.lblBuyTitle.Enabled = false;
-            this.lblBuyTitle.Location = new System.Drawing.Point(26, 593);
+            this.lblBuyTitle.Location = new System.Drawing.Point(51, 620);
             this.lblBuyTitle.Name = "lblBuyTitle";
             this.lblBuyTitle.Size = new System.Drawing.Size(166, 13);
             this.lblBuyTitle.TabIndex = 13;
@@ -267,7 +269,7 @@
             // 
             this.numAmountToBuy.DecimalPlaces = 6;
             this.numAmountToBuy.Enabled = false;
-            this.numAmountToBuy.Location = new System.Drawing.Point(197, 590);
+            this.numAmountToBuy.Location = new System.Drawing.Point(222, 617);
             this.numAmountToBuy.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -275,21 +277,21 @@
             0});
             this.numAmountToBuy.Name = "numAmountToBuy";
             this.numAmountToBuy.Size = new System.Drawing.Size(121, 20);
-            this.numAmountToBuy.TabIndex = 20;
+            this.numAmountToBuy.TabIndex = 21;
             // 
             // txtBotname
             // 
-            this.txtBotname.Location = new System.Drawing.Point(198, 125);
+            this.txtBotname.Location = new System.Drawing.Point(223, 152);
             this.txtBotname.Name = "txtBotname";
             this.txtBotname.Size = new System.Drawing.Size(120, 20);
-            this.txtBotname.TabIndex = 5;
+            this.txtBotname.TabIndex = 6;
             this.txtBotname.Text = "{strategy} {pair} Bot";
             this.txtBotname.TextChanged += new System.EventHandler(this.txtBotname_TextChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(139, 128);
+            this.label11.Location = new System.Drawing.Point(164, 155);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(54, 13);
             this.label11.TabIndex = 23;
@@ -298,15 +300,15 @@
             // cmbStartOrderType
             // 
             this.cmbStartOrderType.FormattingEnabled = true;
-            this.cmbStartOrderType.Location = new System.Drawing.Point(198, 190);
+            this.cmbStartOrderType.Location = new System.Drawing.Point(223, 217);
             this.cmbStartOrderType.Name = "cmbStartOrderType";
             this.cmbStartOrderType.Size = new System.Drawing.Size(121, 21);
-            this.cmbStartOrderType.TabIndex = 6;
+            this.cmbStartOrderType.TabIndex = 7;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(108, 193);
+            this.label12.Location = new System.Drawing.Point(133, 220);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(85, 13);
             this.label12.TabIndex = 24;
@@ -315,7 +317,7 @@
             // numSafetyOrderVolumeScale
             // 
             this.numSafetyOrderVolumeScale.DecimalPlaces = 2;
-            this.numSafetyOrderVolumeScale.Location = new System.Drawing.Point(197, 490);
+            this.numSafetyOrderVolumeScale.Location = new System.Drawing.Point(222, 517);
             this.numSafetyOrderVolumeScale.Maximum = new decimal(new int[] {
             10,
             0,
@@ -328,7 +330,7 @@
             65536});
             this.numSafetyOrderVolumeScale.Name = "numSafetyOrderVolumeScale";
             this.numSafetyOrderVolumeScale.Size = new System.Drawing.Size(121, 20);
-            this.numSafetyOrderVolumeScale.TabIndex = 16;
+            this.numSafetyOrderVolumeScale.TabIndex = 17;
             this.numSafetyOrderVolumeScale.Value = new decimal(new int[] {
             1,
             0,
@@ -338,7 +340,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(65, 492);
+            this.label13.Location = new System.Drawing.Point(90, 519);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(129, 13);
             this.label13.TabIndex = 26;
@@ -347,7 +349,7 @@
             // numPriceDeviationToOpenSafetyOrders
             // 
             this.numPriceDeviationToOpenSafetyOrders.DecimalPlaces = 2;
-            this.numPriceDeviationToOpenSafetyOrders.Location = new System.Drawing.Point(197, 464);
+            this.numPriceDeviationToOpenSafetyOrders.Location = new System.Drawing.Point(222, 491);
             this.numPriceDeviationToOpenSafetyOrders.Maximum = new decimal(new int[] {
             10,
             0,
@@ -360,7 +362,7 @@
             65536});
             this.numPriceDeviationToOpenSafetyOrders.Name = "numPriceDeviationToOpenSafetyOrders";
             this.numPriceDeviationToOpenSafetyOrders.Size = new System.Drawing.Size(121, 20);
-            this.numPriceDeviationToOpenSafetyOrders.TabIndex = 15;
+            this.numPriceDeviationToOpenSafetyOrders.TabIndex = 16;
             this.numPriceDeviationToOpenSafetyOrders.Value = new decimal(new int[] {
             1,
             0,
@@ -370,7 +372,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(15, 466);
+            this.label14.Location = new System.Drawing.Point(40, 493);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(179, 13);
             this.label14.TabIndex = 25;
@@ -379,17 +381,17 @@
             // chkTrailing
             // 
             this.chkTrailing.AutoSize = true;
-            this.chkTrailing.Location = new System.Drawing.Point(198, 366);
+            this.chkTrailing.Location = new System.Drawing.Point(223, 393);
             this.chkTrailing.Name = "chkTrailing";
             this.chkTrailing.Size = new System.Drawing.Size(15, 14);
-            this.chkTrailing.TabIndex = 11;
+            this.chkTrailing.TabIndex = 12;
             this.chkTrailing.UseVisualStyleBackColor = true;
             this.chkTrailing.CheckedChanged += new System.EventHandler(this.chkTrailing_CheckedChanged);
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(122, 366);
+            this.label15.Location = new System.Drawing.Point(147, 393);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(70, 13);
             this.label15.TabIndex = 30;
@@ -399,7 +401,7 @@
             // 
             this.lblTrailing.AutoSize = true;
             this.lblTrailing.Enabled = false;
-            this.lblTrailing.Location = new System.Drawing.Point(104, 390);
+            this.lblTrailing.Location = new System.Drawing.Point(129, 417);
             this.lblTrailing.Name = "lblTrailing";
             this.lblTrailing.Size = new System.Drawing.Size(89, 13);
             this.lblTrailing.TabIndex = 31;
@@ -409,7 +411,7 @@
             // 
             this.numTrailingDeviation.DecimalPlaces = 1;
             this.numTrailingDeviation.Enabled = false;
-            this.numTrailingDeviation.Location = new System.Drawing.Point(197, 386);
+            this.numTrailingDeviation.Location = new System.Drawing.Point(222, 413);
             this.numTrailingDeviation.Maximum = new decimal(new int[] {
             99,
             0,
@@ -417,11 +419,11 @@
             0});
             this.numTrailingDeviation.Name = "numTrailingDeviation";
             this.numTrailingDeviation.Size = new System.Drawing.Size(121, 20);
-            this.numTrailingDeviation.TabIndex = 12;
+            this.numTrailingDeviation.TabIndex = 13;
             // 
             // numMaxSafetyTradesCount
             // 
-            this.numMaxSafetyTradesCount.Location = new System.Drawing.Point(197, 412);
+            this.numMaxSafetyTradesCount.Location = new System.Drawing.Point(222, 439);
             this.numMaxSafetyTradesCount.Minimum = new decimal(new int[] {
             1,
             0,
@@ -429,7 +431,7 @@
             0});
             this.numMaxSafetyTradesCount.Name = "numMaxSafetyTradesCount";
             this.numMaxSafetyTradesCount.Size = new System.Drawing.Size(51, 20);
-            this.numMaxSafetyTradesCount.TabIndex = 13;
+            this.numMaxSafetyTradesCount.TabIndex = 14;
             this.numMaxSafetyTradesCount.Value = new decimal(new int[] {
             1,
             0,
@@ -439,7 +441,7 @@
             // lblMaxSafetyTradesCount
             // 
             this.lblMaxSafetyTradesCount.AutoSize = true;
-            this.lblMaxSafetyTradesCount.Location = new System.Drawing.Point(72, 414);
+            this.lblMaxSafetyTradesCount.Location = new System.Drawing.Point(97, 441);
             this.lblMaxSafetyTradesCount.Name = "lblMaxSafetyTradesCount";
             this.lblMaxSafetyTradesCount.Size = new System.Drawing.Size(120, 13);
             this.lblMaxSafetyTradesCount.TabIndex = 34;
@@ -447,7 +449,7 @@
             // 
             // numMaxActiveSafetyTradesCount
             // 
-            this.numMaxActiveSafetyTradesCount.Location = new System.Drawing.Point(197, 438);
+            this.numMaxActiveSafetyTradesCount.Location = new System.Drawing.Point(222, 465);
             this.numMaxActiveSafetyTradesCount.Maximum = new decimal(new int[] {
             20,
             0,
@@ -460,7 +462,7 @@
             0});
             this.numMaxActiveSafetyTradesCount.Name = "numMaxActiveSafetyTradesCount";
             this.numMaxActiveSafetyTradesCount.Size = new System.Drawing.Size(51, 20);
-            this.numMaxActiveSafetyTradesCount.TabIndex = 14;
+            this.numMaxActiveSafetyTradesCount.TabIndex = 15;
             this.numMaxActiveSafetyTradesCount.Value = new decimal(new int[] {
             1,
             0,
@@ -470,7 +472,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(41, 440);
+            this.label18.Location = new System.Drawing.Point(66, 467);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(152, 13);
             this.label18.TabIndex = 36;
@@ -479,7 +481,7 @@
             // numSafetyOrderStepScale
             // 
             this.numSafetyOrderStepScale.DecimalPlaces = 2;
-            this.numSafetyOrderStepScale.Location = new System.Drawing.Point(197, 516);
+            this.numSafetyOrderStepScale.Location = new System.Drawing.Point(222, 543);
             this.numSafetyOrderStepScale.Maximum = new decimal(new int[] {
             10,
             0,
@@ -492,7 +494,7 @@
             65536});
             this.numSafetyOrderStepScale.Name = "numSafetyOrderStepScale";
             this.numSafetyOrderStepScale.Size = new System.Drawing.Size(121, 20);
-            this.numSafetyOrderStepScale.TabIndex = 17;
+            this.numSafetyOrderStepScale.TabIndex = 18;
             this.numSafetyOrderStepScale.Value = new decimal(new int[] {
             1,
             0,
@@ -502,7 +504,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(79, 518);
+            this.label17.Location = new System.Drawing.Point(104, 545);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(115, 13);
             this.label17.TabIndex = 37;
@@ -511,7 +513,7 @@
             // numTargetProfit
             // 
             this.numTargetProfit.DecimalPlaces = 2;
-            this.numTargetProfit.Location = new System.Drawing.Point(197, 338);
+            this.numTargetProfit.Location = new System.Drawing.Point(222, 365);
             this.numTargetProfit.Maximum = new decimal(new int[] {
             99,
             0,
@@ -524,7 +526,7 @@
             131072});
             this.numTargetProfit.Name = "numTargetProfit";
             this.numTargetProfit.Size = new System.Drawing.Size(121, 20);
-            this.numTargetProfit.TabIndex = 10;
+            this.numTargetProfit.TabIndex = 11;
             this.numTargetProfit.Value = new decimal(new int[] {
             1,
             0,
@@ -534,7 +536,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(127, 340);
+            this.label19.Location = new System.Drawing.Point(152, 367);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(65, 13);
             this.label19.TabIndex = 39;
@@ -544,7 +546,7 @@
             // 
             this.lblQuoteCurrency.AutoSize = true;
             this.lblQuoteCurrency.Enabled = false;
-            this.lblQuoteCurrency.Location = new System.Drawing.Point(325, 593);
+            this.lblQuoteCurrency.Location = new System.Drawing.Point(350, 620);
             this.lblQuoteCurrency.Name = "lblQuoteCurrency";
             this.lblQuoteCurrency.Size = new System.Drawing.Size(37, 13);
             this.lblQuoteCurrency.TabIndex = 41;
@@ -553,7 +555,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(325, 341);
+            this.label16.Location = new System.Drawing.Point(350, 368);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(15, 13);
             this.label16.TabIndex = 42;
@@ -563,7 +565,7 @@
             // 
             this.lblTrailingUnit.AutoSize = true;
             this.lblTrailingUnit.Enabled = false;
-            this.lblTrailingUnit.Location = new System.Drawing.Point(325, 390);
+            this.lblTrailingUnit.Location = new System.Drawing.Point(350, 417);
             this.lblTrailingUnit.Name = "lblTrailingUnit";
             this.lblTrailingUnit.Size = new System.Drawing.Size(15, 13);
             this.lblTrailingUnit.TabIndex = 43;
@@ -572,7 +574,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(325, 468);
+            this.label21.Location = new System.Drawing.Point(350, 495);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(15, 13);
             this.label21.TabIndex = 44;
@@ -581,7 +583,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(89, 219);
+            this.label7.Location = new System.Drawing.Point(114, 246);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(103, 13);
             this.label7.TabIndex = 49;
@@ -592,17 +594,17 @@
             this.listViewStartConditions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.listViewStartConditions.HideSelection = false;
-            this.listViewStartConditions.Location = new System.Drawing.Point(198, 217);
+            this.listViewStartConditions.Location = new System.Drawing.Point(223, 244);
             this.listViewStartConditions.Name = "listViewStartConditions";
             this.listViewStartConditions.Size = new System.Drawing.Size(120, 63);
-            this.listViewStartConditions.TabIndex = 7;
+            this.listViewStartConditions.TabIndex = 8;
             this.listViewStartConditions.UseCompatibleStateImageBehavior = false;
             this.listViewStartConditions.View = System.Windows.Forms.View.List;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(67, 545);
+            this.label8.Location = new System.Drawing.Point(92, 572);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(126, 13);
             this.label8.TabIndex = 53;
@@ -610,7 +612,7 @@
             // 
             // numCooldownBetweenDeals
             // 
-            this.numCooldownBetweenDeals.Location = new System.Drawing.Point(197, 542);
+            this.numCooldownBetweenDeals.Location = new System.Drawing.Point(222, 569);
             this.numCooldownBetweenDeals.Maximum = new decimal(new int[] {
             2591999,
             0,
@@ -618,12 +620,12 @@
             0});
             this.numCooldownBetweenDeals.Name = "numCooldownBetweenDeals";
             this.numCooldownBetweenDeals.Size = new System.Drawing.Size(121, 20);
-            this.numCooldownBetweenDeals.TabIndex = 18;
+            this.numCooldownBetweenDeals.TabIndex = 19;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(324, 545);
+            this.label9.Location = new System.Drawing.Point(349, 572);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(47, 13);
             this.label9.TabIndex = 55;
@@ -632,7 +634,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(199, 148);
+            this.label10.Location = new System.Drawing.Point(224, 175);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(146, 13);
             this.label10.TabIndex = 56;
@@ -641,7 +643,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(97, 169);
+            this.label20.Location = new System.Drawing.Point(122, 196);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(98, 13);
             this.label20.TabIndex = 57;
@@ -650,7 +652,7 @@
             // lblBotNamePreview
             // 
             this.lblBotNamePreview.AutoSize = true;
-            this.lblBotNamePreview.Location = new System.Drawing.Point(195, 169);
+            this.lblBotNamePreview.Location = new System.Drawing.Point(220, 196);
             this.lblBotNamePreview.Name = "lblBotNamePreview";
             this.lblBotNamePreview.Size = new System.Drawing.Size(83, 13);
             this.lblBotNamePreview.TabIndex = 58;
@@ -659,15 +661,15 @@
             // cmbExchange
             // 
             this.cmbExchange.FormattingEnabled = true;
-            this.cmbExchange.Location = new System.Drawing.Point(198, 45);
+            this.cmbExchange.Location = new System.Drawing.Point(223, 72);
             this.cmbExchange.Name = "cmbExchange";
             this.cmbExchange.Size = new System.Drawing.Size(121, 21);
-            this.cmbExchange.TabIndex = 2;
+            this.cmbExchange.TabIndex = 3;
             // 
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(46, 49);
+            this.label22.Location = new System.Drawing.Point(71, 76);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(147, 13);
             this.label22.TabIndex = 59;
@@ -754,7 +756,7 @@
             // btnRemove
             // 
             this.btnRemove.Image = global::_3Commas.BotCreator.Properties.Resources.Cancel_16x16;
-            this.btnRemove.Location = new System.Drawing.Point(324, 244);
+            this.btnRemove.Location = new System.Drawing.Point(349, 271);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(29, 23);
             this.btnRemove.TabIndex = 8;
@@ -766,7 +768,7 @@
             // btnAddStartCondition
             // 
             this.btnAddStartCondition.Image = global::_3Commas.BotCreator.Properties.Resources.Add_16x16;
-            this.btnAddStartCondition.Location = new System.Drawing.Point(324, 217);
+            this.btnAddStartCondition.Location = new System.Drawing.Point(349, 244);
             this.btnAddStartCondition.Name = "btnAddStartCondition";
             this.btnAddStartCondition.Size = new System.Drawing.Size(29, 23);
             this.btnAddStartCondition.TabIndex = 7;
@@ -793,7 +795,7 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Image = global::_3Commas.BotCreator.Properties.Resources.Clear_16x16;
-            this.button1.Location = new System.Drawing.Point(921, 740);
+            this.button1.Location = new System.Drawing.Point(921, 773);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(99, 25);
             this.button1.TabIndex = 1;
@@ -806,10 +808,10 @@
             // btnCreate
             // 
             this.btnCreate.Image = global::_3Commas.BotCreator.Properties.Resources.Play_16x16;
-            this.btnCreate.Location = new System.Drawing.Point(197, 619);
+            this.btnCreate.Location = new System.Drawing.Point(222, 646);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(121, 23);
-            this.btnCreate.TabIndex = 21;
+            this.btnCreate.TabIndex = 22;
             this.btnCreate.Text = "Create";
             this.btnCreate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCreate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -821,6 +823,8 @@
             this.panelBotSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panelBotSettings.AutoScroll = true;
+            this.panelBotSettings.Controls.Add(this.chkCheckForExistingBots);
+            this.panelBotSettings.Controls.Add(this.label6);
             this.panelBotSettings.Controls.Add(this.chkBuyBase);
             this.panelBotSettings.Controls.Add(this.label23);
             this.panelBotSettings.Controls.Add(this.txtQuoteCurrency);
@@ -850,7 +854,6 @@
             this.panelBotSettings.Controls.Add(this.btnAddStartCondition);
             this.panelBotSettings.Controls.Add(this.label11);
             this.panelBotSettings.Controls.Add(this.listViewStartConditions);
-            this.panelBotSettings.Controls.Add(this.txtBotname);
             this.panelBotSettings.Controls.Add(this.label7);
             this.panelBotSettings.Controls.Add(this.label12);
             this.panelBotSettings.Controls.Add(this.cmbStartOrderType);
@@ -873,35 +876,56 @@
             this.panelBotSettings.Controls.Add(this.numMaxSafetyTradesCount);
             this.panelBotSettings.Controls.Add(this.numMaxActiveSafetyTradesCount);
             this.panelBotSettings.Controls.Add(this.lblMaxSafetyTradesCount);
+            this.panelBotSettings.Controls.Add(this.txtBotname);
             this.panelBotSettings.Location = new System.Drawing.Point(12, 107);
             this.panelBotSettings.Name = "panelBotSettings";
-            this.panelBotSettings.Size = new System.Drawing.Size(489, 647);
+            this.panelBotSettings.Size = new System.Drawing.Size(489, 680);
             this.panelBotSettings.TabIndex = 65;
             // 
             // chkBuyBase
             // 
             this.chkBuyBase.AutoSize = true;
-            this.chkBuyBase.Location = new System.Drawing.Point(197, 570);
+            this.chkBuyBase.Location = new System.Drawing.Point(222, 597);
             this.chkBuyBase.Name = "chkBuyBase";
             this.chkBuyBase.Size = new System.Drawing.Size(15, 14);
-            this.chkBuyBase.TabIndex = 19;
+            this.chkBuyBase.TabIndex = 20;
             this.chkBuyBase.UseVisualStyleBackColor = true;
             this.chkBuyBase.CheckedChanged += new System.EventHandler(this.chkBuyBase_CheckedChanged);
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(97, 569);
+            this.label23.Location = new System.Drawing.Point(122, 596);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(96, 13);
             this.label23.TabIndex = 62;
             this.label23.Text = "Buy Base currency";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(5, 49);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(214, 13);
+            this.label6.TabIndex = 63;
+            this.label6.Text = "Skip Bot Creation for existing Pair && Strategy";
+            // 
+            // chkCheckForExistingBots
+            // 
+            this.chkCheckForExistingBots.AutoSize = true;
+            this.chkCheckForExistingBots.Checked = true;
+            this.chkCheckForExistingBots.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCheckForExistingBots.Location = new System.Drawing.Point(223, 49);
+            this.chkCheckForExistingBots.Name = "chkCheckForExistingBots";
+            this.chkCheckForExistingBots.Size = new System.Drawing.Size(15, 14);
+            this.chkCheckForExistingBots.TabIndex = 2;
+            this.chkCheckForExistingBots.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1032, 777);
+            this.ClientSize = new System.Drawing.Size(1032, 810);
             this.Controls.Add(this.panelBotSettings);
             this.Controls.Add(this.groupBoxCredentials);
             this.Controls.Add(this.btnAbout);
@@ -1001,6 +1025,8 @@
         private System.Windows.Forms.Panel panelBotSettings;
         private System.Windows.Forms.CheckBox chkBuyBase;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.CheckBox chkCheckForExistingBots;
+        private System.Windows.Forms.Label label6;
     }
 }
 
