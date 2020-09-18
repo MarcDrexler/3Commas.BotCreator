@@ -26,6 +26,7 @@ Also if you think something is broken or have any questions, please open an [Iss
 
 - Add as many bots as you want
 - Uses pairs at the highest volume first
+- Skip bot creation if base is stablecoin
 - Skip bot creation for blacklisted pairs
 - Skip bot creation for existing pair + strategy
     - This way you can create 10 Bots, and another day the next 10 Bots without having to worry about duplicates.
@@ -35,10 +36,9 @@ Also if you think something is broken or have any questions, please open an [Iss
 
 ### Excluded Pairs
 
-All pairs that end with UP, DOWN, BEAR, BULL and are skipped.
-Also EUR Pairs.
+All pairs that end with UP, DOWN, BEAR and BULL are skipped.
 
-These are currently hard coded and will be configurable in the future
+These are currently hard coded.
 
 ## Screenshots
 
