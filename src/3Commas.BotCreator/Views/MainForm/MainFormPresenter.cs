@@ -224,7 +224,7 @@ namespace _3Commas.BotCreator.Views.MainForm
 
                     try
                     {
-                        await botMgr.CreateBots(new CreateBotRequest(View.CheckForExistingBots, View.NumberOfBotsToCreate, View.QuoteCurrency, strategy, startOrderType, View.MaxSafetyTradesCount, View.MaxActiveSafetyTradesCount, View.PriceDeviationToOpenSafetyOrders, View.SafetyOrderVolumeScale, View.SafetyOrderStepScale, View.TargetProfitPercentage, View.IsTrailingEnabled, View.TrailingDeviation, View.Botname, View.BaseOrderVolume, View.SafetyOrderVolume, View.EnableBots, _startConditions, View.CooldownBetweenDeals, View.Account.Id, amountToBuy));
+                        await botMgr.CreateBots(new CreateBotRequest(View.CheckForExistingBots, View.CheckForBlacklistedPairs, View.CheckForBaseStablecoins, View.NumberOfBotsToCreate, View.QuoteCurrency, strategy, startOrderType, View.MaxSafetyTradesCount, View.MaxActiveSafetyTradesCount, View.PriceDeviationToOpenSafetyOrders, View.SafetyOrderVolumeScale, View.SafetyOrderStepScale, View.TargetProfitPercentage, View.IsTrailingEnabled, View.TrailingDeviation, View.Botname, View.BaseOrderVolume, View.SafetyOrderVolume, View.EnableBots, _startConditions, View.CooldownBetweenDeals, View.Account.Id, amountToBuy));
                         _mbs.ShowInformation("Bot creation finished! See output section for details.");
                     }
                     catch (Exception exception)

@@ -192,6 +192,7 @@
     <Compile Include="Keys.cs" />
     <Compile Include="Misc\BotManager.cs" />
     <Compile Include="3CommasLayer\IXCommasClient.cs" />
+    <Compile Include="Misc\CreateBotRequest.cs" />
     <Compile Include="Misc\NameHelper.cs" />
     <Compile Include="3CommasLayer\Implementations\XCommasClient.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

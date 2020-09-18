@@ -14,6 +14,7 @@ namespace _3Commas.BotCreator.Misc
         private readonly ILogger _logger;
         private readonly IXCommasClient _xCommasClient;
         private readonly IExchange _exchange;
+        private string[] Stablecoins => new[] { "EURS", "EBASE", "GBP", "USDT", "USDC", "DAI", "TUSD", "BUSD", "PAX", "HUSD", "SUSD", "USDK", "MUSD", "GUSD", "SAI", "EOSDT", "USDS", "BITCNY", "TRYB", "RSV", "BGBP", "QC", "USNBT", "BKRW", "THKD" };
 
         public BotManager(ILogger logger, IXCommasClient xCommasClient, IExchange exchange)
         {
@@ -75,7 +76,7 @@ namespace _3Commas.BotCreator.Misc
             {
                 var symbol = TransformPairTo3CommasSymbolString(pair.QuoteCurrency, pair.BaseCurrency);
 
-                if (SymbolShouldBeSkipped(symbol, request.CheckForExistingBots, request.Strategy, pair, existingBots, request.CheckForBlacklistedBots, blacklistedPairs)) continue;
+                if (SymbolShouldBeSkipped(symbol, request.CheckForExistingBots, request.CheckForBaseStablecoin, request.Strategy, pair, existingBots, request.CheckForBlacklistedPairs, blacklistedPairs)) continue;
 
                 var botName = NameHelper.GenerateBotName(request.NameFormula, symbol, request.Strategy.ToString());
                 var bot = CreateBot(botName, symbol, request);
@@ -124,8 +125,14 @@ namespace _3Commas.BotCreator.Misc
             _logger.LogInformation($"{created} bots created");
         }
 
-        private bool SymbolShouldBeSkipped(string symbol, bool checkForExistingBots, Strategy strategy, Pair pair, List<Bot> existingBots, bool checkForBlacklistedBots, List<string> blacklistedPairs)
+        private bool SymbolShouldBeSkipped(string symbol, bool checkForExistingBots, bool checkForBaseStablecoin, Strategy strategy, Pair pair, List<Bot> existingBots, bool checkForBlacklistedBots, List<string> blacklistedPairs)
         {
+            if (checkForBaseStablecoin && Stablecoins.Any(s => s.ToLower() == pair.BaseCurrency.ToLower()))
+            {
+                _logger.LogInformation($"Skipping {symbol} because base is a stablecoin");
+                return true;
+            }
+
             if (checkForBlacklistedBots && blacklistedPairs.Contains(symbol))
             {
                 _logger.LogInformation($"Skipping {symbol} because it is blacklisted");
@@ -196,69 +203,15 @@ namespace _3Commas.BotCreator.Misc
 
         private bool IsSymbolIgnored(string symbol)
         {
-            var pairsToIgnore = new[]
-            {
-                "USDT_BUSD",
-                "USDT_IDRT",
-                "USDT_BIDR",
-                "USDT_PAX",
-                "USDT_BKRW",
-                "USDT_NGN"
-            };
-
-            return (symbol.EndsWith("DOWN")
-                    || symbol.EndsWith("UP")
-                    || symbol.EndsWith("BULL")
-                    || symbol.EndsWith("BEAR")
-                    || symbol.EndsWith("EUR")
-                    || pairsToIgnore.Contains(symbol));
+            return symbol.EndsWith("DOWN")
+                   || symbol.EndsWith("UP")
+                   || symbol.EndsWith("BULL")
+                   || symbol.EndsWith("BEAR");
         }
 
         public static string TransformPairTo3CommasSymbolString(string quoteCurrency, string baseCurrency)
         {
             return $"{quoteCurrency.ToUpper()}_{baseCurrency}";
-        }
-
-        public async Task SetManualStrategyForAllBots()
-        {
-            var bots = await GetBotsByStrategyAndScope(Strategy.Long, BotScope.Enabled);
-            bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Long, BotScope.Disabled));
-
-            foreach (var bot in bots)
-            {
-                bot.Strategies.Clear();
-                bot.Strategies.Add(new ManualStrategy());
-                var result = await _xCommasClient.UpdateBotAsync(bot.Id, new BotUpdateData(bot));
-                if (result.IsSuccess)
-                {
-                    _logger.LogInformation($"{bot.Name} updated");
-                }
-                else
-                {
-                    _logger.LogError($"Error while updating Bot '{bot.Name}': {result.Error}");
-                }
-            }
-        }
-
-        public async Task SetNonstopStrategyForAllBots()
-        {
-            var bots = await GetBotsByStrategyAndScope(Strategy.Long, BotScope.Enabled);
-            bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Long, BotScope.Disabled));
-
-            foreach (var bot in bots)
-            {
-                bot.Strategies.Clear();
-                bot.Strategies.Add(new NonStopBotStrategy());
-                var result = await _xCommasClient.UpdateBotAsync(bot.Id, new BotUpdateData(bot));
-                if (result.IsSuccess)
-                {
-                    _logger.LogInformation($"{bot.Name} updated");
-                }
-                else
-                {
-                    _logger.LogError($"Error while updating Bot '{bot.Name}': {result.Error}");
-                }
-            }
         }
 
         private async Task<List<Bot>> GetBotsByStrategyAndScope(Strategy strategy, BotScope scope)
@@ -296,57 +249,6 @@ namespace _3Commas.BotCreator.Misc
 
             _logger.LogInformation($"{bots.Count} Bots found");
             return bots;
-        }
-    }
-
-    public class CreateBotRequest
-    {
-        public bool CheckForExistingBots { get; set; }
-        public int NumberOfNewBots { get; set; }
-        public string QuoteCurrency { get; set; }
-        public Strategy Strategy { get; set; }
-        public StartOrderType StartOrderType { get; set; }
-        public int MaxSafetyOrders { get; set; }
-        public int ActiveSafetyOrdersCount { get; set; }
-        public decimal SafetyOrderStepPercentage { get; set; }
-        public decimal MartingaleVolumeCoefficient { get; set; }
-        public decimal MartingaleStepCoefficient { get; set; }
-        public decimal TakeProfitPercentage { get; set; }
-        public bool TrailingEnabled { get; set; }
-        public decimal TrailingDeviation { get; set; }
-        public string NameFormula { get; set; }
-        public decimal BaseOrderVolume { get; set; }
-        public decimal SafetyOrderVolume { get; set; }
-        public bool Enable { get; set; }
-        public List<BotStrategy> DealStartConditions { get; set; }
-        public int CooldownBetweenDeals { get; set; }
-        public int AccountId { get; set; }
-        public decimal? AmountToBuyInQuoteCurrency { get; set; }
-        public bool CheckForBlacklistedBots { get; set; }
-
-        public CreateBotRequest(bool checkForExistingBots, int numberOfNewBots, string quoteCurrency, Strategy strategy, StartOrderType startOrderType, int maxSafetyOrders, int activeSafetyOrdersCount, decimal safetyOrderStepPercentage, decimal martingaleVolumeCoefficient, decimal martingaleStepCoefficient, decimal takeProfitPercentage, bool trailingEnabled, decimal trailingDeviation, string nameFormula, decimal baseOrderVolume, decimal safetyOrderVolume, bool enable, List<BotStrategy> dealStartConditions, int cooldownBetweenDeals, int accountId, decimal? amountToBuyInQuoteCurrency = null)
-        {
-            CheckForExistingBots = checkForExistingBots;
-            NumberOfNewBots = numberOfNewBots;
-            QuoteCurrency = quoteCurrency;
-            Strategy = strategy;
-            StartOrderType = startOrderType;
-            MaxSafetyOrders = maxSafetyOrders;
-            ActiveSafetyOrdersCount = activeSafetyOrdersCount;
-            SafetyOrderStepPercentage = safetyOrderStepPercentage;
-            MartingaleVolumeCoefficient = martingaleVolumeCoefficient;
-            MartingaleStepCoefficient = martingaleStepCoefficient;
-            TakeProfitPercentage = takeProfitPercentage;
-            TrailingEnabled = trailingEnabled;
-            TrailingDeviation = trailingDeviation;
-            NameFormula = nameFormula;
-            BaseOrderVolume = baseOrderVolume;
-            SafetyOrderVolume = safetyOrderVolume;
-            Enable = enable;
-            DealStartConditions = dealStartConditions;
-            CooldownBetweenDeals = cooldownBetweenDeals;
-            AccountId = accountId;
-            AmountToBuyInQuoteCurrency = amountToBuyInQuoteCurrency;
         }
     }
 }

@@ -123,6 +123,8 @@ namespace _3Commas.BotCreator.Views.MainForm
         public bool IsBuyEnabled => chkBuyBase.Checked;
         public decimal AmountToBuy => numAmountToBuy.Value;
         public bool CheckForExistingBots => chkCheckForExistingBots.Checked;
+        public bool CheckForBaseStablecoins => chkCheckForBaseStablecoin.Checked;
+        public bool CheckForBlacklistedPairs => chkSkipBlacklistedPairs.Checked;
 
         public void SetNamePreview(string name)
         {

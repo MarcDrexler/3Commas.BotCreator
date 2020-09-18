@@ -109,7 +109,7 @@ namespace _3Commas.BotCreator.Tests
             var exchange = BuildExchangeWith5Pairs();
             var xCommasClient = BuildXCommasClientWith1ExistingAnd1Blacklisted();
             var request = GetDefaultRequest();
-            request.CheckForBlacklistedBots = true;
+            request.CheckForBlacklistedPairs = true;
 
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
 
@@ -121,14 +121,13 @@ namespace _3Commas.BotCreator.Tests
         }
 
         [TestMethod]
-        public async Task CreateBots_CheckForExistingBotsAndBlacklistedPairs_4BotsCreated()
+        public async Task CreateBots_CheckForBaseStablecoins_4BotsCreated()
         {
             // Arrange
             var exchange = BuildExchangeWith5Pairs();
             var xCommasClient = BuildXCommasClientWith1ExistingAnd1Blacklisted();
             var request = GetDefaultRequest();
-            request.CheckForExistingBots = true;
-            request.CheckForBlacklistedBots = true;
+            request.CheckForBaseStablecoin = true;
 
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
 
@@ -136,7 +135,27 @@ namespace _3Commas.BotCreator.Tests
             await target.CreateBots(request);
 
             // Assert
-            xCommasClient.Verify(x => x.CreateBotAsync(It.IsAny<int>(), request.Strategy, It.IsAny<BotData>()), Times.Exactly(3));
+            xCommasClient.Verify(x => x.CreateBotAsync(It.IsAny<int>(), request.Strategy, It.IsAny<BotData>()), Times.Exactly(4));
+        }
+
+        [TestMethod]
+        public async Task CreateBots_CheckForExistingBotsAndBlacklistedPairsAndBaseStablecoins_2BotsCreated()
+        {
+            // Arrange
+            var exchange = BuildExchangeWith5Pairs();
+            var xCommasClient = BuildXCommasClientWith1ExistingAnd1Blacklisted();
+            var request = GetDefaultRequest();
+            request.CheckForExistingBots = true;
+            request.CheckForBlacklistedPairs = true;
+            request.CheckForBaseStablecoin = true;
+
+            var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
+
+            // Act
+            await target.CreateBots(request);
+
+            // Assert
+            xCommasClient.Verify(x => x.CreateBotAsync(It.IsAny<int>(), request.Strategy, It.IsAny<BotData>()), Times.Exactly(2));
         }
 
         [TestMethod]
@@ -212,7 +231,7 @@ namespace _3Commas.BotCreator.Tests
                 new Pair {BaseCurrency = "ETH", QuoteCurrency = "USDT", TotalTradedQuoteAssetVolume = 100000},
                 new Pair {BaseCurrency = "LTC", QuoteCurrency = "USDT", TotalTradedQuoteAssetVolume = 10000},
                 new Pair {BaseCurrency = "LINK", QuoteCurrency = "USDT", TotalTradedQuoteAssetVolume = 100},
-                new Pair {BaseCurrency = "BNB", QuoteCurrency = "USDT", TotalTradedQuoteAssetVolume = 10},
+                new Pair {BaseCurrency = "BUSD", QuoteCurrency = "USDT", TotalTradedQuoteAssetVolume = 10},
             });
 
             exchange.Setup(x => x.PlaceOrder(It.IsAny<Pair>(), (decimal) 123.45)).ReturnsAsync(new PlaceOrderResult() {Success = true});
@@ -220,6 +239,6 @@ namespace _3Commas.BotCreator.Tests
             return exchange;
         }
 
-        private CreateBotRequest GetDefaultRequest() => new CreateBotRequest(false, 5, "USDT", Strategy.Long, StartOrderType.Limit, 5, 1, 1, 1, 1, (decimal)1.5, false, 0, "{strategy} {pair} Bot", 10, 11, false, new List<BotStrategy>(), 0, 1000);
+        private CreateBotRequest GetDefaultRequest() => new CreateBotRequest(false, false, false, 5, "USDT", Strategy.Long, StartOrderType.Limit, 5, 1, 1, 1, 1, (decimal)1.5, false, 0, "{strategy} {pair} Bot", 10, 11, false, new List<BotStrategy>(), 0, 1000);
     }
 }

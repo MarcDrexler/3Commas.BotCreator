@@ -32,6 +32,8 @@ namespace _3Commas.BotCreator.Views.MainForm
         bool IsBuyEnabled { get; }
         decimal AmountToBuy { get; }
         bool CheckForExistingBots { get; }
+        bool CheckForBlacklistedPairs { get; }
+        bool CheckForBaseStablecoins { get; }
         void SetNamePreview(string name);
         void BindAccountsAndSetSelection(List<Account> accounts, Account account);
         void ClearLog();
