@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Windows.Forms;
-using _3Commas.BotCreator.Views;
+using _3Commas.BotCreator.Views.MainForm;
 
 namespace _3Commas.BotCreator
 {

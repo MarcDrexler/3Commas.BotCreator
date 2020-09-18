@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Windows.Forms;
 
-namespace _3Commas.BotCreator.Views
+namespace _3Commas.BotCreator.Views.Settings
 {
     public partial class Settings : Form
     {

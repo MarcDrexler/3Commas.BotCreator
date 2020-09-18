@@ -1,7 +1,7 @@
-﻿using _3Commas.BotCreator.Logic;
+﻿using _3Commas.BotCreator.ExchangeImplementations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace _3Commas.BotCreator.Tests.ExchangeImplementations.Binance
+namespace _3Commas.BotCreator.Tests
 {
     [TestClass()]
     public class BinanceTests
@@ -9,7 +9,7 @@ namespace _3Commas.BotCreator.Tests.ExchangeImplementations.Binance
         [TestMethod()]
         public void ExtractBaseCurrencyTest()
         {
-            var actual = new Logic.ExchangeImplementations.Binance.Binance(FakeKeys).ExtractBaseCurrency("usdtbnb", "usdt");
+            var actual = new Binance(FakeKeys).ExtractBaseCurrency("usdtbnb", "usdt");
 
             Assert.AreEqual("BNB", actual);
         }
@@ -17,7 +17,7 @@ namespace _3Commas.BotCreator.Tests.ExchangeImplementations.Binance
         [TestMethod()]
         public void ToBinanceSymbolTest()
         {
-            var actual = new Logic.ExchangeImplementations.Binance.Binance(FakeKeys).ToBinanceSymbol("usdt", "bnb");
+            var actual = new Binance(FakeKeys).ToBinanceSymbol("usdt", "bnb");
 
             Assert.AreEqual("BNBUSDT", actual);
         }

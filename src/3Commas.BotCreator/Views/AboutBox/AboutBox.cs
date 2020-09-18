@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace _3Commas.BotCreator.Views
+namespace _3Commas.BotCreator.Views.AboutBox
 {
     partial class AboutBox : Form
     {

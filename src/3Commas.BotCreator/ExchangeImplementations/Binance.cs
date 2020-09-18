@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using _3Commas.BotCreator.Logic.ExchangeImplementations.Entities;
+using _3Commas.BotCreator.ExchangeImplementations.Entities;
 using Binance.Net;
 using Binance.Net.Enums;
 using Binance.Net.Objects.Spot;
 using CryptoExchange.Net.Authentication;
 
-namespace _3Commas.BotCreator.Logic.ExchangeImplementations.Binance
+namespace _3Commas.BotCreator.ExchangeImplementations
 {
     public class Binance : IExchange
     {

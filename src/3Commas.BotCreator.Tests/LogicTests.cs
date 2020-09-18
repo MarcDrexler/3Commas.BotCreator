@@ -1,6 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using _3Commas.BotCreator.Misc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace _3Commas.BotCreator.Tests.Misc
+namespace _3Commas.BotCreator.Tests
 {
     [TestClass()]
     public class LogicTests
@@ -8,7 +9,7 @@ namespace _3Commas.BotCreator.Tests.Misc
         [TestMethod()]
         public void GenerateBotNameTest()
         {
-            var actual = Logic.Misc.Logic.GenerateBotName("My new {pair} {strategy} bot", "USDT_BNB", "Long");
+            var actual = Logic.GenerateBotName("My new {pair} {strategy} bot", "USDT_BNB", "Long");
 
             Assert.AreEqual("My new USDT_BNB Long bot", actual);
         }

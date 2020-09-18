@@ -1,4 +1,4 @@
-﻿namespace _3Commas.BotCreator.Views
+﻿namespace _3Commas.BotCreator.Views.Settings
 {
     partial class Settings
     {

@@ -1,7 +1,4 @@
-﻿using CryptoExchange.Net.Authentication;
-using System.Security;
-
-namespace _3Commas.BotCreator.Logic
+﻿namespace _3Commas.BotCreator
 {
     public class Keys
     {

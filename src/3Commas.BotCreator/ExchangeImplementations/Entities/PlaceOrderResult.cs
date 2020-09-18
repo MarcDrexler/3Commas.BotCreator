@@ -1,4 +1,4 @@
-﻿namespace _3Commas.BotCreator.Logic.ExchangeImplementations.Entities
+﻿namespace _3Commas.BotCreator.ExchangeImplementations.Entities
 {
     public class PlaceOrderResult
     {

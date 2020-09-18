@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using _3Commas.BotCreator.Misc;
 using XCommas.Net.Objects;
 
-namespace _3Commas.BotCreator.Views
+namespace _3Commas.BotCreator.Views.ChooseSignal
 {
     public partial class ChooseSignal : Form
     {

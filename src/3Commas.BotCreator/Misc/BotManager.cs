@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using _3Commas.BotCreator.Logic.ExchangeImplementations;
+using _3Commas.BotCreator.ExchangeImplementations;
 using Microsoft.Extensions.Logging;
 using XCommas.Net;
 using XCommas.Net.Objects;
 
-namespace _3Commas.BotCreator.Logic.Misc
+namespace _3Commas.BotCreator.Misc
 {
     public class BotManager
     {

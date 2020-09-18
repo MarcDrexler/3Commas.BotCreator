@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using _3Commas.BotCreator.Infrastructure;
 using XCommas.Net.Objects;
 
-namespace _3Commas.BotCreator.Views
+namespace _3Commas.BotCreator.Views.MainForm
 {
     public interface IMainForm : IViewBase
     {

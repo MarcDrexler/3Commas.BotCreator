@@ -1,7 +1,7 @@
-﻿using _3Commas.BotCreator.Logic.Misc;
+﻿using _3Commas.BotCreator.Misc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace _3Commas.BotCreator.Tests.Misc
+namespace _3Commas.BotCreator.Tests
 {
     [TestClass()]
     public class BotManagerTests

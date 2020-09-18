@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using _3Commas.BotCreator.ExchangeImplementations;
 using _3Commas.BotCreator.Infrastructure;
-using _3Commas.BotCreator.Logic.ExchangeImplementations;
-using _3Commas.BotCreator.Logic.Misc;
+using _3Commas.BotCreator.Misc;
 using Microsoft.Extensions.Logging;
 using XCommas.Net.Objects;
-using Keys = _3Commas.BotCreator.Logic.Keys;
 
-namespace _3Commas.BotCreator.Views
+namespace _3Commas.BotCreator.Views.MainForm
 {
     public class MainFormPresenter : PresenterBase<IMainForm>
     {
@@ -49,14 +47,14 @@ namespace _3Commas.BotCreator.Views
             var quoteCurrency = (!String.IsNullOrWhiteSpace(View.QuoteCurrency)) ? View.QuoteCurrency + "_XXX" : "";
             var strategy = View.SelectedStrategy;
 
-            var namePreview = Logic.Misc.Logic.GenerateBotName(View.Botname, quoteCurrency, strategy);
+            var namePreview = Logic.GenerateBotName(View.Botname, quoteCurrency, strategy);
             View.SetNamePreview(namePreview);
         }
 
         public void OnHuobiLinkClicked()
         {
             var settingsPersisted = !string.IsNullOrWhiteSpace(Properties.Settings.Default.ApiKeyHuobi);
-            var settings = new Settings(settingsPersisted, "Huobi API Credentials", "Permissions Needed: Read-Only, Trade", _keys.ApiKeyHuobi, _keys.SecretHuobi);
+            var settings = new Settings.Settings(settingsPersisted, "Huobi API Credentials", "Permissions Needed: Read-Only, Trade", _keys.ApiKeyHuobi, _keys.SecretHuobi);
             var dr = settings.ShowDialog();
             if (dr == DialogResult.OK)
             {
@@ -72,7 +70,7 @@ namespace _3Commas.BotCreator.Views
         public void OnBinanceLinkClicked()
         {
             var settingsPersisted = !string.IsNullOrWhiteSpace(Properties.Settings.Default.ApiKeyBinance);
-            var settings = new Settings(settingsPersisted, "Binance API Credentials", "Permissions Needed: Can Read, Enable Spot Trading", _keys.ApiKeyBinance, _keys.SecretBinance);
+            var settings = new Settings.Settings(settingsPersisted, "Binance API Credentials", "Permissions Needed: Can Read, Enable Spot Trading", _keys.ApiKeyBinance, _keys.SecretBinance);
             var dr = settings.ShowDialog();
             if (dr == DialogResult.OK)
             {
@@ -88,7 +86,7 @@ namespace _3Commas.BotCreator.Views
         public async Task On3CommasLinkClicked()
         {
             var settingsPersisted = !string.IsNullOrWhiteSpace(Properties.Settings.Default.ApiKey3Commas);
-            var settings = new Settings(settingsPersisted, "3Commas API Credentials", "Permissions Needed: BotsRead, BotsWrite, AccountsRead", _keys.ApiKey3Commas, _keys.Secret3Commas);
+            var settings = new Settings.Settings(settingsPersisted, "3Commas API Credentials", "Permissions Needed: BotsRead, BotsWrite, AccountsRead", _keys.ApiKey3Commas, _keys.Secret3Commas);
             var dr = settings.ShowDialog();
             if (dr == DialogResult.OK)
             {
@@ -177,7 +175,7 @@ namespace _3Commas.BotCreator.Views
 
         public void OnAddStartConditionClicked()
         {
-            ChooseSignal form = new ChooseSignal();
+            ChooseSignal.ChooseSignal form = new ChooseSignal.ChooseSignal();
             var dr = form.ShowDialog(this.View);
             if (dr == DialogResult.OK)
             {
@@ -207,11 +205,11 @@ namespace _3Commas.BotCreator.Views
                     IExchange exchange = null;
                     if (View.IsBinanceSelected)
                     {
-                        exchange = new Logic.ExchangeImplementations.Binance.Binance(_keys);
+                        exchange = new ExchangeImplementations.Binance(_keys);
                     }
                     else if (View.IsHuobiSelected)
                     {
-                        exchange = new Logic.ExchangeImplementations.Huobi.Huobi(_keys);
+                        exchange = new ExchangeImplementations.Huobi(_keys);
                     }
 
                     BotManager botMgr = new BotManager(_keys, _logger);

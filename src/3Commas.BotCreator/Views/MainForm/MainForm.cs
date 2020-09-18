@@ -6,7 +6,7 @@ using _3Commas.BotCreator.Infrastructure;
 using _3Commas.BotCreator.Misc;
 using XCommas.Net.Objects;
 
-namespace _3Commas.BotCreator.Views
+namespace _3Commas.BotCreator.Views.MainForm
 {
     public partial class MainForm : Form, IMainForm
     {
@@ -52,7 +52,7 @@ namespace _3Commas.BotCreator.Views
 
         private void btnAbout_Click(object sender, EventArgs e)
         {
-            AboutBox box = new AboutBox();
+            AboutBox.AboutBox box = new AboutBox.AboutBox();
             box.ShowDialog(this);
         }
 
