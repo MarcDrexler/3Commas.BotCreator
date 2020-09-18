@@ -25,7 +25,7 @@ namespace _3Commas.BotCreator.Views.MainForm
 
         private async void btnCreate_Click(object sender, EventArgs e)
         {
-            await _presenter.OnCreateClicked();
+            await _presenter.OnCreate();
         }
         
         private void btnClear_Click(object sender, EventArgs e)
@@ -63,7 +63,7 @@ namespace _3Commas.BotCreator.Views.MainForm
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            _presenter.OnRemoveStartConditionClicked();
+            _presenter.OnRemoveStartCondition();
         }
 
         private void txtBotname_TextChanged(object sender, EventArgs e)

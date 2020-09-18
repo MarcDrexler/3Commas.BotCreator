@@ -3,10 +3,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace _3Commas.BotCreator.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class BinanceTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void ExtractBaseCurrencyTest()
         {
             var actual = new Binance(FakeKeys).ExtractBaseCurrency("usdtbnb", "usdt");
@@ -14,7 +14,7 @@ namespace _3Commas.BotCreator.Tests
             Assert.AreEqual("BNB", actual);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ToBinanceSymbolTest()
         {
             var actual = new Binance(FakeKeys).ToBinanceSymbol("usdt", "bnb");

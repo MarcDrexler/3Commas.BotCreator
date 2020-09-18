@@ -47,7 +47,7 @@ namespace _3Commas.BotCreator.Views.MainForm
             var quoteCurrency = (!String.IsNullOrWhiteSpace(View.QuoteCurrency)) ? View.QuoteCurrency + "_XXX" : "";
             var strategy = View.SelectedStrategy;
 
-            var namePreview = Logic.GenerateBotName(View.Botname, quoteCurrency, strategy);
+            var namePreview = NameHelper.GenerateBotName(View.Botname, quoteCurrency, strategy);
             View.SetNamePreview(namePreview);
         }
 
@@ -97,18 +97,17 @@ namespace _3Commas.BotCreator.Views.MainForm
                 Properties.Settings.Default.Secret3Commas = settings.PersistKeys ? settings.Secret : "";
                 Properties.Settings.Default.Save();
 
-                await RefreshExchanges();
+                await RefreshExchangesAndBlacklist();
             }
         }
 
-        private async Task RefreshExchanges()
+        private async Task RefreshExchangesAndBlacklist()
         {
             if (!String.IsNullOrWhiteSpace(_keys.Secret3Commas) && !String.IsNullOrWhiteSpace(_keys.ApiKey3Commas))
             {
                 var selection = View.Account;
-                var botMgr = new BotManager(_keys, _logger);
+                var botMgr = new BotManager(_logger, new XCommasClient(_keys, _logger), null);
                 _accounts = await botMgr.RetrieveAccounts();
-
                 View.BindAccountsAndSetSelection(_accounts, selection);
             }
             else
@@ -117,7 +116,7 @@ namespace _3Commas.BotCreator.Views.MainForm
             }
         }
 
-        public bool IsValid()
+        private bool IsValid()
         {
             var errors = new List<string>();
             if (_accounts.Count == 0)
@@ -147,8 +146,8 @@ namespace _3Commas.BotCreator.Views.MainForm
             if (string.IsNullOrWhiteSpace(View.Botname)) errors.Add("Bot name missing");
             if (string.IsNullOrWhiteSpace(View.QuoteCurrency)) errors.Add("Quote Currency missing");
             if (View.StartConditionsCount == 0) errors.Add("Deal Start Condition missing");
-            if (View.SelectedStrategy == null || !Strategy.TryParse(View.SelectedStrategy, out Strategy _)) errors.Add("Strategy not selected");
-            if (View.StartOrderType == null || !StartOrderType.TryParse(View.StartOrderType, out StartOrderType _)) errors.Add("Start Order Type not selected");
+            if (View.SelectedStrategy == null || !Enum.TryParse(View.SelectedStrategy, out Strategy _)) errors.Add("Strategy not selected");
+            if (View.StartOrderType == null || !Enum.TryParse(View.StartOrderType, out StartOrderType _)) errors.Add("Start Order Type not selected");
             if (errors.Any())
             {
                 _mbs.ShowError(String.Join(Environment.NewLine, errors), "Validation Error");
@@ -184,7 +183,7 @@ namespace _3Commas.BotCreator.Views.MainForm
             }
         }
 
-        public void OnRemoveStartConditionClicked()
+        public void OnRemoveStartCondition()
         {
             foreach (string hash in View.SelectedStartConditions)
             {
@@ -193,7 +192,7 @@ namespace _3Commas.BotCreator.Views.MainForm
             View.RefreshStartConditions(_startConditions);
         }
 
-        public async Task OnCreateClicked()
+        public async Task OnCreate()
         {
             if (IsValid())
             {
@@ -212,10 +211,10 @@ namespace _3Commas.BotCreator.Views.MainForm
                         exchange = new ExchangeImplementations.Huobi(_keys);
                     }
 
-                    BotManager botMgr = new BotManager(_keys, _logger);
+                    var botMgr = new BotManager(_logger, new XCommasClient(_keys, _logger), exchange);
 
-                    Strategy.TryParse(View.SelectedStrategy, out Strategy strategy);
-                    Strategy.TryParse(View.StartOrderType, out StartOrderType startOrderType);
+                    Enum.TryParse(View.SelectedStrategy, out Strategy strategy);
+                    Enum.TryParse(View.StartOrderType, out StartOrderType startOrderType);
                     
                     decimal amountToBuy = 0;
                     if (View.IsBuyEnabled)
@@ -225,7 +224,7 @@ namespace _3Commas.BotCreator.Views.MainForm
 
                     try
                     {
-                        await botMgr.CreateBots(View.CheckForExistingBots, View.NumberOfBotsToCreate, View.QuoteCurrency, strategy, startOrderType, View.MaxSafetyTradesCount, View.MaxActiveSafetyTradesCount, View.PriceDeviationToOpenSafetyOrders, View.SafetyOrderVolumeScale, View.SafetyOrderStepScale, View.TargetProfitPercentage, View.IsTrailingEnabled, View.TrailingDeviation, View.Botname, View.BaseOrderVolume, View.SafetyOrderVolume, View.EnableBots, _startConditions, View.CooldownBetweenDeals, exchange, View.Account.Id, amountToBuy);
+                        await botMgr.CreateBots(new CreateBotRequest(View.CheckForExistingBots, View.NumberOfBotsToCreate, View.QuoteCurrency, strategy, startOrderType, View.MaxSafetyTradesCount, View.MaxActiveSafetyTradesCount, View.PriceDeviationToOpenSafetyOrders, View.SafetyOrderVolumeScale, View.SafetyOrderStepScale, View.TargetProfitPercentage, View.IsTrailingEnabled, View.TrailingDeviation, View.Botname, View.BaseOrderVolume, View.SafetyOrderVolume, View.EnableBots, _startConditions, View.CooldownBetweenDeals, View.Account.Id, amountToBuy));
                         _mbs.ShowInformation("Bot creation finished! See output section for details.");
                     }
                     catch (Exception exception)

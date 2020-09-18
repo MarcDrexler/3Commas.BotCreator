@@ -4,17 +4,11 @@ namespace _3Commas.BotCreator.Infrastructure
 {
     public abstract class PresenterBase<TView> where TView: IWin32Window
     {
-        private TView _view;
-
         protected PresenterBase(TView view)
         {
-            _view = view;
+            View = view;
         }
 
-        public TView View
-        {
-            get { return _view; }
-            set { _view = value; }
-        }
+        protected TView View { get; }
     }
 }
