@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3Commas.BotCreator", "3Comm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3Commas.BotCreator.Tests", "3Commas.BotCreator.Tests\3Commas.BotCreator.Tests.csproj", "{AA38FEBA-8B7D-4E96-934D-B4022E69027F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCommas.Net", "..\..\3Commas.Net\XCommas.Net\XCommas.Net\XCommas.Net.csproj", "{7570A0C1-3D38-498D-ABB3-FB2CF9429090}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AA38FEBA-8B7D-4E96-934D-B4022E69027F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA38FEBA-8B7D-4E96-934D-B4022E69027F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA38FEBA-8B7D-4E96-934D-B4022E69027F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7570A0C1-3D38-498D-ABB3-FB2CF9429090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7570A0C1-3D38-498D-ABB3-FB2CF9429090}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7570A0C1-3D38-498D-ABB3-FB2CF9429090}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7570A0C1-3D38-498D-ABB3-FB2CF9429090}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,7 +14,7 @@ namespace _3Commas.BotCreator.Misc
         private readonly ILogger _logger;
         private readonly IXCommasClient _xCommasClient;
         private readonly IExchange _exchange;
-        private string[] Stablecoins => new[] { "EURS", "EBASE", "GBP", "USDT", "USDC", "DAI", "TUSD", "BUSD", "PAX", "HUSD", "SUSD", "USDK", "MUSD", "GUSD", "SAI", "EOSDT", "USDS", "BITCNY", "TRYB", "RSV", "BGBP", "QC", "USNBT", "BKRW", "THKD" };
+        private string[] Stablecoins => new[] { "AUD", "EURS", "EBASE", "GBP", "USDT", "USDC", "DAI", "TUSD", "BUSD", "PAX", "HUSD", "SUSD", "USDK", "MUSD", "GUSD", "SAI", "EOSDT", "USDS", "BITCNY", "TRYB", "RSV", "BGBP", "QC", "USNBT", "BKRW", "THKD" };
 
         public BotManager(ILogger logger, IXCommasClient xCommasClient, IExchange exchange)
         {
