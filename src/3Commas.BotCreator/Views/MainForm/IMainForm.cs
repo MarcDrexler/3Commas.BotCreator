@@ -34,6 +34,11 @@ namespace _3Commas.BotCreator.Views.MainForm
         bool CheckForExistingBots { get; }
         bool CheckForBlacklistedPairs { get; }
         bool CheckForBaseStablecoins { get; }
+        bool StopLossEnabled { get; }
+        decimal StopLossPercentage { get; }
+        string StopLossType { get; }
+        bool StopLossTimeoutEnabled { get; }
+        int StopLossTimeoutInSeconds { get; }
         void SetNamePreview(string name);
         void BindAccountsAndSetSelection(List<Account> accounts, Account account);
         void ClearLog();

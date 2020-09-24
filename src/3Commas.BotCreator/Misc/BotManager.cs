@@ -181,6 +181,12 @@ namespace _3Commas.BotCreator.Misc
             // Signals
             bot.Strategies = request.DealStartConditions;
 
+            // Stop Loss
+            bot.StopLossPercentage = request.StopLossPercentage;
+            bot.StopLossType = request.StopLossType;
+            bot.StopLossTimeoutEnabled = request.StopLossTimeoutEnabled;
+            bot.StopLossTimeoutInSeconds = request.StopLossTimeoutInSeconds;
+
             // TP
             bot.TakeProfitType = TakeProfitType.Total;
             bot.TakeProfit = request.TakeProfitPercentage;

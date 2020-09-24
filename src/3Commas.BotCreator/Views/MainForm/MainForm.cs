@@ -16,6 +16,10 @@ namespace _3Commas.BotCreator.Views.MainForm
         {
             InitializeComponent();
             _presenter = new MainFormPresenter(this, new TextBoxLogger(txtOutput), new MessageBoxService());
+
+            panelStopLoss.DataBindings.Add(nameof(Panel.Enabled), chkStopLossEnabled, nameof(CheckBox.Checked));
+            lblStopLossTimeoutUnit.DataBindings.Add(nameof(Label.Enabled), chkStopLossTimeoutEnabled, nameof(CheckBox.Checked));
+            numStopLossTimeout.DataBindings.Add(nameof(Label.Enabled), chkStopLossTimeoutEnabled, nameof(CheckBox.Checked));
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -27,7 +31,7 @@ namespace _3Commas.BotCreator.Views.MainForm
         {
             await _presenter.OnCreate();
         }
-        
+
         private void btnClear_Click(object sender, EventArgs e)
         {
             _presenter.OnClearClick();
@@ -95,6 +99,7 @@ namespace _3Commas.BotCreator.Views.MainForm
         {
             ControlHelper.AddValuesToCombobox(cmbStrategy, Strategy.Long);
             ControlHelper.AddValuesToCombobox<StartOrderType>(cmbStartOrderType);
+            ControlHelper.AddValuesToCombobox<StopLossType>(cmbStopLossType);
         }
 
         public string QuoteCurrency => txtQuoteCurrency.Text;
@@ -108,7 +113,7 @@ namespace _3Commas.BotCreator.Views.MainForm
         public string StartOrderType => cmbStartOrderType.SelectedItem?.ToString();
         public int StartConditionsCount => listViewStartConditions.Items.Count;
         public int NumberOfBotsToCreate => (int)numAmount.Value;
-        public int CooldownBetweenDeals => (int) numCooldownBetweenDeals.Value;
+        public int CooldownBetweenDeals => (int)numCooldownBetweenDeals.Value;
         public bool EnableBots => chkEnable.Checked;
         public decimal SafetyOrderVolume => numSafetyOrderVolume.Value;
         public decimal BaseOrderVolume => numBaseOrderVolume.Value;
@@ -118,12 +123,17 @@ namespace _3Commas.BotCreator.Views.MainForm
         public decimal SafetyOrderStepScale => numSafetyOrderStepScale.Value;
         public decimal SafetyOrderVolumeScale => numSafetyOrderVolumeScale.Value;
         public decimal PriceDeviationToOpenSafetyOrders => numPriceDeviationToOpenSafetyOrders.Value;
-        public int MaxActiveSafetyTradesCount => (int) numMaxActiveSafetyTradesCount.Value;
-        public int MaxSafetyTradesCount => (int) numMaxSafetyTradesCount.Value;
+        public int MaxActiveSafetyTradesCount => (int)numMaxActiveSafetyTradesCount.Value;
+        public int MaxSafetyTradesCount => (int)numMaxSafetyTradesCount.Value;
         public bool IsBuyEnabled => chkBuyBase.Checked;
         public decimal AmountToBuy => numAmountToBuy.Value;
         public bool CheckForExistingBots => chkCheckForExistingBots.Checked;
         public bool CheckForBaseStablecoins => chkCheckForBaseStablecoin.Checked;
+        public bool StopLossEnabled => chkStopLossEnabled.Checked;
+        public decimal StopLossPercentage => numStopLossPercentage.Value;
+        public string StopLossType => cmbStopLossType.SelectedItem?.ToString();
+        public bool StopLossTimeoutEnabled => chkStopLossTimeoutEnabled.Checked;
+        public int StopLossTimeoutInSeconds => (int)numStopLossTimeout.Value;
         public bool CheckForBlacklistedPairs => chkSkipBlacklistedPairs.Checked;
 
         public void SetNamePreview(string name)

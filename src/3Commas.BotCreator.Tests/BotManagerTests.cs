@@ -239,6 +239,6 @@ namespace _3Commas.BotCreator.Tests
             return exchange;
         }
 
-        private CreateBotRequest GetDefaultRequest() => new CreateBotRequest(false, false, false, 5, "USDT", Strategy.Long, StartOrderType.Limit, 5, 1, 1, 1, 1, (decimal)1.5, false, 0, "{strategy} {pair} Bot", 10, 11, false, new List<BotStrategy>(), 0, 1000);
+        private CreateBotRequest GetDefaultRequest() => new CreateBotRequest(0, StopLossType.StopLoss, false, 0, false, false, false, 5, "USDT", Strategy.Long, StartOrderType.Limit, 5, 1, 1, 1, 1, (decimal)1.5, false, 0, "{strategy} {pair} Bot", 10, 11, false, new List<BotStrategy>(), 0, 1000);
     }
 }

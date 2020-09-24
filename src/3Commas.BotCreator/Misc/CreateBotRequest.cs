@@ -28,9 +28,17 @@ namespace _3Commas.BotCreator.Misc
         public decimal? AmountToBuyInQuoteCurrency { get; set; }
         public bool CheckForBlacklistedPairs { get; set; }
         public bool CheckForBaseStablecoin { get; set; }
+        public decimal StopLossPercentage { get; set; }
+        public StopLossType StopLossType { get; set; }
+        public bool StopLossTimeoutEnabled { get; set; }
+        public int StopLossTimeoutInSeconds { get; set; }
 
-        public CreateBotRequest(bool checkForExistingBots, bool checkForBlacklistedPairs, bool checkForBaseStablecoin, int numberOfNewBots, string quoteCurrency, Strategy strategy, StartOrderType startOrderType, int maxSafetyOrders, int activeSafetyOrdersCount, decimal safetyOrderStepPercentage, decimal martingaleVolumeCoefficient, decimal martingaleStepCoefficient, decimal takeProfitPercentage, bool trailingEnabled, decimal trailingDeviation, string nameFormula, decimal baseOrderVolume, decimal safetyOrderVolume, bool enable, List<BotStrategy> dealStartConditions, int cooldownBetweenDeals, int accountId, decimal? amountToBuyInQuoteCurrency = null)
+        public CreateBotRequest(decimal stopLossPercentage, StopLossType stopLossType, bool stopLossTimeoutEnabled, int stopLossTimeoutInSeconds, bool checkForExistingBots, bool checkForBlacklistedPairs, bool checkForBaseStablecoin, int numberOfNewBots, string quoteCurrency, Strategy strategy, StartOrderType startOrderType, int maxSafetyOrders, int activeSafetyOrdersCount, decimal safetyOrderStepPercentage, decimal martingaleVolumeCoefficient, decimal martingaleStepCoefficient, decimal takeProfitPercentage, bool trailingEnabled, decimal trailingDeviation, string nameFormula, decimal baseOrderVolume, decimal safetyOrderVolume, bool enable, List<BotStrategy> dealStartConditions, int cooldownBetweenDeals, int accountId, decimal? amountToBuyInQuoteCurrency = null)
         {
+            StopLossPercentage = stopLossPercentage;
+            StopLossType = stopLossType;
+            StopLossTimeoutEnabled = stopLossTimeoutEnabled;
+            StopLossTimeoutInSeconds = stopLossTimeoutInSeconds;
             CheckForExistingBots = checkForExistingBots;
             NumberOfNewBots = numberOfNewBots;
             QuoteCurrency = quoteCurrency;

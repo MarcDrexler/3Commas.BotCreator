@@ -148,12 +148,29 @@ namespace _3Commas.BotCreator.Views.MainForm
             if (View.StartConditionsCount == 0) errors.Add("Deal Start Condition missing");
             if (View.SelectedStrategy == null || !Enum.TryParse(View.SelectedStrategy, out Strategy _)) errors.Add("Strategy not selected");
             if (View.StartOrderType == null || !Enum.TryParse(View.StartOrderType, out StartOrderType _)) errors.Add("Start Order Type not selected");
+            if (View.StopLossEnabled)
+            {
+                if (View.StopLossType == null || !Enum.TryParse(View.StopLossType, out StopLossType _)) errors.Add("Stop Loss Type not selected");
+
+                var maxDeviation = CalculateMaxSoDeviation();
+                if (View.StopLossPercentage <= maxDeviation)
+                {
+                    errors.Add($"Stop Loss should be below the last safety order ({maxDeviation})");
+                }
+            }
+
             if (errors.Any())
             {
                 _mbs.ShowError(String.Join(Environment.NewLine, errors), "Validation Error");
             }
 
             return !errors.Any();
+        }
+
+        private decimal CalculateMaxSoDeviation()
+        {
+            // todo
+            return 0;
         }
 
         public void OnClearClick()
@@ -222,9 +239,21 @@ namespace _3Commas.BotCreator.Views.MainForm
                         amountToBuy = View.AmountToBuy;
                     }
 
+                    decimal stopLossPercentage = 0;
+                    StopLossType stopLossType = StopLossType.StopLoss;
+                    bool stopLossTimeoutEnabled = false;
+                    int stopLossTimeoutInSeconds = 0;
+                    if (View.StopLossEnabled)
+                    {
+                        stopLossPercentage = View.StopLossPercentage;
+                        stopLossType = (StopLossType)Enum.Parse(typeof(StopLossType), View.StopLossType);
+                        stopLossTimeoutEnabled = View.StopLossTimeoutEnabled;
+                        stopLossTimeoutInSeconds = View.StopLossTimeoutInSeconds;
+                    }
+
                     try
                     {
-                        await botMgr.CreateBots(new CreateBotRequest(View.CheckForExistingBots, View.CheckForBlacklistedPairs, View.CheckForBaseStablecoins, View.NumberOfBotsToCreate, View.QuoteCurrency, strategy, startOrderType, View.MaxSafetyTradesCount, View.MaxActiveSafetyTradesCount, View.PriceDeviationToOpenSafetyOrders, View.SafetyOrderVolumeScale, View.SafetyOrderStepScale, View.TargetProfitPercentage, View.IsTrailingEnabled, View.TrailingDeviation, View.Botname, View.BaseOrderVolume, View.SafetyOrderVolume, View.EnableBots, _startConditions, View.CooldownBetweenDeals, View.Account.Id, amountToBuy));
+                        await botMgr.CreateBots(new CreateBotRequest(stopLossPercentage, stopLossType, stopLossTimeoutEnabled, stopLossTimeoutInSeconds, View.CheckForExistingBots, View.CheckForBlacklistedPairs, View.CheckForBaseStablecoins, View.NumberOfBotsToCreate, View.QuoteCurrency, strategy, startOrderType, View.MaxSafetyTradesCount, View.MaxActiveSafetyTradesCount, View.PriceDeviationToOpenSafetyOrders, View.SafetyOrderVolumeScale, View.SafetyOrderStepScale, View.TargetProfitPercentage, View.IsTrailingEnabled, View.TrailingDeviation, View.Botname, View.BaseOrderVolume, View.SafetyOrderVolume, View.EnableBots, _startConditions, View.CooldownBetweenDeals, View.Account.Id, amountToBuy));
                         _mbs.ShowInformation("Bot creation finished! See output section for details.");
                     }
                     catch (Exception exception)
