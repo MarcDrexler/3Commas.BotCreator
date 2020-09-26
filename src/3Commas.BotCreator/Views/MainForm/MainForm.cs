@@ -100,6 +100,7 @@ namespace _3Commas.BotCreator.Views.MainForm
             ControlHelper.AddValuesToCombobox(cmbStrategy, Strategy.Long);
             ControlHelper.AddValuesToCombobox<StartOrderType>(cmbStartOrderType);
             ControlHelper.AddValuesToCombobox<StopLossType>(cmbStopLossType);
+            ControlHelper.AddValuesToCombobox<LeverageType>(cmbLeverageType);
         }
 
         public string QuoteCurrency => txtQuoteCurrency.Text;
@@ -132,8 +133,10 @@ namespace _3Commas.BotCreator.Views.MainForm
         public bool StopLossEnabled => chkStopLossEnabled.Checked;
         public decimal StopLossPercentage => numStopLossPercentage.Value;
         public string StopLossType => cmbStopLossType.SelectedItem?.ToString();
+        public string LeverageType => cmbLeverageType.SelectedItem?.ToString();
         public bool StopLossTimeoutEnabled => chkStopLossTimeoutEnabled.Checked;
         public int StopLossTimeoutInSeconds => (int)numStopLossTimeout.Value;
+        public int CustomLeverageValue => (int)numCustomLeverageValue.Value;
         public bool CheckForBlacklistedPairs => chkSkipBlacklistedPairs.Checked;
 
         public void SetNamePreview(string name)
@@ -181,6 +184,11 @@ namespace _3Commas.BotCreator.Views.MainForm
             {
                 listViewStartConditions.Items.Add(new ListViewItem() { Tag = startCondition, Text = startCondition.Name, Name = startCondition.GetHashCode().ToString() });
             }
+        }
+
+        private void label27_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

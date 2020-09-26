@@ -232,6 +232,7 @@ namespace _3Commas.BotCreator.Views.MainForm
 
                     Enum.TryParse(View.SelectedStrategy, out Strategy strategy);
                     Enum.TryParse(View.StartOrderType, out StartOrderType startOrderType);
+                    Enum.TryParse(View.LeverageType, out LeverageType leverageType);
                     
                     decimal amountToBuy = 0;
                     if (View.IsBuyEnabled)
@@ -253,7 +254,7 @@ namespace _3Commas.BotCreator.Views.MainForm
 
                     try
                     {
-                        await botMgr.CreateBots(new CreateBotRequest(stopLossPercentage, stopLossType, stopLossTimeoutEnabled, stopLossTimeoutInSeconds, View.CheckForExistingBots, View.CheckForBlacklistedPairs, View.CheckForBaseStablecoins, View.NumberOfBotsToCreate, View.QuoteCurrency, strategy, startOrderType, View.MaxSafetyTradesCount, View.MaxActiveSafetyTradesCount, View.PriceDeviationToOpenSafetyOrders, View.SafetyOrderVolumeScale, View.SafetyOrderStepScale, View.TargetProfitPercentage, View.IsTrailingEnabled, View.TrailingDeviation, View.Botname, View.BaseOrderVolume, View.SafetyOrderVolume, View.EnableBots, _startConditions, View.CooldownBetweenDeals, View.Account.Id, amountToBuy));
+                        await botMgr.CreateBots(new CreateBotRequest(leverageType, View.CustomLeverageValue, stopLossPercentage, stopLossType, stopLossTimeoutEnabled, stopLossTimeoutInSeconds, View.CheckForExistingBots, View.CheckForBlacklistedPairs, View.CheckForBaseStablecoins, View.NumberOfBotsToCreate, View.QuoteCurrency, strategy, startOrderType, View.MaxSafetyTradesCount, View.MaxActiveSafetyTradesCount, View.PriceDeviationToOpenSafetyOrders, View.SafetyOrderVolumeScale, View.SafetyOrderStepScale, View.TargetProfitPercentage, View.IsTrailingEnabled, View.TrailingDeviation, View.Botname, View.BaseOrderVolume, View.SafetyOrderVolume, View.EnableBots, _startConditions, View.CooldownBetweenDeals, View.Account.Id, amountToBuy));
                         _mbs.ShowInformation("Bot creation finished! See output section for details.");
                     }
                     catch (Exception exception)

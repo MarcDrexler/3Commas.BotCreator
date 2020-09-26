@@ -39,6 +39,8 @@ namespace _3Commas.BotCreator.Views.MainForm
         string StopLossType { get; }
         bool StopLossTimeoutEnabled { get; }
         int StopLossTimeoutInSeconds { get; }
+        string LeverageType { get; }
+        int CustomLeverageValue { get; }
         void SetNamePreview(string name);
         void BindAccountsAndSetSelection(List<Account> accounts, Account account);
         void ClearLog();

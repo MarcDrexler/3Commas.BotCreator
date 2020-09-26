@@ -178,6 +178,13 @@ namespace _3Commas.BotCreator.Misc
             bot.SafetyOrderVolumeType = VolumeType.QuoteCurrency;
             bot.StartOrderType = request.StartOrderType;
 
+            // Leverage
+            bot.LeverageType = request.LeverageType;
+            if (request.LeverageType != LeverageType.NotSpecified)
+            {
+                bot.LeverageCustomValue = request.CustomLeverageValue;
+            }
+
             // Signals
             bot.Strategies = request.DealStartConditions;
 

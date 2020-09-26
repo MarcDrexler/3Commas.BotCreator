@@ -110,6 +110,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.chkBuyBase = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
+            this.cmbLeverageType = new System.Windows.Forms.ComboBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.numCustomLeverageValue = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numBaseOrderVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSafetyOrderVolume)).BeginInit();
@@ -128,6 +132,7 @@
             this.panelStopLoss.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numStopLossPercentage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStopLossTimeout)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomLeverageValue)).BeginInit();
             this.SuspendLayout();
             // 
             // numAmount
@@ -277,7 +282,7 @@
             // 
             this.lblBuyTitle.AutoSize = true;
             this.lblBuyTitle.Enabled = false;
-            this.lblBuyTitle.Location = new System.Drawing.Point(52, 776);
+            this.lblBuyTitle.Location = new System.Drawing.Point(52, 829);
             this.lblBuyTitle.Name = "lblBuyTitle";
             this.lblBuyTitle.Size = new System.Drawing.Size(166, 13);
             this.lblBuyTitle.TabIndex = 13;
@@ -287,7 +292,7 @@
             // 
             this.numAmountToBuy.DecimalPlaces = 6;
             this.numAmountToBuy.Enabled = false;
-            this.numAmountToBuy.Location = new System.Drawing.Point(223, 773);
+            this.numAmountToBuy.Location = new System.Drawing.Point(223, 826);
             this.numAmountToBuy.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -564,7 +569,7 @@
             // 
             this.lblQuoteCurrency.AutoSize = true;
             this.lblQuoteCurrency.Enabled = false;
-            this.lblQuoteCurrency.Location = new System.Drawing.Point(351, 776);
+            this.lblQuoteCurrency.Location = new System.Drawing.Point(351, 829);
             this.lblQuoteCurrency.Name = "lblQuoteCurrency";
             this.lblQuoteCurrency.Size = new System.Drawing.Size(37, 13);
             this.lblQuoteCurrency.TabIndex = 41;
@@ -826,7 +831,7 @@
             // btnCreate
             // 
             this.btnCreate.Image = global::_3Commas.BotCreator.Properties.Resources.Play_16x16;
-            this.btnCreate.Location = new System.Drawing.Point(223, 802);
+            this.btnCreate.Location = new System.Drawing.Point(223, 855);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(121, 23);
             this.btnCreate.TabIndex = 22;
@@ -841,6 +846,10 @@
             this.panelBotSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panelBotSettings.AutoScroll = true;
+            this.panelBotSettings.Controls.Add(this.label31);
+            this.panelBotSettings.Controls.Add(this.numCustomLeverageValue);
+            this.panelBotSettings.Controls.Add(this.cmbLeverageType);
+            this.panelBotSettings.Controls.Add(this.label27);
             this.panelBotSettings.Controls.Add(this.panelStopLoss);
             this.panelBotSettings.Controls.Add(this.chkStopLossEnabled);
             this.panelBotSettings.Controls.Add(this.label30);
@@ -1101,7 +1110,7 @@
             // chkBuyBase
             // 
             this.chkBuyBase.AutoSize = true;
-            this.chkBuyBase.Location = new System.Drawing.Point(223, 753);
+            this.chkBuyBase.Location = new System.Drawing.Point(223, 806);
             this.chkBuyBase.Name = "chkBuyBase";
             this.chkBuyBase.Size = new System.Drawing.Size(15, 14);
             this.chkBuyBase.TabIndex = 20;
@@ -1111,11 +1120,60 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(123, 752);
+            this.label23.Location = new System.Drawing.Point(123, 805);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(96, 13);
             this.label23.TabIndex = 62;
             this.label23.Text = "Buy Base currency";
+            // 
+            // cmbLeverageType
+            // 
+            this.cmbLeverageType.FormattingEnabled = true;
+            this.cmbLeverageType.Location = new System.Drawing.Point(223, 751);
+            this.cmbLeverageType.Name = "cmbLeverageType";
+            this.cmbLeverageType.Size = new System.Drawing.Size(121, 21);
+            this.cmbLeverageType.TabIndex = 199;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(139, 755);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(79, 13);
+            this.label27.TabIndex = 200;
+            this.label27.Text = "Leverage Type";
+            this.label27.Click += new System.EventHandler(this.label27_Click);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(97, 780);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(120, 13);
+            this.label31.TabIndex = 202;
+            this.label31.Text = "Custom Leverage Value";
+            // 
+            // numCustomLeverageValue
+            // 
+            this.numCustomLeverageValue.Location = new System.Drawing.Point(223, 778);
+            this.numCustomLeverageValue.Maximum = new decimal(new int[] {
+            125,
+            0,
+            0,
+            0});
+            this.numCustomLeverageValue.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numCustomLeverageValue.Name = "numCustomLeverageValue";
+            this.numCustomLeverageValue.Size = new System.Drawing.Size(51, 20);
+            this.numCustomLeverageValue.TabIndex = 201;
+            this.numCustomLeverageValue.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // MainForm
             // 
@@ -1154,6 +1212,7 @@
             this.panelStopLoss.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numStopLossPercentage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStopLossTimeout)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomLeverageValue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1242,6 +1301,10 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.CheckBox chkStopLossTimeoutEnabled;
         private System.Windows.Forms.Panel panelStopLoss;
+        private System.Windows.Forms.ComboBox cmbLeverageType;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.NumericUpDown numCustomLeverageValue;
     }
 }
 
