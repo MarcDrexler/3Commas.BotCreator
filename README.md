@@ -31,7 +31,7 @@ Also if you think something is broken or have any questions, please open an [Iss
 - Skip bot creation for existing pair + strategy
     - This way you can create 10 Bots, and another day the next 10 Bots without having to worry about duplicates.
 - Specify your own name schema. There are existing placeholders for Strategy and Pair.
-- Signals currently available: Manual, Nonstop, TradingView, RSI, ULT, TA Presets
+- Signals currently available: Manual, Nonstop, TradingView, RSI, ULT, TA Presets, Custom
 - Buys tokens for your new Short bots via market buy order (Binance & Huobi only)
 
 ### Excluded Pairs

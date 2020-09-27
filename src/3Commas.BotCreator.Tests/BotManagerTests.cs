@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using _3Commas.BotCreator.ExchangeImplementations;
-using _3Commas.BotCreator.ExchangeImplementations.Entities;
+using _3Commas.BotCreator._3CommasLayer;
+using _3Commas.BotCreator.ExchangeLayer;
+using _3Commas.BotCreator.ExchangeLayer.Entities;
 using _3Commas.BotCreator.Misc;
+using _3Commas.BotCreator.Views.MainForm;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -25,7 +27,7 @@ namespace _3Commas.BotCreator.Tests
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
             
             // Act
-            await target.CreateBots(request);
+            await target.CreateBots(5, false, request);
 
             // Assert
             xCommasClient.Verify(x => x.CreateBotAsync(It.IsAny<int>(), request.Strategy, It.IsAny<BotData>()), Times.Exactly(5));
@@ -38,12 +40,11 @@ namespace _3Commas.BotCreator.Tests
             var exchange = BuildExchangeWith5Pairs();
             var xCommasClient = BuildXCommasClientWith1ExistingAnd1Blacklisted();
             var request = GetDefaultRequest();
-            request.NumberOfNewBots = 10;
 
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
 
             // Act
-            await target.CreateBots(request);
+            await target.CreateBots(10, false, request);
 
             // Assert
             xCommasClient.Verify(x => x.CreateBotAsync(It.IsAny<int>(), request.Strategy, It.IsAny<BotData>()), Times.Exactly(5));
@@ -60,7 +61,7 @@ namespace _3Commas.BotCreator.Tests
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
             
             // Act
-            await target.CreateBots(request);
+            await target.CreateBots(5, false, request);
 
             // Assert
             xCommasClient.Verify(x => x.EnableBotAsync(It.IsAny<int>()), Times.Never);
@@ -73,12 +74,11 @@ namespace _3Commas.BotCreator.Tests
             var exchange = BuildExchangeWith5Pairs();
             var xCommasClient = BuildXCommasClientWith1ExistingAnd1Blacklisted();
             var request = GetDefaultRequest();
-            request.Enable = true;
 
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
             
             // Act
-            await target.CreateBots(request);
+            await target.CreateBots(5, true, request);
 
             // Assert
             xCommasClient.Verify(x => x.EnableBotAsync(It.IsAny<int>()), Times.Exactly(5));
@@ -91,12 +91,12 @@ namespace _3Commas.BotCreator.Tests
             var exchange = BuildExchangeWith5Pairs();
             var xCommasClient = BuildXCommasClientWith1ExistingAnd1Blacklisted();
             var request = GetDefaultRequest();
-            request.CheckForExistingBots = true;
+            request.SkipExistingPairs = true;
 
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
             
             // Act
-            await target.CreateBots(request);
+            await target.CreateBots(5, false, request);
 
             // Assert
             xCommasClient.Verify(x => x.CreateBotAsync(It.IsAny<int>(), request.Strategy, It.IsAny<BotData>()), Times.Exactly(4));
@@ -109,12 +109,12 @@ namespace _3Commas.BotCreator.Tests
             var exchange = BuildExchangeWith5Pairs();
             var xCommasClient = BuildXCommasClientWith1ExistingAnd1Blacklisted();
             var request = GetDefaultRequest();
-            request.CheckForBlacklistedPairs = true;
+            request.SkipBlacklistedPairs = true;
 
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
 
             // Act
-            await target.CreateBots(request);
+            await target.CreateBots(5, false, request);
 
             // Assert
             xCommasClient.Verify(x => x.CreateBotAsync(It.IsAny<int>(), request.Strategy, It.IsAny<BotData>()), Times.Exactly(4));
@@ -127,12 +127,12 @@ namespace _3Commas.BotCreator.Tests
             var exchange = BuildExchangeWith5Pairs();
             var xCommasClient = BuildXCommasClientWith1ExistingAnd1Blacklisted();
             var request = GetDefaultRequest();
-            request.CheckForBaseStablecoin = true;
+            request.SkipBaseStablecoin = true;
 
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
 
             // Act
-            await target.CreateBots(request);
+            await target.CreateBots(5, false, request);
 
             // Assert
             xCommasClient.Verify(x => x.CreateBotAsync(It.IsAny<int>(), request.Strategy, It.IsAny<BotData>()), Times.Exactly(4));
@@ -145,14 +145,14 @@ namespace _3Commas.BotCreator.Tests
             var exchange = BuildExchangeWith5Pairs();
             var xCommasClient = BuildXCommasClientWith1ExistingAnd1Blacklisted();
             var request = GetDefaultRequest();
-            request.CheckForExistingBots = true;
-            request.CheckForBlacklistedPairs = true;
-            request.CheckForBaseStablecoin = true;
+            request.SkipExistingPairs = true;
+            request.SkipBlacklistedPairs = true;
+            request.SkipBaseStablecoin = true;
 
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
 
             // Act
-            await target.CreateBots(request);
+            await target.CreateBots(5, false, request);
 
             // Assert
             xCommasClient.Verify(x => x.CreateBotAsync(It.IsAny<int>(), request.Strategy, It.IsAny<BotData>()), Times.Exactly(2));
@@ -169,7 +169,7 @@ namespace _3Commas.BotCreator.Tests
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
 
             // Act
-            await target.CreateBots(request);
+            await target.CreateBots(5, false, request);
 
             // Assert
             exchange.Verify(x => x.PlaceOrder(It.IsAny<Pair>(), It.IsAny<decimal>()), Times.Never);
@@ -182,12 +182,13 @@ namespace _3Commas.BotCreator.Tests
             var exchange = BuildExchangeWith5Pairs();
             var xCommasClient = BuildXCommasClientWith1ExistingAnd1Blacklisted();
             var request = GetDefaultRequest();
-            request.AmountToBuyInQuoteCurrency = (decimal?) 123.45;
+            request.BuyBaseCurrency = true;
+            request.BaseCurrencyToBuy = (decimal) 123.45;
 
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
 
             // Act
-            await target.CreateBots(request);
+            await target.CreateBots(5, false, request);
 
             // Assert
             exchange.Verify(x => x.PlaceOrder(It.IsAny<Pair>(), (decimal) 123.45), Times.Exactly(5));
@@ -239,6 +240,6 @@ namespace _3Commas.BotCreator.Tests
             return exchange;
         }
 
-        private CreateBotRequest GetDefaultRequest() => new CreateBotRequest(false, false, false, 5, "USDT", Strategy.Long, StartOrderType.Limit, 5, 1, 1, 1, 1, (decimal)1.5, false, 0, "{strategy} {pair} Bot", 10, 11, false, new List<BotStrategy>(), 0, 1000);
+        private BotSettingViewModel GetDefaultRequest() => new BotSettingViewModel(LeverageType.NotSpecified, 0, (decimal)0, StopLossType.StopLoss, false, 0, false, false, false, "USDT", Strategy.Long, StartOrderType.Limit, 5, 1, 1, 1, 1, (decimal)1.5, false, 0, "{strategy} {pair} Bot", 10, 11, new List<BotStrategy>(), 0, 1000, 0);
     }
 }

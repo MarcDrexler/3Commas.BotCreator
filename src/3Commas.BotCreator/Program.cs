@@ -1,7 +1,16 @@
 ﻿using System;
 using System.Configuration;
 using System.Windows.Forms;
+using _3Commas.BotCreator.Infrastructure;
+using _3Commas.BotCreator.Services.BotSettingService;
+using _3Commas.BotCreator.Services.MessageBoxService;
+using _3Commas.BotCreator.Views.AboutBox;
+using _3Commas.BotCreator.Views.ChooseSignalView;
 using _3Commas.BotCreator.Views.MainForm;
+using _3Commas.BotCreator.Views.SaveTemplateView;
+using _3Commas.BotCreator.Views.SetApiKeyView;
+using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace _3Commas.BotCreator
 {
@@ -18,8 +27,9 @@ namespace _3Commas.BotCreator
 
             try
             {
+                ConfigureServices();
                 EncryptConfigFile();
-                Application.Run(new MainForm());
+                Application.Run((Form) ServiceProvider.GetRequiredService<IMainForm>());
             }
             catch (Exception e)
             {
@@ -29,6 +39,24 @@ namespace _3Commas.BotCreator
                                 "Error Details: " + Environment.NewLine +
                                 e.ToString(), "Sorry!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        internal static IServiceProvider ServiceProvider { get; set; }
+
+        static void ConfigureServices()
+        {
+            var services = new ServiceCollection();
+            services.AddSingleton<IMainForm, MainForm>();
+            services.AddTransient<SaveTemplateView>();
+            services.AddTransient<SetApiKeyView>();
+            services.AddTransient<ChooseSignalView>();
+            services.AddTransient<AboutBox>();
+            services.AddTransient<IBotSettingService, BotSettingService>();
+            services.AddTransient<IMessageBoxService, MessageBoxService>();
+
+            var config = new MapperConfiguration(cfg => cfg.AddMaps(typeof(Program)));
+            services.AddSingleton(config.CreateMapper());
+            ServiceProvider = services.BuildServiceProvider();
         }
 
         private static void EncryptConfigFile()

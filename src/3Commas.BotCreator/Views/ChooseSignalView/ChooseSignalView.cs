@@ -3,13 +3,13 @@ using System.Windows.Forms;
 using _3Commas.BotCreator.Misc;
 using XCommas.Net.Objects;
 
-namespace _3Commas.BotCreator.Views.ChooseSignal
+namespace _3Commas.BotCreator.Views.ChooseSignalView
 {
-    public partial class ChooseSignal : Form
+    public partial class ChooseSignalView : Form
     {
         private BotStrategy _strategy;
 
-        public ChooseSignal()
+        public ChooseSignalView()
         {
             InitializeComponent();
 
@@ -29,6 +29,7 @@ namespace _3Commas.BotCreator.Views.ChooseSignal
             panelUlt.Visible = (sender == radioButtonUlt);
             panelTaPresets.Visible = (sender == radioButtonTaPresets);
             panelTradingView.Visible = (sender == radioButtonTradingView);
+            txtCustom.Visible = (sender == radioButtonCustom);
         }
 
         private void okButton_Click(object sender, EventArgs e)
@@ -42,7 +43,7 @@ namespace _3Commas.BotCreator.Views.ChooseSignal
                 }
 
                 IndicatorTime.TryParse(cmbRsiTime.SelectedItem.ToString(), out IndicatorTime time);
-                _strategy = new RsiBotStrategy() { Options = new RsiOptions(time, (int)numRsiPoints.Value) };
+                _strategy = new RsiBotStrategy { Options = new RsiOptions(time, (int)numRsiPoints.Value) };
             }
 
             if (radioButtonUlt.Checked)
@@ -54,7 +55,7 @@ namespace _3Commas.BotCreator.Views.ChooseSignal
                 }
 
                 IndicatorTime.TryParse(cmbUltTime.SelectedItem.ToString(), out IndicatorTime time);
-                _strategy = new UltBotStrategy() { Options = new UltOptions(time, (int)numUltPoints.Value) };
+                _strategy = new UltBotStrategy { Options = new UltOptions(time, (int)numUltPoints.Value) };
             }
 
             if (radioButtonTradingView.Checked)
@@ -72,7 +73,7 @@ namespace _3Commas.BotCreator.Views.ChooseSignal
 
                 TradingViewTime.TryParse(cmbTradingViewTime.SelectedItem.ToString(), out TradingViewTime time);
                 TradingViewIndicatorType.TryParse(cmbTradingViewType.SelectedItem.ToString(), out TradingViewIndicatorType type);
-                _strategy = new TradingViewBotStrategy() { Options = new TradingViewOptions(type, time) };
+                _strategy = new TradingViewBotStrategy { Options = new TradingViewOptions(type, time) };
             }
 
             if (radioButtonTaPresets.Checked)
@@ -95,6 +96,16 @@ namespace _3Commas.BotCreator.Views.ChooseSignal
 
             if (radioButtonManual.Checked) _strategy = new ManualStrategy();
             if (radioButtonNonstop.Checked) _strategy = new NonStopBotStrategy();
+
+            if (radioButtonCustom.Checked)
+            {
+                if (string.IsNullOrWhiteSpace(txtCustom.Text))
+                {
+                    MessageBox.Show("Name is missing");
+                    return;
+                }
+                _strategy = new UnknownStrategy(txtCustom.Text);
+            }
 
             this.DialogResult = DialogResult.OK;
         }

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.8" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="Moq" Version="4.14.5" />
@@ -16,10 +17,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="XCommas.Net" Version="1.0.18" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\3Commas.Net\XCommas.Net\XCommas.Net\XCommas.Net.csproj" />
     <ProjectReference Include="..\3Commas.BotCreator\3Commas.BotCreator.csproj" />
   </ItemGroup>
 

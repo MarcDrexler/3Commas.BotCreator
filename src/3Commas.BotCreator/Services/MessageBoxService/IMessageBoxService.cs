@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace _3Commas.BotCreator.Infrastructure
+namespace _3Commas.BotCreator.Services.MessageBoxService
 {
     public interface IMessageBoxService
     {

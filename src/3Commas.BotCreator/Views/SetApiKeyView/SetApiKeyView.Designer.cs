@@ -1,6 +1,6 @@
-﻿namespace _3Commas.BotCreator.Views.Settings
+﻿namespace _3Commas.BotCreator.Views.SetApiKeyView
 {
-    partial class Settings
+    partial class SetApiKeyView
     {
         /// <summary>
         /// Required designer variable.
@@ -147,7 +147,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Settings";
+            this.Name = "SetApiKeyView";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

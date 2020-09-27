@@ -1,4 +1,4 @@
-﻿using _3Commas.BotCreator.ExchangeImplementations;
+﻿using _3Commas.BotCreator.ExchangeLayer.Implementations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace _3Commas.BotCreator.Tests

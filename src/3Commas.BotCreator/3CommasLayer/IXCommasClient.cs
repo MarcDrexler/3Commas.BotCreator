@@ -2,7 +2,7 @@
 using XCommas.Net;
 using XCommas.Net.Objects;
 
-namespace _3Commas.BotCreator.Misc
+namespace _3Commas.BotCreator._3CommasLayer
 {
     public interface IXCommasClient
     {
