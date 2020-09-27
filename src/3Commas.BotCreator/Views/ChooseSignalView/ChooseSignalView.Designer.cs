@@ -1,6 +1,6 @@
-﻿namespace _3Commas.BotCreator.Views.ChooseSignal
+﻿namespace _3Commas.BotCreator.Views.ChooseSignalView
 {
-    partial class ChooseSignal
+    partial class ChooseSignalView
     {
         /// <summary>
         /// Required designer variable.

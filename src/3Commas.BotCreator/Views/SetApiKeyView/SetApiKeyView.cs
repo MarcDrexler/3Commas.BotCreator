@@ -2,13 +2,13 @@
 using System.Configuration;
 using System.Windows.Forms;
 
-namespace _3Commas.BotCreator.Views.Settings
+namespace _3Commas.BotCreator.Views.SetApiKeyView
 {
-    public partial class Settings : Form
+    public partial class SetApiKeyView : Form
     {
-        private bool _viewLoaded;
+        private readonly bool _viewLoaded;
 
-        public Settings(bool persistSettings, string title, string permissionsNeeded, string apiKey, string secret)
+        public SetApiKeyView(bool persistSettings, string title, string permissionsNeeded, string apiKey, string secret)
         {
             InitializeComponent();
             chkPersist.Checked = persistSettings;

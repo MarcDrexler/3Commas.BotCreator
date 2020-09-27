@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using _3Commas.BotCreator.ExchangeImplementations;
-using _3Commas.BotCreator.ExchangeImplementations.Entities;
+using _3Commas.BotCreator._3CommasLayer;
+using _3Commas.BotCreator.ExchangeLayer;
+using _3Commas.BotCreator.ExchangeLayer.Entities;
+using _3Commas.BotCreator.Views.MainForm;
 using Microsoft.Extensions.Logging;
 using XCommas.Net.Objects;
 
@@ -61,7 +63,7 @@ namespace _3Commas.BotCreator.Misc
             return pairs;
         }
 
-        public async Task CreateBots(CreateBotRequest request)
+        public async Task CreateBots(int numberOfBots, bool enable, BotSettingViewModel settings)
         {
             var existingBots = await GetAllBots();
             var blacklistedPairs = await RetrieveBlacklistedPairs();
@@ -69,25 +71,26 @@ namespace _3Commas.BotCreator.Misc
             int created = 0;
 
             _logger.LogInformation($"Retrieving pairs from {_exchange.Name}...");
-            var prices = await _exchange.GetAllPairsByQuoteCurrency(request.QuoteCurrency);
-            _logger.LogInformation($"{prices.Count} Pairs for {request.QuoteCurrency.ToUpper()} found");
+            var prices = await _exchange.GetAllPairsByQuoteCurrency(settings.QuoteCurrency);
+            _logger.LogInformation($"{prices.Count} Pairs for {settings.QuoteCurrency.ToUpper()} found");
 
             foreach (var pair in prices.OrderByDescending(x => x.TotalTradedQuoteAssetVolume))
             {
                 var symbol = TransformPairTo3CommasSymbolString(pair.QuoteCurrency, pair.BaseCurrency);
 
-                if (SymbolShouldBeSkipped(symbol, request.CheckForExistingBots, request.CheckForBaseStablecoin, request.Strategy, pair, existingBots, request.CheckForBlacklistedPairs, blacklistedPairs)) continue;
+                if (SymbolShouldBeSkipped(symbol, settings.SkipExistingPairs, settings.SkipBaseStablecoin, settings.Strategy, pair, existingBots, settings.SkipBlacklistedPairs, blacklistedPairs)) continue;
 
-                var botName = NameHelper.GenerateBotName(request.NameFormula, symbol, request.Strategy.ToString());
-                var bot = CreateBot(botName, symbol, request);
-                var response = await _xCommasClient.CreateBotAsync(request.AccountId, request.Strategy, bot);
+                var botName = NameHelper.GenerateBotName(settings.Botname, symbol, settings.Strategy);
+
+                var bot = CreateBot(botName, enable, symbol, settings);
+                var response = await _xCommasClient.CreateBotAsync(settings.ExchangeAccountId.Value, settings.Strategy, bot);
                 if (!response.IsSuccess)
                 {
                     _logger.LogError($"Could not create bot for {symbol}: {response.Error.Replace(Environment.NewLine, " ")}");
                     continue;
                 }
 
-                if (request.Enable)
+                if (enable)
                 {
                     var res = await _xCommasClient.EnableBotAsync(response.Data.Id);
                     if (!res.IsSuccess)
@@ -104,9 +107,9 @@ namespace _3Commas.BotCreator.Misc
                     _logger.LogInformation($"Bot created: '{botName}'");
                 }
 
-                if (request.AmountToBuyInQuoteCurrency.HasValue && request.AmountToBuyInQuoteCurrency.Value > 0)
+                if (settings.BuyBaseCurrency && settings.BaseCurrencyToBuy > 0)
                 {
-                    var placeOrderResult = await _exchange.PlaceOrder(pair, request.AmountToBuyInQuoteCurrency.Value);
+                    var placeOrderResult = await _exchange.PlaceOrder(pair, settings.BaseCurrencyToBuy);
                     if (placeOrderResult.Success)
                     {
                         _logger.LogInformation(placeOrderResult.Message);
@@ -119,7 +122,7 @@ namespace _3Commas.BotCreator.Misc
 
                 created++;
 
-                if (created == request.NumberOfNewBots) break;
+                if (created == numberOfBots) break;
             }
 
             _logger.LogInformation($"{created} bots created");
@@ -156,13 +159,13 @@ namespace _3Commas.BotCreator.Misc
             return false;
         }
 
-        private Bot CreateBot(string botName, string symbol, CreateBotRequest request)
+        private Bot CreateBot(string botName, bool enabled, string symbol, BotSettingViewModel request)
         {
             var bot = new Bot();
 
             // Main Settings
             bot.Name = botName;
-            bot.IsEnabled = request.Enable;
+            bot.IsEnabled = enabled;
             bot.Type = "";
 
             // Pairs
@@ -171,43 +174,55 @@ namespace _3Commas.BotCreator.Misc
 
             // Strategy
             bot.Strategy = request.Strategy;
-            bot.ProfitCurrency = ProfitCurrency.QuoteCurrency;
-            bot.BaseOrderVolume = request.BaseOrderVolume;
-            bot.BaseOrderVolumeType = VolumeType.QuoteCurrency;
-            bot.SafetyOrderVolume = request.SafetyOrderVolume;
-            bot.SafetyOrderVolumeType = VolumeType.QuoteCurrency;
+            bot.ProfitCurrency = request.ProfitCurrency;
+            bot.BaseOrderVolume = request.BaseOrderSize;
+            bot.BaseOrderVolumeType = request.BaseOrderSizeType;
+            bot.SafetyOrderVolume = request.SafetyOrderSize;
+            bot.SafetyOrderVolumeType = request.SafetyOrderSizeType;
             bot.StartOrderType = request.StartOrderType;
 
             // Leverage
             bot.LeverageType = request.LeverageType;
             if (request.LeverageType != LeverageType.NotSpecified)
             {
-                bot.LeverageCustomValue = request.CustomLeverageValue;
+                bot.LeverageCustomValue = request.LeverageCustomValue;
             }
 
             // Signals
             bot.Strategies = request.DealStartConditions;
-
+            
             // Stop Loss
-            bot.StopLossPercentage = request.StopLossPercentage;
-            bot.StopLossType = request.StopLossType;
-            bot.StopLossTimeoutEnabled = request.StopLossTimeoutEnabled;
-            bot.StopLossTimeoutInSeconds = request.StopLossTimeoutInSeconds;
+            decimal stopLossPercentage = 0;
+            StopLossType stopLossType = StopLossType.StopLoss;
+            bool stopLossTimeoutEnabled = false;
+            int stopLossTimeoutInSeconds = 0;
+            if (request.StopLossEnabled)
+            {
+                stopLossPercentage = request.StopLossPercentage;
+                stopLossType = request.StopLossAction;
+                stopLossTimeoutEnabled = request.StopLossTimeoutEnabled;
+                stopLossTimeoutInSeconds = request.StopLossTimeout;
+            }
+
+            bot.StopLossPercentage = stopLossPercentage;
+            bot.StopLossType = stopLossType;
+            bot.StopLossTimeoutEnabled = stopLossTimeoutEnabled;
+            bot.StopLossTimeoutInSeconds = stopLossTimeoutInSeconds;
 
             // TP
             bot.TakeProfitType = TakeProfitType.Total;
-            bot.TakeProfit = request.TakeProfitPercentage;
+            bot.TakeProfit = request.TargetProfit;
 
             // Trailing
             bot.TrailingEnabled = request.TrailingEnabled;
             bot.TrailingDeviation = request.TrailingDeviation;
 
             // Safety orders
-            bot.MaxSafetyOrders = request.MaxSafetyOrders;
-            bot.ActiveSafetyOrdersCount = request.ActiveSafetyOrdersCount;
-            bot.SafetyOrderStepPercentage = request.SafetyOrderStepPercentage;
-            bot.MartingaleVolumeCoefficient = request.MartingaleVolumeCoefficient;
-            bot.MartingaleStepCoefficient = request.MartingaleStepCoefficient;
+            bot.MaxSafetyOrders = request.MaxSafetyTradesCount;
+            bot.ActiveSafetyOrdersCount = request.MaxActiveSafetyTradesCount;
+            bot.SafetyOrderStepPercentage = request.PriceDeviationToOpenSafetyOrders;
+            bot.MartingaleVolumeCoefficient = request.SafetyOrderVolumeScale;
+            bot.MartingaleStepCoefficient = request.SafetyOrderStepScale;
 
             // Advanced
             bot.Cooldown = request.CooldownBetweenDeals;

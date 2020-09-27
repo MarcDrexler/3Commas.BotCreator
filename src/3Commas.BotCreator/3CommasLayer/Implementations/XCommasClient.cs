@@ -1,18 +1,15 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using XCommas.Net;
 using XCommas.Net.Objects;
 
-namespace _3Commas.BotCreator.Misc
+namespace _3Commas.BotCreator._3CommasLayer.Implementations
 {
     public class XCommasClient : IXCommasClient
     {
-        private readonly ILogger _logger;
         private readonly XCommasApi _3CommasClient;
 
-        public XCommasClient(Keys settings, ILogger logger)
+        public XCommasClient(Keys settings)
         {
-            _logger = logger;
             _3CommasClient = new XCommasApi(settings.ApiKey3Commas, settings.Secret3Commas);
         }
 

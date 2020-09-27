@@ -1,4 +1,4 @@
-﻿namespace _3Commas.BotCreator.ExchangeImplementations.Entities
+﻿namespace _3Commas.BotCreator.ExchangeLayer.Entities
 {
     public class Pair
     {

@@ -26,11 +26,11 @@
     <InstallUrl>https://marcdrexler.blob.core.windows.net/botcreator/</InstallUrl>
     <ProductName>Bot Creator</ProductName>
     <PublisherName>Marc</PublisherName>
-    <MinimumRequiredVersion>1.0.0.29</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.31</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>30</ApplicationRevision>
+    <ApplicationRevision>31</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -72,14 +72,26 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Binance.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Binance.Net.5.1.14\lib\netstandard2.0\Binance.Net.dll</HintPath>
+      <HintPath>..\packages\Binance.Net.6.0.2\lib\netstandard2.0\Binance.Net.dll</HintPath>
     </Reference>
     <Reference Include="CryptoExchange.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CryptoExchange.Net.3.0.14\lib\netstandard2.0\CryptoExchange.Net.dll</HintPath>
     </Reference>
     <Reference Include="Huobi.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Huobi.Net.2.0.13\lib\netstandard2.0\Huobi.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=3.1.8.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.3.1.8\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=3.1.8.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.3.1.8\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=3.1.8.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.3.1.8\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
@@ -129,6 +141,9 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Extensions, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.Extensions.4.3.1\lib\net462\System.Runtime.Extensions.dll</HintPath>
       <Private>True</Private>
@@ -165,6 +180,9 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -184,12 +202,12 @@
     <Compile Include="ExchangeLayer\Entities\PlaceOrderResult.cs" />
     <Compile Include="ExchangeLayer\Implementations\Huobi.cs" />
     <Compile Include="ExchangeLayer\IExchange.cs" />
-    <Compile Include="Infrastructure\IMessageBoxService.cs" />
-    <Compile Include="Infrastructure\MessageBoxService.cs" />
+    <Compile Include="Services\MessageBoxService\IMessageBoxService.cs" />
+    <Compile Include="Services\MessageBoxService\MessageBoxService.cs" />
     <Compile Include="Keys.cs" />
+    <Compile Include="MappingProfiles\BotSettingsProfile.cs" />
     <Compile Include="Misc\BotManager.cs" />
     <Compile Include="3CommasLayer\IXCommasClient.cs" />
-    <Compile Include="Misc\CreateBotRequest.cs" />
     <Compile Include="Misc\NameHelper.cs" />
     <Compile Include="3CommasLayer\Implementations\XCommasClient.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -197,19 +215,29 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\BotSettingService\BotSettings.cs" />
+    <Compile Include="Services\BotSettingService\BotSettingService.cs" />
     <Compile Include="Views\AboutBox\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\AboutBox\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ChooseSignal\ChooseSignal.cs">
+    <Compile Include="Views\ChooseSignalView\ChooseSignalView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ChooseSignal\ChooseSignal.Designer.cs">
-      <DependentUpon>ChooseSignal.cs</DependentUpon>
+    <Compile Include="Views\ChooseSignalView\ChooseSignalView.Designer.cs">
+      <DependentUpon>ChooseSignalView.cs</DependentUpon>
     </Compile>
     <Compile Include="Misc\ControlHelper.cs" />
+    <Compile Include="Views\MainForm\BotSettingViewModel.cs" />
+    <Compile Include="Services\BotSettingService\IBotSettingService.cs" />
+    <Compile Include="Views\SaveTemplateView\SaveTemplateView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SaveTemplateView\SaveTemplateView.Designer.cs">
+      <DependentUpon>SaveTemplateView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainForm\IMainForm.cs" />
     <Compile Include="Infrastructure\IViewBase.cs" />
     <Compile Include="Views\MainForm\MainForm.cs">
@@ -222,18 +250,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\MainForm\MainFormPresenter.cs" />
     <Compile Include="Infrastructure\Presenter.cs" />
-    <Compile Include="Views\Settings\Settings.cs">
+    <Compile Include="Views\SetApiKeyView\SetApiKeyView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Settings\Settings.Designer.cs">
-      <DependentUpon>Settings.cs</DependentUpon>
+    <Compile Include="Views\SetApiKeyView\SetApiKeyView.Designer.cs">
+      <DependentUpon>SetApiKeyView.cs</DependentUpon>
     </Compile>
     <Compile Include="Misc\TextBoxLogger.cs" />
     <EmbeddedResource Include="Views\AboutBox\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ChooseSignal\ChooseSignal.resx">
-      <DependentUpon>ChooseSignal.cs</DependentUpon>
+    <EmbeddedResource Include="Views\ChooseSignalView\ChooseSignalView.resx">
+      <DependentUpon>ChooseSignalView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SaveTemplateView\SaveTemplateView.resx">
+      <DependentUpon>SaveTemplateView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainForm\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -243,11 +274,12 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Settings\Settings.resx">
-      <DependentUpon>Settings.cs</DependentUpon>
+    <EmbeddedResource Include="Views\SetApiKeyView\SetApiKeyView.resx">
+      <DependentUpon>SetApiKeyView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="3Commas.Clients.Winforms_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\_3Commas.BotCreator.Views.MainForm.BotSettings.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -293,13 +325,15 @@
     <None Include="Resources\Huobi.png" />
     <None Include="Resources\Binance.png" />
     <None Include="Resources\3Commas.png" />
+    <None Include="Resources\Save_16x16.png" />
     <Content Include="robot.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\3Commas.Net\XCommas.Net\XCommas.Net\XCommas.Net.csproj">
-      <Project>{B72DAFD2-D0C0-4749-84D6-4418B1E8476A}</Project>
+      <Project>{b72dafd2-d0c0-4749-84d6-4418b1e8476a}</Project>
       <Name>XCommas.Net</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

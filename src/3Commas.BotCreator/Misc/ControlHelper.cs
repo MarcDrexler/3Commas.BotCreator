@@ -13,10 +13,7 @@ namespace _3Commas.BotCreator.Misc
 
         public static void AddValuesToCombobox<TEnum>(ComboBox comboBox)
         {
-            foreach (TEnum time in (TEnum[])Enum.GetValues(typeof(TEnum)))
-            {
-                comboBox.Items.Add(time.ToString());
-            }
+            comboBox.DataSource = (TEnum[])Enum.GetValues(typeof(TEnum));
         }
     }
 }

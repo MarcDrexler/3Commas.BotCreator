@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using _3Commas.BotCreator.ExchangeImplementations.Entities;
+using _3Commas.BotCreator.ExchangeLayer.Entities;
 
-namespace _3Commas.BotCreator.ExchangeImplementations
+namespace _3Commas.BotCreator.ExchangeLayer
 {
     public interface IExchange
     {
