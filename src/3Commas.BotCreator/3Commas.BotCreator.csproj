@@ -26,7 +26,7 @@
     <InstallUrl>https://marcdrexler.blob.core.windows.net/botcreator/</InstallUrl>
     <ProductName>Bot Creator</ProductName>
     <PublisherName>Marc</PublisherName>
-    <MinimumRequiredVersion>1.0.0.30</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.31</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
