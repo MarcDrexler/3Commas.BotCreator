@@ -34,6 +34,7 @@ Also if you think something is broken or have any questions, please open an [Iss
 - Templates
 - Signals currently available: Manual, Nonstop, TradingView, RSI, ULT, TA Presets, Custom
 - Buys tokens for your new Short bots via market buy order (Binance & Huobi only)
+- Click the Preview button to see what happens when you hit the Create button :)
 
 ### Excluded Pairs
 
