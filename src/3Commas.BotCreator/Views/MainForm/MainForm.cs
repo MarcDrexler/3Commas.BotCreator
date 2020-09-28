@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using _3Commas.BotCreator.Misc;
 using _3Commas.BotCreator.Services.BotSettingService;

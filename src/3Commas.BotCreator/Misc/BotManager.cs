@@ -102,7 +102,7 @@ namespace _3Commas.BotCreator.Misc
 
                 if (settings.BuyBaseCurrency && settings.BaseCurrencyToBuy > 0)
                 {
-                    _logger.LogInformation($"Market Buy Order to be placed: {settings.BaseCurrencyToBuy} {pair.BaseCurrency}");
+                    _logger.LogInformation($"Market Buy Order to be placed: {settings.BaseCurrencyToBuy} {pair.QuoteCurrency}");
                 }
 
                 created++;

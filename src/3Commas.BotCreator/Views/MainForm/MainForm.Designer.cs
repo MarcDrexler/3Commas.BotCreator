@@ -82,6 +82,9 @@
             this.linkLabelHuobi = new System.Windows.Forms.LinkLabel();
             this.linkLabelBinance = new System.Windows.Forms.LinkLabel();
             this.linkLabel3Commas = new System.Windows.Forms.LinkLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.rbBinance = new System.Windows.Forms.RadioButton();
+            this.rbHuobi = new System.Windows.Forms.RadioButton();
             this.panelBotSettings = new System.Windows.Forms.Panel();
             this.lblLeverageCustomValue = new System.Windows.Forms.Label();
             this.numCustomLeverageValue = new System.Windows.Forms.NumericUpDown();
@@ -106,21 +109,18 @@
             this.label6 = new System.Windows.Forms.Label();
             this.chkBuyBase = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
+            this.btnRemove = new System.Windows.Forms.Button();
+            this.btnAddStartCondition = new System.Windows.Forms.Button();
             this.cmbTemplates = new System.Windows.Forms.ComboBox();
             this.groupBoxSettings = new System.Windows.Forms.GroupBox();
             this.label31 = new System.Windows.Forms.Label();
-            this.panelMain = new System.Windows.Forms.Panel();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnCreate = new System.Windows.Forms.Button();
-            this.btnPreview = new System.Windows.Forms.Button();
-            this.btnRemove = new System.Windows.Forms.Button();
-            this.btnAddStartCondition = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDeleteTemplate = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.rbBinance = new System.Windows.Forms.RadioButton();
-            this.rbHuobi = new System.Windows.Forms.RadioButton();
+            this.panelMain = new System.Windows.Forms.Panel();
+            this.btnCreate = new System.Windows.Forms.Button();
+            this.btnPreview = new System.Windows.Forms.Button();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.btnAbout = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numAmount)).BeginInit();
@@ -136,6 +136,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numTargetProfit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCooldownBetweenDeals)).BeginInit();
             this.groupBoxCredentials.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelBotSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomLeverageValue)).BeginInit();
             this.panelStopLoss.SuspendLayout();
@@ -143,7 +144,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numStopLossTimeout)).BeginInit();
             this.groupBoxSettings.SuspendLayout();
             this.panelMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // numAmount
@@ -761,6 +761,36 @@
             this.linkLabel3Commas.Text = "Set API Key";
             this.linkLabel3Commas.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3Commas_LinkClicked);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::_3Commas.BotCreator.Properties.Resources._3Commas;
+            this.pictureBox1.Location = new System.Drawing.Point(15, 30);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 27);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 63;
+            this.pictureBox1.TabStop = false;
+            // 
+            // rbBinance
+            // 
+            this.rbBinance.Image = global::_3Commas.BotCreator.Properties.Resources.Binance;
+            this.rbBinance.Location = new System.Drawing.Point(186, 19);
+            this.rbBinance.Name = "rbBinance";
+            this.rbBinance.Size = new System.Drawing.Size(158, 47);
+            this.rbBinance.TabIndex = 1;
+            this.rbBinance.TabStop = true;
+            this.rbBinance.UseVisualStyleBackColor = true;
+            // 
+            // rbHuobi
+            // 
+            this.rbHuobi.Image = global::_3Commas.BotCreator.Properties.Resources.Huobi;
+            this.rbHuobi.Location = new System.Drawing.Point(350, 19);
+            this.rbHuobi.Name = "rbHuobi";
+            this.rbHuobi.Size = new System.Drawing.Size(128, 47);
+            this.rbHuobi.TabIndex = 3;
+            this.rbHuobi.TabStop = true;
+            this.rbHuobi.UseVisualStyleBackColor = true;
+            // 
             // panelBotSettings
             // 
             this.panelBotSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1089,6 +1119,30 @@
             this.label23.TabIndex = 62;
             this.label23.Text = "Buy Base currency";
             // 
+            // btnRemove
+            // 
+            this.btnRemove.Image = global::_3Commas.BotCreator.Properties.Resources.Cancel_16x16;
+            this.btnRemove.Location = new System.Drawing.Point(349, 282);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(29, 23);
+            this.btnRemove.TabIndex = 12;
+            this.btnRemove.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnRemove.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // btnAddStartCondition
+            // 
+            this.btnAddStartCondition.Image = global::_3Commas.BotCreator.Properties.Resources.Add_16x16;
+            this.btnAddStartCondition.Location = new System.Drawing.Point(349, 255);
+            this.btnAddStartCondition.Name = "btnAddStartCondition";
+            this.btnAddStartCondition.Size = new System.Drawing.Size(29, 23);
+            this.btnAddStartCondition.TabIndex = 11;
+            this.btnAddStartCondition.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAddStartCondition.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAddStartCondition.UseVisualStyleBackColor = true;
+            this.btnAddStartCondition.Click += new System.EventHandler(this.btnAddStartCondition_Click);
+            // 
             // cmbTemplates
             // 
             this.cmbTemplates.FormattingEnabled = true;
@@ -1123,93 +1177,6 @@
             this.label31.TabIndex = 204;
             this.label31.Text = "Templates:";
             // 
-            // panelMain
-            // 
-            this.panelMain.Controls.Add(this.btnCreate);
-            this.panelMain.Controls.Add(this.btnPreview);
-            this.panelMain.Controls.Add(this.chkEnable);
-            this.panelMain.Controls.Add(this.label1);
-            this.panelMain.Controls.Add(this.numAmount);
-            this.panelMain.Location = new System.Drawing.Point(12, 107);
-            this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(522, 70);
-            this.panelMain.TabIndex = 69;
-            // 
-            // progressBar
-            // 
-            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(540, 777);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(100, 23);
-            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar.TabIndex = 71;
-            this.progressBar.Visible = false;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Image = global::_3Commas.BotCreator.Properties.Resources.Close_16x16;
-            this.btnCancel.Location = new System.Drawing.Point(646, 776);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(104, 25);
-            this.btnCancel.TabIndex = 1;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Visible = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnCreate
-            // 
-            this.btnCreate.Image = global::_3Commas.BotCreator.Properties.Resources.Play_16x16;
-            this.btnCreate.Location = new System.Drawing.Point(385, 16);
-            this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(90, 36);
-            this.btnCreate.TabIndex = 3;
-            this.btnCreate.Text = "Create";
-            this.btnCreate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCreate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCreate.UseVisualStyleBackColor = true;
-            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
-            // 
-            // btnPreview
-            // 
-            this.btnPreview.Image = global::_3Commas.BotCreator.Properties.Resources.ShowTestReport_16x16;
-            this.btnPreview.Location = new System.Drawing.Point(289, 16);
-            this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new System.Drawing.Size(90, 36);
-            this.btnPreview.TabIndex = 2;
-            this.btnPreview.Text = "Preview";
-            this.btnPreview.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnPreview.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnPreview.UseVisualStyleBackColor = true;
-            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
-            // 
-            // btnRemove
-            // 
-            this.btnRemove.Image = global::_3Commas.BotCreator.Properties.Resources.Cancel_16x16;
-            this.btnRemove.Location = new System.Drawing.Point(349, 282);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(29, 23);
-            this.btnRemove.TabIndex = 12;
-            this.btnRemove.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnRemove.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
-            // 
-            // btnAddStartCondition
-            // 
-            this.btnAddStartCondition.Image = global::_3Commas.BotCreator.Properties.Resources.Add_16x16;
-            this.btnAddStartCondition.Location = new System.Drawing.Point(349, 255);
-            this.btnAddStartCondition.Name = "btnAddStartCondition";
-            this.btnAddStartCondition.Size = new System.Drawing.Size(29, 23);
-            this.btnAddStartCondition.TabIndex = 11;
-            this.btnAddStartCondition.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAddStartCondition.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnAddStartCondition.UseVisualStyleBackColor = true;
-            this.btnAddStartCondition.Click += new System.EventHandler(this.btnAddStartCondition_Click);
-            // 
             // btnSave
             // 
             this.btnSave.Image = global::_3Commas.BotCreator.Properties.Resources.Save_16x16;
@@ -1237,35 +1204,68 @@
             this.btnDeleteTemplate.UseVisualStyleBackColor = true;
             this.btnDeleteTemplate.Click += new System.EventHandler(this.btnDeleteTemplate_Click);
             // 
-            // pictureBox1
+            // panelMain
             // 
-            this.pictureBox1.Image = global::_3Commas.BotCreator.Properties.Resources._3Commas;
-            this.pictureBox1.Location = new System.Drawing.Point(15, 30);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 27);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 63;
-            this.pictureBox1.TabStop = false;
+            this.panelMain.Controls.Add(this.btnCreate);
+            this.panelMain.Controls.Add(this.btnPreview);
+            this.panelMain.Controls.Add(this.chkEnable);
+            this.panelMain.Controls.Add(this.label1);
+            this.panelMain.Controls.Add(this.numAmount);
+            this.panelMain.Location = new System.Drawing.Point(12, 107);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Size = new System.Drawing.Size(522, 70);
+            this.panelMain.TabIndex = 69;
             // 
-            // rbBinance
+            // btnCreate
             // 
-            this.rbBinance.Image = global::_3Commas.BotCreator.Properties.Resources.Binance;
-            this.rbBinance.Location = new System.Drawing.Point(186, 19);
-            this.rbBinance.Name = "rbBinance";
-            this.rbBinance.Size = new System.Drawing.Size(158, 47);
-            this.rbBinance.TabIndex = 1;
-            this.rbBinance.TabStop = true;
-            this.rbBinance.UseVisualStyleBackColor = true;
+            this.btnCreate.Image = global::_3Commas.BotCreator.Properties.Resources.Play_16x16;
+            this.btnCreate.Location = new System.Drawing.Point(385, 16);
+            this.btnCreate.Name = "btnCreate";
+            this.btnCreate.Size = new System.Drawing.Size(90, 36);
+            this.btnCreate.TabIndex = 3;
+            this.btnCreate.Text = "Create";
+            this.btnCreate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCreate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCreate.UseVisualStyleBackColor = true;
+            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
-            // rbHuobi
+            // btnPreview
             // 
-            this.rbHuobi.Image = global::_3Commas.BotCreator.Properties.Resources.Huobi;
-            this.rbHuobi.Location = new System.Drawing.Point(350, 19);
-            this.rbHuobi.Name = "rbHuobi";
-            this.rbHuobi.Size = new System.Drawing.Size(128, 47);
-            this.rbHuobi.TabIndex = 3;
-            this.rbHuobi.TabStop = true;
-            this.rbHuobi.UseVisualStyleBackColor = true;
+            this.btnPreview.Image = global::_3Commas.BotCreator.Properties.Resources.ShowTestReport_16x16;
+            this.btnPreview.Location = new System.Drawing.Point(289, 16);
+            this.btnPreview.Name = "btnPreview";
+            this.btnPreview.Size = new System.Drawing.Size(90, 36);
+            this.btnPreview.TabIndex = 2;
+            this.btnPreview.Text = "Preview";
+            this.btnPreview.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPreview.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPreview.UseVisualStyleBackColor = true;
+            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
+            // 
+            // progressBar
+            // 
+            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.progressBar.Location = new System.Drawing.Point(540, 777);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(100, 23);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar.TabIndex = 71;
+            this.progressBar.Visible = false;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCancel.Image = global::_3Commas.BotCreator.Properties.Resources.Close_16x16;
+            this.btnCancel.Location = new System.Drawing.Point(646, 776);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(104, 25);
+            this.btnCancel.TabIndex = 1;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Visible = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnAbout
             // 
@@ -1328,6 +1328,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numCooldownBetweenDeals)).EndInit();
             this.groupBoxCredentials.ResumeLayout(false);
             this.groupBoxCredentials.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelBotSettings.ResumeLayout(false);
             this.panelBotSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomLeverageValue)).EndInit();
@@ -1339,7 +1340,6 @@
             this.groupBoxSettings.PerformLayout();
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
