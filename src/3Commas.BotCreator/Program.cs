@@ -51,7 +51,7 @@ namespace _3Commas.BotCreator
             services.AddTransient<SetApiKeyView>();
             services.AddTransient<ChooseSignalView>();
             services.AddTransient<AboutBox>();
-            services.AddTransient<IBotSettingService, BotSettingService>();
+            services.AddSingleton<IBotSettingService, BotSettingService>();
             services.AddTransient<IMessageBoxService, MessageBoxService>();
 
             var config = new MapperConfiguration(cfg => cfg.AddMaps(typeof(Program)));

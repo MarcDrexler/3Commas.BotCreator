@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using _3Commas.BotCreator.Misc;
 using _3Commas.BotCreator.Services.BotSettingService;
@@ -17,10 +18,15 @@ namespace _3Commas.BotCreator.Views.MainForm
         public MainForm(IMessageBoxService mbs, IBotSettingService bss, IMapper mapper)
         {
             InitializeComponent();
+
+            this.Text = $"{AssemblyHelper.AssemblyTitle} {AssemblyHelper.AssemblyVersion}";
+
             _presenter = new MainFormPresenter(this, new TextBoxLogger(txtOutput), mbs, bss, mapper);
 
             panelStopLoss.DataBindings.Add(nameof(Enabled), chkStopLossEnabled, nameof(CheckBox.Checked));
             lblStopLossTimeoutUnit.DataBindings.Add(nameof(Enabled), chkStopLossTimeoutEnabled, nameof(CheckBox.Checked));
+
+            
         }
 
         private async void MainForm_Load(object sender, EventArgs e)
@@ -53,6 +59,7 @@ namespace _3Commas.BotCreator.Views.MainForm
 
         private void cmbStrategy_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cmbStrategy.DataBindings.Count > 0) cmbStrategy.DataBindings[0].WriteValue();
             _presenter.OnStrategyChanged();
         }
 
@@ -145,8 +152,13 @@ namespace _3Commas.BotCreator.Views.MainForm
 
         public void SetCreateInProgress(bool inProgress)
         {
-            panelBotSettings.Enabled = !inProgress;
+            panelMain.Enabled = !inProgress;
+            groupBoxSettings.Enabled = !inProgress;
             groupBoxCredentials.Enabled = !inProgress;
+            progressBar.Visible = inProgress;
+            btnCancel.Text = "Cancel";
+            btnCancel.Enabled = inProgress;
+            btnCancel.Visible = inProgress;
         }
 
         public void RefreshStartConditions(List<BotStrategy> startConditions)
@@ -165,6 +177,7 @@ namespace _3Commas.BotCreator.Views.MainForm
             cmbTemplates.ValueMember = nameof(BotSettings.Id);
             cmbTemplates.DisplayMember = nameof(BotSettings.Name);
             cmbTemplates.SelectedIndex = selectFirst && templates.Any() ? 0 : -1;
+            btnDeleteTemplate.Enabled = selectFirst;
             cmbTemplates.SelectedIndexChanged += cmbTemplates_SelectedIndexChanged;
         }
 
@@ -199,7 +212,7 @@ namespace _3Commas.BotCreator.Views.MainForm
 
             cmbStrategy.SelectedIndexChanged -= cmbStrategy_SelectedIndexChanged;
             cmbStrategy.DataBindings.Clear();
-            cmbStrategy.DataBindings.Add(nameof(ComboBox.SelectedItem), botSetting, nameof(BotSettingViewModel.Strategy));
+            cmbStrategy.DataBindings.Add(nameof(ComboBox.SelectedItem), botSetting, nameof(BotSettingViewModel.Strategy), false, DataSourceUpdateMode.OnPropertyChanged);
             cmbStrategy.SelectedIndexChanged += cmbStrategy_SelectedIndexChanged;
 
             txtBotname.DataBindings.Clear();
@@ -303,6 +316,18 @@ namespace _3Commas.BotCreator.Views.MainForm
             var isLeverageNotSpecified = (LeverageType)cmbLeverageType.SelectedItem == LeverageType.NotSpecified;
             lblLeverageCustomValue.Enabled = !isLeverageNotSpecified;
             numCustomLeverageValue.Enabled = !isLeverageNotSpecified;
+        }
+
+        private async void btnPreview_Click(object sender, EventArgs e)
+        {
+            await _presenter.OnPreview();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            btnCancel.Enabled = false;
+            btnCancel.Text = "Cancelled!";
+            _presenter.OnCancelOperation();
         }
     }
 }

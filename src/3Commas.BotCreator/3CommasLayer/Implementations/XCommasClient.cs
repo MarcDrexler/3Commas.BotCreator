@@ -33,6 +33,11 @@ namespace _3Commas.BotCreator._3CommasLayer.Implementations
             return await _3CommasClient.GetAccountsAsync();
         }
 
+        public async Task<XCommasResponse<CurrencyRate>> GetCurrencyRateAsync(string pair)
+        {
+            return await _3CommasClient.GetCurrencyRateAsync(pair);
+        }
+
         public async Task<XCommasResponse<BotPairsBlackListData>> GetBotPairsBlackListAsync()
         {
             return await _3CommasClient.GetBotPairsBlackListAsync();

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using _3Commas.BotCreator._3CommasLayer;
 using _3Commas.BotCreator.ExchangeLayer;
@@ -27,7 +28,7 @@ namespace _3Commas.BotCreator.Tests
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
             
             // Act
-            await target.CreateBots(5, false, request);
+            await target.CreateBots(5, false, request, CancellationToken.None);
 
             // Assert
             xCommasClient.Verify(x => x.CreateBotAsync(It.IsAny<int>(), request.Strategy, It.IsAny<BotData>()), Times.Exactly(5));
@@ -44,7 +45,7 @@ namespace _3Commas.BotCreator.Tests
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
 
             // Act
-            await target.CreateBots(10, false, request);
+            await target.CreateBots(10, false, request, CancellationToken.None);
 
             // Assert
             xCommasClient.Verify(x => x.CreateBotAsync(It.IsAny<int>(), request.Strategy, It.IsAny<BotData>()), Times.Exactly(5));
@@ -61,7 +62,7 @@ namespace _3Commas.BotCreator.Tests
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
             
             // Act
-            await target.CreateBots(5, false, request);
+            await target.CreateBots(5, false, request, CancellationToken.None);
 
             // Assert
             xCommasClient.Verify(x => x.EnableBotAsync(It.IsAny<int>()), Times.Never);
@@ -78,7 +79,7 @@ namespace _3Commas.BotCreator.Tests
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
             
             // Act
-            await target.CreateBots(5, true, request);
+            await target.CreateBots(5, true, request, CancellationToken.None);
 
             // Assert
             xCommasClient.Verify(x => x.EnableBotAsync(It.IsAny<int>()), Times.Exactly(5));
@@ -96,7 +97,7 @@ namespace _3Commas.BotCreator.Tests
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
             
             // Act
-            await target.CreateBots(5, false, request);
+            await target.CreateBots(5, false, request, CancellationToken.None);
 
             // Assert
             xCommasClient.Verify(x => x.CreateBotAsync(It.IsAny<int>(), request.Strategy, It.IsAny<BotData>()), Times.Exactly(4));
@@ -114,7 +115,7 @@ namespace _3Commas.BotCreator.Tests
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
 
             // Act
-            await target.CreateBots(5, false, request);
+            await target.CreateBots(5, false, request, CancellationToken.None);
 
             // Assert
             xCommasClient.Verify(x => x.CreateBotAsync(It.IsAny<int>(), request.Strategy, It.IsAny<BotData>()), Times.Exactly(4));
@@ -132,7 +133,7 @@ namespace _3Commas.BotCreator.Tests
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
 
             // Act
-            await target.CreateBots(5, false, request);
+            await target.CreateBots(5, false, request, CancellationToken.None);
 
             // Assert
             xCommasClient.Verify(x => x.CreateBotAsync(It.IsAny<int>(), request.Strategy, It.IsAny<BotData>()), Times.Exactly(4));
@@ -152,7 +153,7 @@ namespace _3Commas.BotCreator.Tests
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
 
             // Act
-            await target.CreateBots(5, false, request);
+            await target.CreateBots(5, false, request, CancellationToken.None);
 
             // Assert
             xCommasClient.Verify(x => x.CreateBotAsync(It.IsAny<int>(), request.Strategy, It.IsAny<BotData>()), Times.Exactly(2));
@@ -169,7 +170,7 @@ namespace _3Commas.BotCreator.Tests
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
 
             // Act
-            await target.CreateBots(5, false, request);
+            await target.CreateBots(5, false, request, CancellationToken.None);
 
             // Assert
             exchange.Verify(x => x.PlaceOrder(It.IsAny<Pair>(), It.IsAny<decimal>()), Times.Never);
@@ -188,7 +189,7 @@ namespace _3Commas.BotCreator.Tests
             var target = new BotManager(NullLogger.Instance, xCommasClient.Object, exchange.Object);
 
             // Act
-            await target.CreateBots(5, false, request);
+            await target.CreateBots(5, false, request, CancellationToken.None);
 
             // Assert
             exchange.Verify(x => x.PlaceOrder(It.IsAny<Pair>(), (decimal) 123.45), Times.Exactly(5));
@@ -219,6 +220,8 @@ namespace _3Commas.BotCreator.Tests
             mock.Setup(x => x.CreateBotAsync(1000, It.IsAny<Strategy>(), It.IsAny<BotData>())).ReturnsAsync(new XCommasResponse<Bot>(new Bot(), "", ""));
             
             mock.Setup(x => x.EnableBotAsync(It.IsAny<int>())).ReturnsAsync(new XCommasResponse<Bot>(new Bot(), "", ""));
+
+            mock.Setup(x => x.GetCurrencyRateAsync(It.IsAny<string>())).ReturnsAsync(new XCommasResponse<CurrencyRate>(new CurrencyRate(), "", ""));
 
             return mock;
         }

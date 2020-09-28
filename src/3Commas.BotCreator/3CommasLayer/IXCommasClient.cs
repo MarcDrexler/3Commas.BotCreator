@@ -17,5 +17,7 @@ namespace _3Commas.BotCreator._3CommasLayer
         Task<XCommasResponse<Bot[]>> GetBotsAsync(int limit, int offset, Strategy strategy, BotScope botScope);
 
         Task<XCommasResponse<Account[]>> GetAccountsAsync();
+
+        Task<XCommasResponse<CurrencyRate>> GetCurrencyRateAsync(string symbol);
     }
 }

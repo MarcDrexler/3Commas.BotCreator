@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using _3Commas.BotCreator._3CommasLayer;
 using _3Commas.BotCreator.ExchangeLayer;
@@ -16,7 +17,7 @@ namespace _3Commas.BotCreator.Misc
         private readonly ILogger _logger;
         private readonly IXCommasClient _xCommasClient;
         private readonly IExchange _exchange;
-        private string[] Stablecoins => new[] { "AUD", "EURS", "EBASE", "GBP", "USDT", "USDC", "DAI", "TUSD", "BUSD", "PAX", "HUSD", "SUSD", "USDK", "MUSD", "GUSD", "SAI", "EOSDT", "USDS", "BITCNY", "TRYB", "RSV", "BGBP", "QC", "USNBT", "BKRW", "THKD" };
+        private static string[] Stablecoins => new[] { "AUD", "EURS", "EBASE", "GBP", "USDT", "USDC", "DAI", "TUSD", "BUSD", "PAX", "HUSD", "SUSD", "USDK", "MUSD", "GUSD", "SAI", "EOSDT", "USDS", "BITCNY", "TRYB", "RSV", "BGBP", "QC", "USNBT", "BKRW", "THKD" };
 
         public BotManager(ILogger logger, IXCommasClient xCommasClient, IExchange exchange)
         {
@@ -63,7 +64,7 @@ namespace _3Commas.BotCreator.Misc
             return pairs;
         }
 
-        public async Task CreateBots(int numberOfBots, bool enable, BotSettingViewModel settings)
+        public async Task PreviewBotsCreation(int numberOfBots, BotSettingViewModel settings, CancellationToken cancellationToken)
         {
             var existingBots = await GetAllBots();
             var blacklistedPairs = await RetrieveBlacklistedPairs();
@@ -76,9 +77,74 @@ namespace _3Commas.BotCreator.Misc
 
             foreach (var pair in prices.OrderByDescending(x => x.TotalTradedQuoteAssetVolume))
             {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    _logger.LogInformation($"Operation cancelled!");
+                    break;
+                }
+
                 var symbol = TransformPairTo3CommasSymbolString(pair.QuoteCurrency, pair.BaseCurrency);
 
                 if (SymbolShouldBeSkipped(symbol, settings.SkipExistingPairs, settings.SkipBaseStablecoin, settings.Strategy, pair, existingBots, settings.SkipBlacklistedPairs, blacklistedPairs)) continue;
+                
+                var marketData = await _xCommasClient.GetCurrencyRateAsync(symbol);
+                if (!marketData.IsSuccess)
+                {
+                    if (!marketData.Error.StartsWith("Unknown pair"))
+                    {
+                        _logger.LogInformation($"Skipped Pair {symbol}. Reason: '{marketData.Error}'");
+                    }
+                    continue;
+                }
+
+                var botName = NameHelper.GenerateBotName(settings.Botname, symbol, settings.Strategy);
+                _logger.LogInformation($"Bot to be created: '{botName}'");
+
+                if (settings.BuyBaseCurrency && settings.BaseCurrencyToBuy > 0)
+                {
+                    _logger.LogInformation($"Market Buy Order to be placed: {settings.BaseCurrencyToBuy} {pair.BaseCurrency}");
+                }
+
+                created++;
+
+                if (created == numberOfBots) break;
+            }
+
+            _logger.LogInformation($"{created} bots to be created");
+        }
+
+        public async Task CreateBots(int numberOfBots, bool enable, BotSettingViewModel settings, CancellationToken cancellationToken)
+        {
+            var existingBots = await GetAllBots();
+            var blacklistedPairs = await RetrieveBlacklistedPairs();
+
+            int created = 0;
+
+            _logger.LogInformation($"Retrieving pairs from {_exchange.Name}...");
+            var prices = await _exchange.GetAllPairsByQuoteCurrency(settings.QuoteCurrency);
+            _logger.LogInformation($"{prices.Count} Pairs for {settings.QuoteCurrency.ToUpper()} found");
+
+            foreach (var pair in prices.OrderByDescending(x => x.TotalTradedQuoteAssetVolume))
+            {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    _logger.LogInformation($"Operation cancelled!");
+                    break;
+                }
+
+                var symbol = TransformPairTo3CommasSymbolString(pair.QuoteCurrency, pair.BaseCurrency);
+                
+                if (SymbolShouldBeSkipped(symbol, settings.SkipExistingPairs, settings.SkipBaseStablecoin, settings.Strategy, pair, existingBots, settings.SkipBlacklistedPairs, blacklistedPairs)) continue;
+
+                var marketData = await _xCommasClient.GetCurrencyRateAsync(symbol);
+                if (!marketData.IsSuccess)
+                {
+                    if (!marketData.Error.StartsWith("Unknown pair"))
+                    {
+                        _logger.LogInformation($"Skipped Pair {symbol}. Reason: '{marketData.Error}'");
+                    }
+                    continue;
+                }
 
                 var botName = NameHelper.GenerateBotName(settings.Botname, symbol, settings.Strategy);
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using _3Commas.BotCreator._3CommasLayer.Implementations;
@@ -25,6 +26,8 @@ namespace _3Commas.BotCreator.Views.MainForm
         private readonly IMapper _mapper;
         private List<Account> _accounts = new List<Account>();
         private BotSettingViewModel _settings = new BotSettingViewModel();
+        private CancellationToken _cancellationToken;
+        private CancellationTokenSource _cancellationTokenSource;
 
         public MainFormPresenter(IMainForm view, ILogger logger, IMessageBoxService mbs, IBotSettingService bss, IMapper mapper) : base(view)
         {
@@ -110,7 +113,7 @@ namespace _3Commas.BotCreator.Views.MainForm
             {
                 _keys.ApiKey3Commas = settings.ApiKey;
                 _keys.Secret3Commas = settings.Secret;
-                
+
                 Properties.Settings.Default.ApiKey3Commas = settings.PersistKeys ? settings.ApiKey : "";
                 Properties.Settings.Default.Secret3Commas = settings.PersistKeys ? settings.Secret : "";
                 Properties.Settings.Default.Save();
@@ -242,11 +245,14 @@ namespace _3Commas.BotCreator.Views.MainForm
                     }
 
                     var botMgr = new BotManager(_logger, new XCommasClient(_keys), exchange);
-                    
+
                     try
                     {
-                        await botMgr.CreateBots(View.NumberOfBotsToCreate, View.Enable, _settings);
-                        _mbs.ShowInformation("Bot creation finished! See output section for details.");
+                        _cancellationTokenSource = new CancellationTokenSource();
+                        var cancellationToken = _cancellationTokenSource.Token;
+                        await botMgr.CreateBots(View.NumberOfBotsToCreate, View.Enable, _settings, cancellationToken);
+                        View.SetCreateInProgress(false);
+                        _mbs.ShowInformation("Operation finished! See output section for details.");
                     }
                     catch (Exception exception)
                     {
@@ -258,6 +264,47 @@ namespace _3Commas.BotCreator.Views.MainForm
                         View.SetCreateInProgress(false);
                     }
                 }
+            }
+        }
+
+        public async Task OnPreview()
+        {
+            if (IsValid())
+            {
+                View.SetCreateInProgress(true);
+                _logger.LogInformation("PREVIEW BEGIN");
+
+                IExchange exchange = null;
+                if (View.IsBinanceSelected)
+                {
+                    exchange = new ExchangeLayer.Implementations.Binance(_keys);
+                }
+                else if (View.IsHuobiSelected)
+                {
+                    exchange = new ExchangeLayer.Implementations.Huobi(_keys);
+                }
+
+                var botMgr = new BotManager(_logger, new XCommasClient(_keys), exchange);
+
+                try
+                {
+                    _cancellationTokenSource = new CancellationTokenSource();
+                    var cancellationToken = _cancellationTokenSource.Token;
+                    await botMgr.PreviewBotsCreation(View.NumberOfBotsToCreate, _settings, cancellationToken);
+                    View.SetCreateInProgress(false);
+                    _mbs.ShowInformation("Operation finished! See output section for details.");
+                }
+                catch (Exception exception)
+                {
+                    _logger.LogError(exception.Message);
+                    _mbs.ShowError("Error: " + exception);
+                }
+                finally
+                {
+                    View.SetCreateInProgress(false);
+                }
+
+                _logger.LogInformation("PREVIEW END");
             }
         }
 
@@ -306,6 +353,11 @@ namespace _3Commas.BotCreator.Views.MainForm
         {
             var frm = Program.ServiceProvider.GetRequiredService<AboutBox.AboutBox>();
             frm.ShowDialog(View);
+        }
+
+        public void OnCancelOperation()
+        {
+            _cancellationTokenSource.Cancel();
         }
     }
 }
