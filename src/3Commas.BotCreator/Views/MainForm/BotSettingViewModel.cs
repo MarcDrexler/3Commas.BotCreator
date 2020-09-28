@@ -23,8 +23,8 @@ namespace _3Commas.BotCreator.Views.MainForm
             SafetyOrderVolumeScale = 1;
             SafetyOrderStepScale = 1;
             CooldownBetweenDeals = 0;
-            StartOrderType = StartOrderType.Market;
-            Strategy = Strategy.Short;
+            StartOrderType = StartOrderType.Limit;
+            Strategy = Strategy.Long;
             StopLossAction = StopLossType.StopLoss;
             StopLossPercentage = (decimal) 1;
             StopLossTimeout = 1;
