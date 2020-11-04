@@ -876,7 +876,7 @@
             // 
             this.numCustomLeverageValue.Location = new System.Drawing.Point(223, 739);
             this.numCustomLeverageValue.Maximum = new decimal(new int[] {
-            20,
+            50,
             0,
             0,
             0});
