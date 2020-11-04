@@ -12,6 +12,11 @@ namespace _3Commas.BotCreator.Views.MainForm
             SkipExistingPairs = true;
             SkipBaseStablecoin = true;
             SkipBlacklistedPairs = true;
+            SkipExistingBaseCurrencyInAnyExistingPair = true;
+            LogSkipBaseStablecoin = true;
+            LogSkipBlacklistedPairs = true;
+            LogSkipExistingBaseCurrencyInAnyExistingPair = true;
+            LogSkipExistingPairs = true;
             QuoteCurrency = "USDT";
             Botname = "{strategy} {pair} Bot";
             BaseOrderSize = 10;
@@ -35,7 +40,7 @@ namespace _3Commas.BotCreator.Views.MainForm
             SafetyOrderSizeType = VolumeType.QuoteCurrency;
         }
 
-        public BotSettingViewModel(LeverageType leverageType, int customLeverageValue, decimal stopLossPercentage, StopLossType stopLossType, bool stopLossTimeoutEnabled, int stopLossTimeoutInSeconds, bool checkForExistingBots, bool checkForBlacklistedPairs, bool checkForBaseStablecoin, string quoteCurrency, Strategy strategy, StartOrderType startOrderType, int maxSafetyOrders, int activeSafetyOrdersCount, decimal safetyOrderStepPercentage, decimal martingaleVolumeCoefficient, decimal martingaleStepCoefficient, decimal takeProfitPercentage, bool trailingEnabled, decimal trailingDeviation, string nameFormula, decimal baseOrderVolume, decimal safetyOrderVolume, List<BotStrategy> dealStartConditions, int cooldownBetweenDeals, int accountId, decimal amountToBuyInQuoteCurrency)
+        public BotSettingViewModel(LeverageType leverageType, int customLeverageValue, decimal stopLossPercentage, StopLossType stopLossType, bool stopLossTimeoutEnabled, int stopLossTimeoutInSeconds, bool checkForExistingBots, bool checkForExistingBaseCurrency, bool checkForBlacklistedPairs, bool checkForBaseStablecoin, string quoteCurrency, Strategy strategy, StartOrderType startOrderType, int maxSafetyOrders, int activeSafetyOrdersCount, decimal safetyOrderStepPercentage, decimal martingaleVolumeCoefficient, decimal martingaleStepCoefficient, decimal takeProfitPercentage, bool trailingEnabled, decimal trailingDeviation, string nameFormula, decimal baseOrderVolume, decimal safetyOrderVolume, List<BotStrategy> dealStartConditions, int cooldownBetweenDeals, int accountId, decimal amountToBuyInQuoteCurrency)
         {
             LeverageType = leverageType;
             LeverageCustomValue = customLeverageValue;
@@ -44,6 +49,7 @@ namespace _3Commas.BotCreator.Views.MainForm
             StopLossTimeoutEnabled = stopLossTimeoutEnabled;
             StopLossTimeout = stopLossTimeoutInSeconds;
             SkipExistingPairs = checkForExistingBots;
+            SkipExistingBaseCurrencyInAnyExistingPair = checkForExistingBaseCurrency;
             QuoteCurrency = quoteCurrency;
             Strategy = strategy;
             StartOrderType = startOrderType;
@@ -74,9 +80,19 @@ namespace _3Commas.BotCreator.Views.MainForm
 
         public bool SkipExistingPairs { get; set; }
 
+        public bool LogSkipExistingPairs { get; set; }
+
         public bool SkipBlacklistedPairs { get; set; }
 
+        public bool LogSkipBlacklistedPairs { get; set; }
+
         public bool SkipBaseStablecoin { get; set; }
+
+        public bool LogSkipBaseStablecoin { get; set; }
+
+        public bool SkipExistingBaseCurrencyInAnyExistingPair { get; set; }
+
+        public bool LogSkipExistingBaseCurrencyInAnyExistingPair { get; set; }
 
         public string QuoteCurrency { get; set; }
 

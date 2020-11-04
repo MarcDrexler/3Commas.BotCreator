@@ -17,7 +17,7 @@ namespace _3Commas.BotCreator.Misc
         private readonly ILogger _logger;
         private readonly IXCommasClient _xCommasClient;
         private readonly IExchange _exchange;
-        private static string[] Stablecoins => new[] { "AUD", "EURS", "EBASE", "GBP", "USDT", "USDC", "DAI", "TUSD", "BUSD", "PAX", "HUSD", "SUSD", "USDK", "MUSD", "GUSD", "SAI", "EOSDT", "USDS", "BITCNY", "TRYB", "RSV", "BGBP", "QC", "USNBT", "BKRW", "THKD" };
+        private static string[] Stablecoins => new[] { "AUD", "EUR", "EURS", "EBASE", "GBP", "USDT", "USDC", "DAI", "TUSD", "BUSD", "PAX", "HUSD", "SUSD", "USDK", "MUSD", "GUSD", "SAI", "EOSDT", "USDS", "BITCNY", "TRYB", "RSV", "BGBP", "QC", "USNBT", "BKRW", "THKD" };
 
         public BotManager(ILogger logger, IXCommasClient xCommasClient, IExchange exchange)
         {
@@ -85,7 +85,7 @@ namespace _3Commas.BotCreator.Misc
 
                 var symbol = TransformPairTo3CommasSymbolString(pair.QuoteCurrency, pair.BaseCurrency);
 
-                if (SymbolShouldBeSkipped(symbol, settings.SkipExistingPairs, settings.SkipBaseStablecoin, settings.Strategy, pair, existingBots, settings.SkipBlacklistedPairs, blacklistedPairs)) continue;
+                if (SymbolShouldBeSkipped(symbol, settings.SkipExistingBaseCurrencyInAnyExistingPair, settings.LogSkipExistingBaseCurrencyInAnyExistingPair, settings.SkipExistingPairs, settings.LogSkipExistingPairs, settings.SkipBaseStablecoin, settings.LogSkipBaseStablecoin, settings.Strategy, pair, existingBots, settings.SkipBlacklistedPairs, settings.LogSkipBlacklistedPairs, blacklistedPairs)) continue;
                 
                 var marketData = await _xCommasClient.GetCurrencyRateAsync(symbol);
                 if (!marketData.IsSuccess)
@@ -134,7 +134,7 @@ namespace _3Commas.BotCreator.Misc
 
                 var symbol = TransformPairTo3CommasSymbolString(pair.QuoteCurrency, pair.BaseCurrency);
                 
-                if (SymbolShouldBeSkipped(symbol, settings.SkipExistingPairs, settings.SkipBaseStablecoin, settings.Strategy, pair, existingBots, settings.SkipBlacklistedPairs, blacklistedPairs)) continue;
+                if (SymbolShouldBeSkipped(symbol, settings.SkipExistingBaseCurrencyInAnyExistingPair, settings.LogSkipExistingBaseCurrencyInAnyExistingPair, settings.SkipExistingPairs, settings.LogSkipExistingPairs, settings.SkipBaseStablecoin, settings.LogSkipBaseStablecoin, settings.Strategy, pair, existingBots, settings.SkipBlacklistedPairs, settings.LogSkipBlacklistedPairs, blacklistedPairs)) continue;
 
                 var marketData = await _xCommasClient.GetCurrencyRateAsync(symbol);
                 if (!marketData.IsSuccess)
@@ -194,17 +194,17 @@ namespace _3Commas.BotCreator.Misc
             _logger.LogInformation($"{created} bots created");
         }
 
-        private bool SymbolShouldBeSkipped(string symbol, bool checkForExistingBots, bool checkForBaseStablecoin, Strategy strategy, Pair pair, List<Bot> existingBots, bool checkForBlacklistedBots, List<string> blacklistedPairs)
+        private bool SymbolShouldBeSkipped(string symbol, bool checkForExistingPairWithSameBaseCurrency, bool logCheckForExistingPairWithSameBaseCurrency, bool checkForExistingBots, bool logCheckForExistingBots, bool checkForBaseStablecoin, bool logCheckForBaseStablecoin, Strategy strategy, Pair pair, List<Bot> existingBots, bool checkForBlacklistedBots, bool logCheckForBlacklistedBots, List<string> blacklistedPairs)
         {
             if (checkForBaseStablecoin && Stablecoins.Any(s => s.ToLower() == pair.BaseCurrency.ToLower()))
             {
-                _logger.LogInformation($"Skipping {symbol} because base is a stablecoin");
+                if (logCheckForBaseStablecoin) _logger.LogInformation($"Skipping {symbol} because base is a stablecoin");
                 return true;
             }
 
             if (checkForBlacklistedBots && blacklistedPairs.Contains(symbol))
             {
-                _logger.LogInformation($"Skipping {symbol} because it is blacklisted");
+                if (logCheckForBlacklistedBots) _logger.LogInformation($"Skipping {symbol} because it is blacklisted");
                 return true;
             }
 
@@ -218,8 +218,21 @@ namespace _3Commas.BotCreator.Misc
                 x.Pairs.Any(p => p.ToLower() == $"{pair.QuoteCurrency.ToLower()}_{pair.BaseCurrency.ToLower()}") &&
                 x.Strategy == strategy))
             {
-                _logger.LogInformation($"Bot for {strategy} {symbol} already exist");
+                if (logCheckForExistingBots) _logger.LogInformation($"Bot for {strategy} {symbol} already exist");
                 return true;
+            }
+
+            if (checkForExistingPairWithSameBaseCurrency)
+            {
+                var existingBotsWithSameBase = existingBots.Where(x =>
+                    x.Pairs.Any(p => p.ToLower().Split('_').Last() == $"{pair.BaseCurrency.ToLower()}") &&
+                    x.Strategy == strategy).ToList();
+
+                if (existingBotsWithSameBase.Any())
+                {
+                    if (logCheckForExistingPairWithSameBaseCurrency) _logger.LogInformation($"Bots for {strategy} with BaseCurrency {pair.BaseCurrency.ToUpper()} already exist: {string.Join(" / ", existingBotsWithSameBase.SelectMany(x => x.Pairs))}");
+                    return true;
+                }
             }
 
             return false;

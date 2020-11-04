@@ -208,7 +208,6 @@
     <Compile Include="ExchangeLayer\Implementations\Huobi.cs" />
     <Compile Include="ExchangeLayer\IExchange.cs" />
     <Compile Include="Misc\AssemblyHelper.cs" />
-    <Compile Include="Misc\TaskEx.cs" />
     <Compile Include="Services\MessageBoxService\IMessageBoxService.cs" />
     <Compile Include="Services\MessageBoxService\MessageBoxService.cs" />
     <Compile Include="Keys.cs" />

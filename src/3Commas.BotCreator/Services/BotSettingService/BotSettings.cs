@@ -6,6 +6,14 @@ namespace _3Commas.BotCreator.Services.BotSettingService
 {
     public class BotSettings
     {
+        public BotSettings()
+        {
+            LogSkipExistingPairs = true;
+            LogSkipBaseStablecoin = true;
+            LogSkipBlacklistedPairs = true;
+            LogSkipExistingBaseCurrencyInAnyExistingPair = true;
+        }
+
         public Guid Id { get; set; }
 
         public DateTime UpdatedAt { get; set; }
@@ -17,6 +25,16 @@ namespace _3Commas.BotCreator.Services.BotSettingService
         public bool SkipBlacklistedPairs { get; set; }
 
         public bool SkipBaseStablecoin { get; set; }
+
+        public bool SkipExistingBaseCurrencyInAnyExistingPair { get; set; }
+
+        public bool LogSkipExistingPairs { get; set; }
+
+        public bool LogSkipBlacklistedPairs { get; set; }
+
+        public bool LogSkipBaseStablecoin { get; set; }
+
+        public bool LogSkipExistingBaseCurrencyInAnyExistingPair { get; set; }
 
         public string QuoteCurrency { get; set; }
 

@@ -243,6 +243,6 @@ namespace _3Commas.BotCreator.Tests
             return exchange;
         }
 
-        private BotSettingViewModel GetDefaultRequest() => new BotSettingViewModel(LeverageType.NotSpecified, 0, (decimal)0, StopLossType.StopLoss, false, 0, false, false, false, "USDT", Strategy.Long, StartOrderType.Limit, 5, 1, 1, 1, 1, (decimal)1.5, false, 0, "{strategy} {pair} Bot", 10, 11, new List<BotStrategy>(), 0, 1000, 0);
+        private BotSettingViewModel GetDefaultRequest() => new BotSettingViewModel(LeverageType.NotSpecified, 0, (decimal)0, StopLossType.StopLoss, false, 0, false, false, false, false, "USDT", Strategy.Long, StartOrderType.Limit, 5, 1, 1, 1, 1, (decimal)1.5, false, 0, "{strategy} {pair} Bot", 10, 11, new List<BotStrategy>(), 0, 1000, 0);
     }
 }

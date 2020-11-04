@@ -197,6 +197,9 @@ namespace _3Commas.BotCreator.Views.MainForm
 
             #region Regular DataBinding by code
 
+            chkCheckForExistingPairWithSameBaseCurrency.DataBindings.Clear();
+            chkCheckForExistingPairWithSameBaseCurrency.DataBindings.Add(nameof(CheckBox.Checked), botSetting, nameof(BotSettingViewModel.SkipExistingBaseCurrencyInAnyExistingPair));
+            
             chkCheckForExistingBots.DataBindings.Clear();
             chkCheckForExistingBots.DataBindings.Add(nameof(CheckBox.Checked), botSetting, nameof(BotSettingViewModel.SkipExistingPairs));
 
@@ -205,6 +208,19 @@ namespace _3Commas.BotCreator.Views.MainForm
 
             chkCheckForBaseStablecoin.DataBindings.Clear();
             chkCheckForBaseStablecoin.DataBindings.Add(nameof(CheckBox.Checked), botSetting, nameof(BotSettingViewModel.SkipBaseStablecoin));
+            
+            chkLogCheckForExistingPairWithSameBaseCurrency.DataBindings.Clear();
+            chkLogCheckForExistingPairWithSameBaseCurrency.DataBindings.Add(nameof(CheckBox.Checked), botSetting, nameof(BotSettingViewModel.LogSkipExistingBaseCurrencyInAnyExistingPair));
+
+            chkLogCheckForExistingBots.DataBindings.Clear();
+            chkLogCheckForExistingBots.DataBindings.Add(nameof(CheckBox.Checked), botSetting, nameof(BotSettingViewModel.LogSkipExistingPairs));
+
+            chkLogSkipBlacklistedPairs.DataBindings.Clear();
+            chkLogSkipBlacklistedPairs.DataBindings.Add(nameof(CheckBox.Checked), botSetting, nameof(BotSettingViewModel.LogSkipBlacklistedPairs));
+
+            chkLogCheckForBaseStablecoin.DataBindings.Clear();
+            chkLogCheckForBaseStablecoin.DataBindings.Add(nameof(CheckBox.Checked), botSetting, nameof(BotSettingViewModel.LogSkipBaseStablecoin));
+
 
             txtQuoteCurrency.DataBindings.Clear();
             txtQuoteCurrency.DataBindings.Add(nameof(TextBox.Text), botSetting, nameof(BotSettingViewModel.QuoteCurrency));
