@@ -26,11 +26,11 @@
     <InstallUrl>https://marcdrexler.blob.core.windows.net/botcreator/</InstallUrl>
     <ProductName>Bot Creator</ProductName>
     <PublisherName>Marc</PublisherName>
-    <MinimumRequiredVersion>1.0.0.36</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.37</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>37</ApplicationRevision>
+    <ApplicationRevision>38</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -208,7 +208,6 @@
     <Compile Include="ExchangeLayer\Implementations\Huobi.cs" />
     <Compile Include="ExchangeLayer\IExchange.cs" />
     <Compile Include="Misc\AssemblyHelper.cs" />
-    <Compile Include="Misc\TaskEx.cs" />
     <Compile Include="Services\MessageBoxService\IMessageBoxService.cs" />
     <Compile Include="Services\MessageBoxService\MessageBoxService.cs" />
     <Compile Include="Keys.cs" />
