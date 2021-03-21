@@ -24,8 +24,6 @@ namespace _3Commas.BotCreator.Views.MainForm
 
             panelStopLoss.DataBindings.Add(nameof(Enabled), chkStopLossEnabled, nameof(CheckBox.Checked));
             lblStopLossTimeoutUnit.DataBindings.Add(nameof(Enabled), chkStopLossTimeoutEnabled, nameof(CheckBox.Checked));
-
-            
         }
 
         private async void MainForm_Load(object sender, EventArgs e)
@@ -197,6 +195,24 @@ namespace _3Commas.BotCreator.Views.MainForm
 
             #region Regular DataBinding by code
 
+            chkSkipUpDownPairs.DataBindings.Clear();
+            chkSkipUpDownPairs.DataBindings.Add(nameof(CheckBox.Checked), botSetting, nameof(BotSettingViewModel.SkipUpDownPairs));
+
+            chkLogSkipUpDownPairs.DataBindings.Clear();
+            chkLogSkipUpDownPairs.DataBindings.Add(nameof(CheckBox.Checked), botSetting, nameof(BotSettingViewModel.LogSkipUpDownPairs));
+
+            numFirstTradeXDaysAgo.DataBindings.Clear();
+            numFirstTradeXDaysAgo.DataBindings.Add(nameof(NumericUpDown.Value), botSetting, nameof(BotSettingViewModel.SkipFirstTradeXDaysAgo));
+
+            logSkipFirstTradeXDaysAgo.DataBindings.Clear();
+            logSkipFirstTradeXDaysAgo.DataBindings.Add(nameof(CheckBox.Checked), botSetting, nameof(BotSettingViewModel.LogSkipFirstTradeXDaysAgo));
+
+            numMinVolume.DataBindings.Clear();
+            numMinVolume.DataBindings.Add(nameof(NumericUpDown.Value), botSetting, nameof(BotSettingViewModel.SkipMinVolume));
+
+            chkLogSkipMinVolume.DataBindings.Clear();
+            chkLogSkipMinVolume.DataBindings.Add(nameof(CheckBox.Checked), botSetting, nameof(BotSettingViewModel.LogSkipMinVolume));
+
             chkCheckForExistingPairWithSameBaseCurrency.DataBindings.Clear();
             chkCheckForExistingPairWithSameBaseCurrency.DataBindings.Add(nameof(CheckBox.Checked), botSetting, nameof(BotSettingViewModel.SkipExistingBaseCurrencyInAnyExistingPair));
             
@@ -220,8 +236,7 @@ namespace _3Commas.BotCreator.Views.MainForm
 
             chkLogCheckForBaseStablecoin.DataBindings.Clear();
             chkLogCheckForBaseStablecoin.DataBindings.Add(nameof(CheckBox.Checked), botSetting, nameof(BotSettingViewModel.LogSkipBaseStablecoin));
-
-
+            
             txtQuoteCurrency.DataBindings.Clear();
             txtQuoteCurrency.DataBindings.Add(nameof(TextBox.Text), botSetting, nameof(BotSettingViewModel.QuoteCurrency));
 

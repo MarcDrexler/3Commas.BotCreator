@@ -13,10 +13,16 @@ namespace _3Commas.BotCreator.Views.MainForm
             SkipBaseStablecoin = true;
             SkipBlacklistedPairs = true;
             SkipExistingBaseCurrencyInAnyExistingPair = true;
+            SkipMinVolume = 0;
+            SkipFirstTradeXDaysAgo = 30;
+            SkipUpDownPairs = true;
             LogSkipBaseStablecoin = true;
             LogSkipBlacklistedPairs = true;
             LogSkipExistingBaseCurrencyInAnyExistingPair = true;
             LogSkipExistingPairs = true;
+            LogSkipMinVolume = true;
+            LogSkipFirstTradeXDaysAgo = true;
+            LogSkipUpDownPairs = true;
             QuoteCurrency = "USDT";
             Botname = "{strategy} {pair} Bot";
             BaseOrderSize = 10;
@@ -157,5 +163,17 @@ namespace _3Commas.BotCreator.Views.MainForm
         public bool BuyBaseCurrency { get; set; }
 
         public decimal BaseCurrencyToBuy { get; set; }
+
+        public bool LogSkipMinVolume { get; set; }
+
+        public long SkipMinVolume { get; set; }
+
+        public bool LogSkipFirstTradeXDaysAgo { get; set; }
+
+        public int SkipFirstTradeXDaysAgo { get; set; }
+
+        public bool SkipUpDownPairs { get; set; }
+
+        public bool LogSkipUpDownPairs { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using _3Commas.BotCreator._3CommasLayer;
 using _3Commas.BotCreator.ExchangeLayer;
 using _3Commas.BotCreator.ExchangeLayer.Entities;
 using _3Commas.BotCreator.Views.MainForm;
+using Binance.Net.Objects.Spot.IsolatedMarginData;
 using Microsoft.Extensions.Logging;
 using XCommas.Net.Objects;
 
@@ -85,7 +86,7 @@ namespace _3Commas.BotCreator.Misc
 
                 var symbol = TransformPairTo3CommasSymbolString(pair.QuoteCurrency, pair.BaseCurrency);
 
-                if (SymbolShouldBeSkipped(symbol, settings.SkipExistingBaseCurrencyInAnyExistingPair, settings.LogSkipExistingBaseCurrencyInAnyExistingPair, settings.SkipExistingPairs, settings.LogSkipExistingPairs, settings.SkipBaseStablecoin, settings.LogSkipBaseStablecoin, settings.Strategy, pair, existingBots, settings.SkipBlacklistedPairs, settings.LogSkipBlacklistedPairs, blacklistedPairs)) continue;
+                if (SymbolShouldBeSkipped(symbol, settings.SkipMinVolume, settings.LogSkipMinVolume, settings.SkipExistingBaseCurrencyInAnyExistingPair, settings.LogSkipExistingBaseCurrencyInAnyExistingPair, settings.SkipExistingPairs, settings.LogSkipExistingPairs, settings.SkipBaseStablecoin, settings.LogSkipBaseStablecoin, settings.Strategy, pair, existingBots, settings.SkipBlacklistedPairs, settings.LogSkipBlacklistedPairs, blacklistedPairs, settings.SkipFirstTradeXDaysAgo, settings.LogSkipFirstTradeXDaysAgo, settings.SkipUpDownPairs, settings.LogSkipUpDownPairs)) continue;
                 
                 var marketData = await _xCommasClient.GetCurrencyRateAsync(symbol);
                 if (!marketData.IsSuccess)
@@ -134,7 +135,7 @@ namespace _3Commas.BotCreator.Misc
 
                 var symbol = TransformPairTo3CommasSymbolString(pair.QuoteCurrency, pair.BaseCurrency);
                 
-                if (SymbolShouldBeSkipped(symbol, settings.SkipExistingBaseCurrencyInAnyExistingPair, settings.LogSkipExistingBaseCurrencyInAnyExistingPair, settings.SkipExistingPairs, settings.LogSkipExistingPairs, settings.SkipBaseStablecoin, settings.LogSkipBaseStablecoin, settings.Strategy, pair, existingBots, settings.SkipBlacklistedPairs, settings.LogSkipBlacklistedPairs, blacklistedPairs)) continue;
+                if (SymbolShouldBeSkipped(symbol, settings.SkipMinVolume, settings.LogSkipMinVolume, settings.SkipExistingBaseCurrencyInAnyExistingPair, settings.LogSkipExistingBaseCurrencyInAnyExistingPair, settings.SkipExistingPairs, settings.LogSkipExistingPairs, settings.SkipBaseStablecoin, settings.LogSkipBaseStablecoin, settings.Strategy, pair, existingBots, settings.SkipBlacklistedPairs, settings.LogSkipBlacklistedPairs, blacklistedPairs, settings.SkipFirstTradeXDaysAgo, settings.LogSkipFirstTradeXDaysAgo, settings.SkipUpDownPairs, settings.LogSkipUpDownPairs)) continue;
 
                 var marketData = await _xCommasClient.GetCurrencyRateAsync(symbol);
                 if (!marketData.IsSuccess)
@@ -194,8 +195,26 @@ namespace _3Commas.BotCreator.Misc
             _logger.LogInformation($"{created} bots created");
         }
 
-        private bool SymbolShouldBeSkipped(string symbol, bool checkForExistingPairWithSameBaseCurrency, bool logCheckForExistingPairWithSameBaseCurrency, bool checkForExistingBots, bool logCheckForExistingBots, bool checkForBaseStablecoin, bool logCheckForBaseStablecoin, Strategy strategy, Pair pair, List<Bot> existingBots, bool checkForBlacklistedBots, bool logCheckForBlacklistedBots, List<string> blacklistedPairs)
+        private bool SymbolShouldBeSkipped(string symbol, long? checkForMinVolume, bool logCheckForMinVolume, bool checkForExistingPairWithSameBaseCurrency, bool logCheckForExistingPairWithSameBaseCurrency, bool checkForExistingBots, bool logCheckForExistingBots, bool checkForBaseStablecoin, bool logCheckForBaseStablecoin, Strategy strategy, Pair pair, List<Bot> existingBots, bool checkForBlacklistedBots, bool logCheckForBlacklistedBots, List<string> blacklistedPairs, int daysSinceFirstTrade, bool logSkipFirstTradeXDaysAgo, bool skipUpDownPairs, bool logSkipUpDownPairs)
         {
+            if (skipUpDownPairs && IsSymbolIgnored(symbol))
+            {
+                if (logSkipUpDownPairs) _logger.LogInformation($"Skipping {symbol}");
+                return true;
+            }
+
+            if (checkForMinVolume.HasValue && pair.TotalTradedQuoteAssetVolume < checkForMinVolume.Value)
+            {
+                if (logCheckForMinVolume) _logger.LogInformation($"Skipping {symbol} because volume is too low: {pair.TotalTradedQuoteAssetVolume} {pair.QuoteCurrency}");
+                return true;
+            }
+
+            if (daysSinceFirstTrade > 0 && pair.TradingStartedOn.HasValue && (DateTime.Today - pair.TradingStartedOn.Value).TotalDays < daysSinceFirstTrade)
+            {
+                if (logSkipFirstTradeXDaysAgo) _logger.LogInformation($"Skipping {symbol} because first trade was on {pair.TradingStartedOn.Value.ToShortDateString()}");
+                return true;
+            }
+
             if (checkForBaseStablecoin && Stablecoins.Any(s => s.ToLower() == pair.BaseCurrency.ToLower()))
             {
                 if (logCheckForBaseStablecoin) _logger.LogInformation($"Skipping {symbol} because base is a stablecoin");
@@ -205,12 +224,6 @@ namespace _3Commas.BotCreator.Misc
             if (checkForBlacklistedBots && blacklistedPairs.Contains(symbol))
             {
                 if (logCheckForBlacklistedBots) _logger.LogInformation($"Skipping {symbol} because it is blacklisted");
-                return true;
-            }
-
-            if (IsSymbolIgnored(symbol))
-            {
-                _logger.LogInformation($"Skipping {symbol}");
                 return true;
             }
 
@@ -357,5 +370,10 @@ namespace _3Commas.BotCreator.Misc
             _logger.LogInformation($"{bots.Count} Bots found");
             return bots;
         }
+    }
+
+    public class CreateSettings
+    {
+
     }
 }

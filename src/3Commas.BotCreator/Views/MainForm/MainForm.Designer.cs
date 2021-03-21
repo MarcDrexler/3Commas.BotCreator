@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.numAmount = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -101,16 +102,15 @@
             this.label26 = new System.Windows.Forms.Label();
             this.chkStopLossEnabled = new System.Windows.Forms.CheckBox();
             this.label30 = new System.Windows.Forms.Label();
-            this.chkCheckForBaseStablecoin = new System.Windows.Forms.CheckBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.chkSkipBlacklistedPairs = new System.Windows.Forms.CheckBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.chkCheckForExistingBots = new System.Windows.Forms.CheckBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.chkBuyBase = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAddStartCondition = new System.Windows.Forms.Button();
+            this.chkLogCheckForBaseStablecoin = new System.Windows.Forms.CheckBox();
+            this.chkLogCheckForExistingBots = new System.Windows.Forms.CheckBox();
+            this.chkLogCheckForExistingPairWithSameBaseCurrency = new System.Windows.Forms.CheckBox();
+            this.chkCheckForExistingPairWithSameBaseCurrency = new System.Windows.Forms.CheckBox();
+            this.chkCheckForExistingBots = new System.Windows.Forms.CheckBox();
             this.cmbTemplates = new System.Windows.Forms.ComboBox();
             this.groupBoxSettings = new System.Windows.Forms.GroupBox();
             this.label31 = new System.Windows.Forms.Label();
@@ -123,16 +123,22 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnAbout = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.chkCheckForExistingPairWithSameBaseCurrency = new System.Windows.Forms.CheckBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.chkLogCheckForExistingPairWithSameBaseCurrency = new System.Windows.Forms.CheckBox();
-            this.label33 = new System.Windows.Forms.Label();
-            this.chkLogCheckForExistingBots = new System.Windows.Forms.CheckBox();
-            this.label34 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkLogSkipUpDownPairs = new System.Windows.Forms.CheckBox();
+            this.chkSkipUpDownPairs = new System.Windows.Forms.CheckBox();
+            this.logSkipFirstTradeXDaysAgo = new System.Windows.Forms.CheckBox();
+            this.chkLogSkipMinVolume = new System.Windows.Forms.CheckBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.numMinVolume = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.chkCheckForBaseStablecoin = new System.Windows.Forms.CheckBox();
             this.chkLogSkipBlacklistedPairs = new System.Windows.Forms.CheckBox();
-            this.label35 = new System.Windows.Forms.Label();
-            this.chkLogCheckForBaseStablecoin = new System.Windows.Forms.CheckBox();
-            this.label36 = new System.Windows.Forms.Label();
+            this.chkSkipBlacklistedPairs = new System.Windows.Forms.CheckBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.numFirstTradeXDaysAgo = new System.Windows.Forms.NumericUpDown();
+            this.toolTipBlacklist = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipStablecoins = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numBaseOrderVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSafetyOrderVolume)).BeginInit();
@@ -154,6 +160,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numStopLossTimeout)).BeginInit();
             this.groupBoxSettings.SuspendLayout();
             this.panelMain.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinVolume)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numFirstTradeXDaysAgo)).BeginInit();
             this.SuspendLayout();
             // 
             // numAmount
@@ -190,7 +199,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(172, 169);
+            this.label2.Location = new System.Drawing.Point(171, 59);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 2;
@@ -211,7 +220,7 @@
             // cmbStrategy
             // 
             this.cmbStrategy.FormattingEnabled = true;
-            this.cmbStrategy.Location = new System.Drawing.Point(223, 166);
+            this.cmbStrategy.Location = new System.Drawing.Point(222, 56);
             this.cmbStrategy.Name = "cmbStrategy";
             this.cmbStrategy.Size = new System.Drawing.Size(121, 21);
             this.cmbStrategy.TabIndex = 5;
@@ -220,7 +229,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(140, 356);
+            this.label3.Location = new System.Drawing.Point(139, 246);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(79, 13);
             this.label3.TabIndex = 5;
@@ -229,7 +238,7 @@
             // numBaseOrderVolume
             // 
             this.numBaseOrderVolume.DecimalPlaces = 8;
-            this.numBaseOrderVolume.Location = new System.Drawing.Point(223, 353);
+            this.numBaseOrderVolume.Location = new System.Drawing.Point(222, 243);
             this.numBaseOrderVolume.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -247,7 +256,7 @@
             // numSafetyOrderVolume
             // 
             this.numSafetyOrderVolume.DecimalPlaces = 8;
-            this.numSafetyOrderVolume.Location = new System.Drawing.Point(223, 379);
+            this.numSafetyOrderVolume.Location = new System.Drawing.Point(222, 269);
             this.numSafetyOrderVolume.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -265,7 +274,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(134, 382);
+            this.label4.Location = new System.Drawing.Point(133, 272);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 13);
             this.label4.TabIndex = 7;
@@ -274,7 +283,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(136, 143);
+            this.label5.Location = new System.Drawing.Point(135, 33);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(81, 13);
             this.label5.TabIndex = 9;
@@ -282,7 +291,7 @@
             // 
             // txtQuoteCurrency
             // 
-            this.txtQuoteCurrency.Location = new System.Drawing.Point(223, 140);
+            this.txtQuoteCurrency.Location = new System.Drawing.Point(222, 30);
             this.txtQuoteCurrency.Name = "txtQuoteCurrency";
             this.txtQuoteCurrency.Size = new System.Drawing.Size(120, 20);
             this.txtQuoteCurrency.TabIndex = 4;
@@ -299,14 +308,14 @@
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ReadOnly = true;
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtOutput.Size = new System.Drawing.Size(480, 728);
+            this.txtOutput.Size = new System.Drawing.Size(480, 611);
             this.txtOutput.TabIndex = 0;
             // 
             // lblBuyTitle
             // 
             this.lblBuyTitle.AutoSize = true;
             this.lblBuyTitle.Enabled = false;
-            this.lblBuyTitle.Location = new System.Drawing.Point(52, 820);
+            this.lblBuyTitle.Location = new System.Drawing.Point(51, 710);
             this.lblBuyTitle.Name = "lblBuyTitle";
             this.lblBuyTitle.Size = new System.Drawing.Size(166, 13);
             this.lblBuyTitle.TabIndex = 13;
@@ -316,7 +325,7 @@
             // 
             this.numAmountToBuy.DecimalPlaces = 6;
             this.numAmountToBuy.Enabled = false;
-            this.numAmountToBuy.Location = new System.Drawing.Point(223, 817);
+            this.numAmountToBuy.Location = new System.Drawing.Point(222, 707);
             this.numAmountToBuy.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -328,7 +337,7 @@
             // 
             // txtBotname
             // 
-            this.txtBotname.Location = new System.Drawing.Point(223, 193);
+            this.txtBotname.Location = new System.Drawing.Point(222, 83);
             this.txtBotname.Name = "txtBotname";
             this.txtBotname.Size = new System.Drawing.Size(120, 20);
             this.txtBotname.TabIndex = 6;
@@ -338,7 +347,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(164, 196);
+            this.label11.Location = new System.Drawing.Point(163, 86);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(54, 13);
             this.label11.TabIndex = 23;
@@ -347,7 +356,7 @@
             // cmbStartOrderType
             // 
             this.cmbStartOrderType.FormattingEnabled = true;
-            this.cmbStartOrderType.Location = new System.Drawing.Point(223, 258);
+            this.cmbStartOrderType.Location = new System.Drawing.Point(222, 148);
             this.cmbStartOrderType.Name = "cmbStartOrderType";
             this.cmbStartOrderType.Size = new System.Drawing.Size(121, 21);
             this.cmbStartOrderType.TabIndex = 9;
@@ -355,7 +364,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(133, 261);
+            this.label12.Location = new System.Drawing.Point(132, 151);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(85, 13);
             this.label12.TabIndex = 24;
@@ -364,7 +373,7 @@
             // numSafetyOrderVolumeScale
             // 
             this.numSafetyOrderVolumeScale.DecimalPlaces = 2;
-            this.numSafetyOrderVolumeScale.Location = new System.Drawing.Point(223, 663);
+            this.numSafetyOrderVolumeScale.Location = new System.Drawing.Point(222, 553);
             this.numSafetyOrderVolumeScale.Maximum = new decimal(new int[] {
             10,
             0,
@@ -387,7 +396,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(91, 665);
+            this.label13.Location = new System.Drawing.Point(90, 555);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(129, 13);
             this.label13.TabIndex = 26;
@@ -396,7 +405,7 @@
             // numPriceDeviationToOpenSafetyOrders
             // 
             this.numPriceDeviationToOpenSafetyOrders.DecimalPlaces = 2;
-            this.numPriceDeviationToOpenSafetyOrders.Location = new System.Drawing.Point(223, 637);
+            this.numPriceDeviationToOpenSafetyOrders.Location = new System.Drawing.Point(222, 527);
             this.numPriceDeviationToOpenSafetyOrders.Maximum = new decimal(new int[] {
             10,
             0,
@@ -419,7 +428,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(41, 639);
+            this.label14.Location = new System.Drawing.Point(40, 529);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(179, 13);
             this.label14.TabIndex = 25;
@@ -428,7 +437,7 @@
             // chkTrailing
             // 
             this.chkTrailing.AutoSize = true;
-            this.chkTrailing.Location = new System.Drawing.Point(223, 432);
+            this.chkTrailing.Location = new System.Drawing.Point(222, 322);
             this.chkTrailing.Name = "chkTrailing";
             this.chkTrailing.Size = new System.Drawing.Size(15, 14);
             this.chkTrailing.TabIndex = 16;
@@ -438,7 +447,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(147, 432);
+            this.label15.Location = new System.Drawing.Point(146, 322);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(70, 13);
             this.label15.TabIndex = 30;
@@ -448,7 +457,7 @@
             // 
             this.lblTrailing.AutoSize = true;
             this.lblTrailing.Enabled = false;
-            this.lblTrailing.Location = new System.Drawing.Point(129, 457);
+            this.lblTrailing.Location = new System.Drawing.Point(128, 347);
             this.lblTrailing.Name = "lblTrailing";
             this.lblTrailing.Size = new System.Drawing.Size(89, 13);
             this.lblTrailing.TabIndex = 31;
@@ -458,7 +467,7 @@
             // 
             this.numTrailingDeviation.DecimalPlaces = 2;
             this.numTrailingDeviation.Enabled = false;
-            this.numTrailingDeviation.Location = new System.Drawing.Point(223, 453);
+            this.numTrailingDeviation.Location = new System.Drawing.Point(222, 343);
             this.numTrailingDeviation.Maximum = new decimal(new int[] {
             99,
             0,
@@ -470,7 +479,7 @@
             // 
             // numMaxSafetyTradesCount
             // 
-            this.numMaxSafetyTradesCount.Location = new System.Drawing.Point(223, 585);
+            this.numMaxSafetyTradesCount.Location = new System.Drawing.Point(222, 475);
             this.numMaxSafetyTradesCount.Minimum = new decimal(new int[] {
             1,
             0,
@@ -488,7 +497,7 @@
             // lblMaxSafetyTradesCount
             // 
             this.lblMaxSafetyTradesCount.AutoSize = true;
-            this.lblMaxSafetyTradesCount.Location = new System.Drawing.Point(98, 587);
+            this.lblMaxSafetyTradesCount.Location = new System.Drawing.Point(97, 477);
             this.lblMaxSafetyTradesCount.Name = "lblMaxSafetyTradesCount";
             this.lblMaxSafetyTradesCount.Size = new System.Drawing.Size(120, 13);
             this.lblMaxSafetyTradesCount.TabIndex = 34;
@@ -496,7 +505,7 @@
             // 
             // numMaxActiveSafetyTradesCount
             // 
-            this.numMaxActiveSafetyTradesCount.Location = new System.Drawing.Point(223, 611);
+            this.numMaxActiveSafetyTradesCount.Location = new System.Drawing.Point(222, 501);
             this.numMaxActiveSafetyTradesCount.Maximum = new decimal(new int[] {
             20,
             0,
@@ -519,7 +528,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(67, 613);
+            this.label18.Location = new System.Drawing.Point(66, 503);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(152, 13);
             this.label18.TabIndex = 36;
@@ -528,7 +537,7 @@
             // numSafetyOrderStepScale
             // 
             this.numSafetyOrderStepScale.DecimalPlaces = 2;
-            this.numSafetyOrderStepScale.Location = new System.Drawing.Point(223, 689);
+            this.numSafetyOrderStepScale.Location = new System.Drawing.Point(222, 579);
             this.numSafetyOrderStepScale.Maximum = new decimal(new int[] {
             10,
             0,
@@ -551,7 +560,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(105, 691);
+            this.label17.Location = new System.Drawing.Point(104, 581);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(115, 13);
             this.label17.TabIndex = 37;
@@ -560,7 +569,7 @@
             // numTargetProfit
             // 
             this.numTargetProfit.DecimalPlaces = 2;
-            this.numTargetProfit.Location = new System.Drawing.Point(223, 405);
+            this.numTargetProfit.Location = new System.Drawing.Point(222, 295);
             this.numTargetProfit.Maximum = new decimal(new int[] {
             99,
             0,
@@ -583,7 +592,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(153, 407);
+            this.label19.Location = new System.Drawing.Point(152, 297);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(65, 13);
             this.label19.TabIndex = 39;
@@ -593,7 +602,7 @@
             // 
             this.lblQuoteCurrency.AutoSize = true;
             this.lblQuoteCurrency.Enabled = false;
-            this.lblQuoteCurrency.Location = new System.Drawing.Point(351, 820);
+            this.lblQuoteCurrency.Location = new System.Drawing.Point(350, 710);
             this.lblQuoteCurrency.Name = "lblQuoteCurrency";
             this.lblQuoteCurrency.Size = new System.Drawing.Size(37, 13);
             this.lblQuoteCurrency.TabIndex = 41;
@@ -602,7 +611,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(351, 408);
+            this.label16.Location = new System.Drawing.Point(350, 298);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(15, 13);
             this.label16.TabIndex = 42;
@@ -612,7 +621,7 @@
             // 
             this.lblTrailingUnit.AutoSize = true;
             this.lblTrailingUnit.Enabled = false;
-            this.lblTrailingUnit.Location = new System.Drawing.Point(351, 457);
+            this.lblTrailingUnit.Location = new System.Drawing.Point(350, 347);
             this.lblTrailingUnit.Name = "lblTrailingUnit";
             this.lblTrailingUnit.Size = new System.Drawing.Size(15, 13);
             this.lblTrailingUnit.TabIndex = 43;
@@ -621,7 +630,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(351, 641);
+            this.label21.Location = new System.Drawing.Point(350, 531);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(15, 13);
             this.label21.TabIndex = 44;
@@ -630,7 +639,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(114, 286);
+            this.label7.Location = new System.Drawing.Point(113, 176);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(103, 13);
             this.label7.TabIndex = 49;
@@ -641,7 +650,7 @@
             this.listViewStartConditions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.listViewStartConditions.HideSelection = false;
-            this.listViewStartConditions.Location = new System.Drawing.Point(223, 284);
+            this.listViewStartConditions.Location = new System.Drawing.Point(222, 174);
             this.listViewStartConditions.Name = "listViewStartConditions";
             this.listViewStartConditions.Size = new System.Drawing.Size(120, 63);
             this.listViewStartConditions.TabIndex = 10;
@@ -651,7 +660,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(93, 718);
+            this.label8.Location = new System.Drawing.Point(92, 608);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(126, 13);
             this.label8.TabIndex = 53;
@@ -659,7 +668,7 @@
             // 
             // numCooldownBetweenDeals
             // 
-            this.numCooldownBetweenDeals.Location = new System.Drawing.Point(223, 715);
+            this.numCooldownBetweenDeals.Location = new System.Drawing.Point(222, 605);
             this.numCooldownBetweenDeals.Maximum = new decimal(new int[] {
             2591999,
             0,
@@ -672,7 +681,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(350, 718);
+            this.label9.Location = new System.Drawing.Point(349, 608);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(47, 13);
             this.label9.TabIndex = 55;
@@ -681,7 +690,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(224, 216);
+            this.label10.Location = new System.Drawing.Point(223, 106);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(146, 13);
             this.label10.TabIndex = 7;
@@ -690,7 +699,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(122, 237);
+            this.label20.Location = new System.Drawing.Point(121, 127);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(98, 13);
             this.label20.TabIndex = 57;
@@ -699,7 +708,7 @@
             // lblBotNamePreview
             // 
             this.lblBotNamePreview.AutoSize = true;
-            this.lblBotNamePreview.Location = new System.Drawing.Point(220, 237);
+            this.lblBotNamePreview.Location = new System.Drawing.Point(219, 127);
             this.lblBotNamePreview.Name = "lblBotNamePreview";
             this.lblBotNamePreview.Size = new System.Drawing.Size(83, 13);
             this.lblBotNamePreview.TabIndex = 8;
@@ -708,7 +717,7 @@
             // cmbExchange
             // 
             this.cmbExchange.FormattingEnabled = true;
-            this.cmbExchange.Location = new System.Drawing.Point(223, 113);
+            this.cmbExchange.Location = new System.Drawing.Point(222, 3);
             this.cmbExchange.Name = "cmbExchange";
             this.cmbExchange.Size = new System.Drawing.Size(121, 21);
             this.cmbExchange.TabIndex = 3;
@@ -717,7 +726,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(71, 117);
+            this.label22.Location = new System.Drawing.Point(70, 7);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(147, 13);
             this.label22.TabIndex = 59;
@@ -807,15 +816,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelBotSettings.AutoScroll = true;
-            this.panelBotSettings.Controls.Add(this.chkLogCheckForBaseStablecoin);
-            this.panelBotSettings.Controls.Add(this.label36);
-            this.panelBotSettings.Controls.Add(this.chkLogSkipBlacklistedPairs);
-            this.panelBotSettings.Controls.Add(this.label35);
-            this.panelBotSettings.Controls.Add(this.chkLogCheckForExistingBots);
-            this.panelBotSettings.Controls.Add(this.label34);
-            this.panelBotSettings.Controls.Add(this.chkLogCheckForExistingPairWithSameBaseCurrency);
-            this.panelBotSettings.Controls.Add(this.chkCheckForExistingPairWithSameBaseCurrency);
-            this.panelBotSettings.Controls.Add(this.label32);
             this.panelBotSettings.Controls.Add(this.lblLeverageCustomValue);
             this.panelBotSettings.Controls.Add(this.numCustomLeverageValue);
             this.panelBotSettings.Controls.Add(this.label27);
@@ -823,12 +823,6 @@
             this.panelBotSettings.Controls.Add(this.panelStopLoss);
             this.panelBotSettings.Controls.Add(this.chkStopLossEnabled);
             this.panelBotSettings.Controls.Add(this.label30);
-            this.panelBotSettings.Controls.Add(this.chkCheckForBaseStablecoin);
-            this.panelBotSettings.Controls.Add(this.label25);
-            this.panelBotSettings.Controls.Add(this.chkSkipBlacklistedPairs);
-            this.panelBotSettings.Controls.Add(this.label24);
-            this.panelBotSettings.Controls.Add(this.chkCheckForExistingBots);
-            this.panelBotSettings.Controls.Add(this.label6);
             this.panelBotSettings.Controls.Add(this.chkBuyBase);
             this.panelBotSettings.Controls.Add(this.label23);
             this.panelBotSettings.Controls.Add(this.txtQuoteCurrency);
@@ -877,16 +871,15 @@
             this.panelBotSettings.Controls.Add(this.numMaxActiveSafetyTradesCount);
             this.panelBotSettings.Controls.Add(this.lblMaxSafetyTradesCount);
             this.panelBotSettings.Controls.Add(this.txtBotname);
-            this.panelBotSettings.Controls.Add(this.label33);
             this.panelBotSettings.Location = new System.Drawing.Point(6, 64);
             this.panelBotSettings.Name = "panelBotSettings";
-            this.panelBotSettings.Size = new System.Drawing.Size(510, 548);
+            this.panelBotSettings.Size = new System.Drawing.Size(510, 269);
             this.panelBotSettings.TabIndex = 65;
             // 
             // lblLeverageCustomValue
             // 
             this.lblLeverageCustomValue.AutoSize = true;
-            this.lblLeverageCustomValue.Location = new System.Drawing.Point(97, 770);
+            this.lblLeverageCustomValue.Location = new System.Drawing.Point(96, 660);
             this.lblLeverageCustomValue.Name = "lblLeverageCustomValue";
             this.lblLeverageCustomValue.Size = new System.Drawing.Size(120, 13);
             this.lblLeverageCustomValue.TabIndex = 203;
@@ -894,7 +887,7 @@
             // 
             // numCustomLeverageValue
             // 
-            this.numCustomLeverageValue.Location = new System.Drawing.Point(223, 768);
+            this.numCustomLeverageValue.Location = new System.Drawing.Point(222, 658);
             this.numCustomLeverageValue.Maximum = new decimal(new int[] {
             20,
             0,
@@ -917,7 +910,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(138, 744);
+            this.label27.Location = new System.Drawing.Point(137, 634);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(79, 13);
             this.label27.TabIndex = 201;
@@ -926,7 +919,7 @@
             // cmbLeverageType
             // 
             this.cmbLeverageType.FormattingEnabled = true;
-            this.cmbLeverageType.Location = new System.Drawing.Point(223, 741);
+            this.cmbLeverageType.Location = new System.Drawing.Point(222, 631);
             this.cmbLeverageType.Name = "cmbLeverageType";
             this.cmbLeverageType.Size = new System.Drawing.Size(121, 21);
             this.cmbLeverageType.TabIndex = 25;
@@ -942,7 +935,7 @@
             this.panelStopLoss.Controls.Add(this.chkStopLossTimeoutEnabled);
             this.panelStopLoss.Controls.Add(this.numStopLossTimeout);
             this.panelStopLoss.Controls.Add(this.label26);
-            this.panelStopLoss.Location = new System.Drawing.Point(74, 500);
+            this.panelStopLoss.Location = new System.Drawing.Point(73, 390);
             this.panelStopLoss.Name = "panelStopLoss";
             this.panelStopLoss.Size = new System.Drawing.Size(323, 81);
             this.panelStopLoss.TabIndex = 199;
@@ -1045,7 +1038,7 @@
             // chkStopLossEnabled
             // 
             this.chkStopLossEnabled.AutoSize = true;
-            this.chkStopLossEnabled.Location = new System.Drawing.Point(223, 482);
+            this.chkStopLossEnabled.Location = new System.Drawing.Point(222, 372);
             this.chkStopLossEnabled.Name = "chkStopLossEnabled";
             this.chkStopLossEnabled.Size = new System.Drawing.Size(15, 14);
             this.chkStopLossEnabled.TabIndex = 18;
@@ -1054,76 +1047,16 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(163, 482);
+            this.label30.Location = new System.Drawing.Point(162, 372);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(54, 13);
             this.label30.TabIndex = 196;
             this.label30.Text = "Stop Loss";
             // 
-            // chkCheckForBaseStablecoin
-            // 
-            this.chkCheckForBaseStablecoin.AutoSize = true;
-            this.chkCheckForBaseStablecoin.Checked = true;
-            this.chkCheckForBaseStablecoin.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCheckForBaseStablecoin.Location = new System.Drawing.Point(223, 90);
-            this.chkCheckForBaseStablecoin.Name = "chkCheckForBaseStablecoin";
-            this.chkCheckForBaseStablecoin.Size = new System.Drawing.Size(15, 14);
-            this.chkCheckForBaseStablecoin.TabIndex = 2;
-            this.chkCheckForBaseStablecoin.UseVisualStyleBackColor = true;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(62, 90);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(155, 13);
-            this.label25.TabIndex = 67;
-            this.label25.Text = "Skip if base coin is a stablecoin";
-            // 
-            // chkSkipBlacklistedPairs
-            // 
-            this.chkSkipBlacklistedPairs.AutoSize = true;
-            this.chkSkipBlacklistedPairs.Checked = true;
-            this.chkSkipBlacklistedPairs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSkipBlacklistedPairs.Location = new System.Drawing.Point(223, 65);
-            this.chkSkipBlacklistedPairs.Name = "chkSkipBlacklistedPairs";
-            this.chkSkipBlacklistedPairs.Size = new System.Drawing.Size(15, 14);
-            this.chkSkipBlacklistedPairs.TabIndex = 1;
-            this.chkSkipBlacklistedPairs.UseVisualStyleBackColor = true;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(34, 65);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(183, 13);
-            this.label24.TabIndex = 65;
-            this.label24.Text = "Skip Bot Creation for blacklisted Pairs";
-            // 
-            // chkCheckForExistingBots
-            // 
-            this.chkCheckForExistingBots.AutoSize = true;
-            this.chkCheckForExistingBots.Checked = true;
-            this.chkCheckForExistingBots.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCheckForExistingBots.Location = new System.Drawing.Point(223, 40);
-            this.chkCheckForExistingBots.Name = "chkCheckForExistingBots";
-            this.chkCheckForExistingBots.Size = new System.Drawing.Size(15, 14);
-            this.chkCheckForExistingBots.TabIndex = 0;
-            this.chkCheckForExistingBots.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(5, 40);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(214, 13);
-            this.label6.TabIndex = 63;
-            this.label6.Text = "Skip Bot Creation for existing Pair && Strategy";
-            // 
             // chkBuyBase
             // 
             this.chkBuyBase.AutoSize = true;
-            this.chkBuyBase.Location = new System.Drawing.Point(223, 797);
+            this.chkBuyBase.Location = new System.Drawing.Point(222, 687);
             this.chkBuyBase.Name = "chkBuyBase";
             this.chkBuyBase.Size = new System.Drawing.Size(15, 14);
             this.chkBuyBase.TabIndex = 27;
@@ -1133,7 +1066,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(123, 796);
+            this.label23.Location = new System.Drawing.Point(122, 686);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(96, 13);
             this.label23.TabIndex = 62;
@@ -1142,7 +1075,7 @@
             // btnRemove
             // 
             this.btnRemove.Image = global::_3Commas.BotCreator.Properties.Resources.Cancel_16x16;
-            this.btnRemove.Location = new System.Drawing.Point(349, 311);
+            this.btnRemove.Location = new System.Drawing.Point(348, 201);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(29, 23);
             this.btnRemove.TabIndex = 12;
@@ -1154,7 +1087,7 @@
             // btnAddStartCondition
             // 
             this.btnAddStartCondition.Image = global::_3Commas.BotCreator.Properties.Resources.Add_16x16;
-            this.btnAddStartCondition.Location = new System.Drawing.Point(349, 284);
+            this.btnAddStartCondition.Location = new System.Drawing.Point(348, 174);
             this.btnAddStartCondition.Name = "btnAddStartCondition";
             this.btnAddStartCondition.Size = new System.Drawing.Size(29, 23);
             this.btnAddStartCondition.TabIndex = 11;
@@ -1162,6 +1095,66 @@
             this.btnAddStartCondition.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddStartCondition.UseVisualStyleBackColor = true;
             this.btnAddStartCondition.Click += new System.EventHandler(this.btnAddStartCondition_Click);
+            // 
+            // chkLogCheckForBaseStablecoin
+            // 
+            this.chkLogCheckForBaseStablecoin.AutoSize = true;
+            this.chkLogCheckForBaseStablecoin.Checked = true;
+            this.chkLogCheckForBaseStablecoin.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLogCheckForBaseStablecoin.Location = new System.Drawing.Point(292, 117);
+            this.chkLogCheckForBaseStablecoin.Name = "chkLogCheckForBaseStablecoin";
+            this.chkLogCheckForBaseStablecoin.Size = new System.Drawing.Size(83, 17);
+            this.chkLogCheckForBaseStablecoin.TabIndex = 212;
+            this.chkLogCheckForBaseStablecoin.Text = "show in Log";
+            this.chkLogCheckForBaseStablecoin.UseVisualStyleBackColor = true;
+            // 
+            // chkLogCheckForExistingBots
+            // 
+            this.chkLogCheckForExistingBots.AutoSize = true;
+            this.chkLogCheckForExistingBots.Checked = true;
+            this.chkLogCheckForExistingBots.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLogCheckForExistingBots.Location = new System.Drawing.Point(292, 96);
+            this.chkLogCheckForExistingBots.Name = "chkLogCheckForExistingBots";
+            this.chkLogCheckForExistingBots.Size = new System.Drawing.Size(83, 17);
+            this.chkLogCheckForExistingBots.TabIndex = 208;
+            this.chkLogCheckForExistingBots.Text = "show in Log";
+            this.chkLogCheckForExistingBots.UseVisualStyleBackColor = true;
+            // 
+            // chkLogCheckForExistingPairWithSameBaseCurrency
+            // 
+            this.chkLogCheckForExistingPairWithSameBaseCurrency.AutoSize = true;
+            this.chkLogCheckForExistingPairWithSameBaseCurrency.Checked = true;
+            this.chkLogCheckForExistingPairWithSameBaseCurrency.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLogCheckForExistingPairWithSameBaseCurrency.Location = new System.Drawing.Point(292, 73);
+            this.chkLogCheckForExistingPairWithSameBaseCurrency.Name = "chkLogCheckForExistingPairWithSameBaseCurrency";
+            this.chkLogCheckForExistingPairWithSameBaseCurrency.Size = new System.Drawing.Size(83, 17);
+            this.chkLogCheckForExistingPairWithSameBaseCurrency.TabIndex = 206;
+            this.chkLogCheckForExistingPairWithSameBaseCurrency.Text = "show in Log";
+            this.chkLogCheckForExistingPairWithSameBaseCurrency.UseVisualStyleBackColor = true;
+            // 
+            // chkCheckForExistingPairWithSameBaseCurrency
+            // 
+            this.chkCheckForExistingPairWithSameBaseCurrency.AutoSize = true;
+            this.chkCheckForExistingPairWithSameBaseCurrency.Checked = true;
+            this.chkCheckForExistingPairWithSameBaseCurrency.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCheckForExistingPairWithSameBaseCurrency.Location = new System.Drawing.Point(9, 73);
+            this.chkCheckForExistingPairWithSameBaseCurrency.Name = "chkCheckForExistingPairWithSameBaseCurrency";
+            this.chkCheckForExistingPairWithSameBaseCurrency.Size = new System.Drawing.Size(275, 17);
+            this.chkCheckForExistingPairWithSameBaseCurrency.TabIndex = 204;
+            this.chkCheckForExistingPairWithSameBaseCurrency.Text = "Skip if Strategy and any Pair with base currency exist";
+            this.chkCheckForExistingPairWithSameBaseCurrency.UseVisualStyleBackColor = true;
+            // 
+            // chkCheckForExistingBots
+            // 
+            this.chkCheckForExistingBots.AutoSize = true;
+            this.chkCheckForExistingBots.Checked = true;
+            this.chkCheckForExistingBots.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCheckForExistingBots.Location = new System.Drawing.Point(9, 94);
+            this.chkCheckForExistingBots.Name = "chkCheckForExistingBots";
+            this.chkCheckForExistingBots.Size = new System.Drawing.Size(233, 17);
+            this.chkCheckForExistingBots.TabIndex = 0;
+            this.chkCheckForExistingBots.Text = "Skip Bot Creation for existing Pair && Strategy";
+            this.chkCheckForExistingBots.UseVisualStyleBackColor = true;
             // 
             // cmbTemplates
             // 
@@ -1181,9 +1174,9 @@
             this.groupBoxSettings.Controls.Add(this.cmbTemplates);
             this.groupBoxSettings.Controls.Add(this.btnSave);
             this.groupBoxSettings.Controls.Add(this.btnDeleteTemplate);
-            this.groupBoxSettings.Location = new System.Drawing.Point(12, 183);
+            this.groupBoxSettings.Location = new System.Drawing.Point(12, 345);
             this.groupBoxSettings.Name = "groupBoxSettings";
-            this.groupBoxSettings.Size = new System.Drawing.Size(522, 618);
+            this.groupBoxSettings.Size = new System.Drawing.Size(522, 339);
             this.groupBoxSettings.TabIndex = 67;
             this.groupBoxSettings.TabStop = false;
             this.groupBoxSettings.Text = "Bot Settings";
@@ -1265,7 +1258,7 @@
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.progressBar.Location = new System.Drawing.Point(540, 777);
+            this.progressBar.Location = new System.Drawing.Point(540, 783);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(100, 23);
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -1276,7 +1269,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCancel.Image = global::_3Commas.BotCreator.Properties.Resources.Close_16x16;
-            this.btnCancel.Location = new System.Drawing.Point(646, 776);
+            this.btnCancel.Location = new System.Drawing.Point(540, 659);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(104, 25);
             this.btnCancel.TabIndex = 1;
@@ -1305,7 +1298,7 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Image = global::_3Commas.BotCreator.Properties.Resources.Clear_16x16;
-            this.button1.Location = new System.Drawing.Point(921, 776);
+            this.button1.Location = new System.Drawing.Point(921, 659);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(99, 25);
             this.button1.TabIndex = 0;
@@ -1315,111 +1308,212 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // chkCheckForExistingPairWithSameBaseCurrency
+            // groupBox1
             // 
-            this.chkCheckForExistingPairWithSameBaseCurrency.AutoSize = true;
-            this.chkCheckForExistingPairWithSameBaseCurrency.Checked = true;
-            this.chkCheckForExistingPairWithSameBaseCurrency.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCheckForExistingPairWithSameBaseCurrency.Location = new System.Drawing.Point(266, 15);
-            this.chkCheckForExistingPairWithSameBaseCurrency.Name = "chkCheckForExistingPairWithSameBaseCurrency";
-            this.chkCheckForExistingPairWithSameBaseCurrency.Size = new System.Drawing.Size(15, 14);
-            this.chkCheckForExistingPairWithSameBaseCurrency.TabIndex = 204;
-            this.chkCheckForExistingPairWithSameBaseCurrency.UseVisualStyleBackColor = true;
+            this.groupBox1.Controls.Add(this.chkLogSkipUpDownPairs);
+            this.groupBox1.Controls.Add(this.chkSkipUpDownPairs);
+            this.groupBox1.Controls.Add(this.logSkipFirstTradeXDaysAgo);
+            this.groupBox1.Controls.Add(this.chkLogSkipMinVolume);
+            this.groupBox1.Controls.Add(this.label24);
+            this.groupBox1.Controls.Add(this.numMinVolume);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.chkCheckForBaseStablecoin);
+            this.groupBox1.Controls.Add(this.chkLogSkipBlacklistedPairs);
+            this.groupBox1.Controls.Add(this.chkSkipBlacklistedPairs);
+            this.groupBox1.Controls.Add(this.label38);
+            this.groupBox1.Controls.Add(this.label37);
+            this.groupBox1.Controls.Add(this.numFirstTradeXDaysAgo);
+            this.groupBox1.Controls.Add(this.chkLogCheckForBaseStablecoin);
+            this.groupBox1.Controls.Add(this.chkCheckForExistingBots);
+            this.groupBox1.Controls.Add(this.chkCheckForExistingPairWithSameBaseCurrency);
+            this.groupBox1.Controls.Add(this.chkLogCheckForExistingBots);
+            this.groupBox1.Controls.Add(this.chkLogCheckForExistingPairWithSameBaseCurrency);
+            this.groupBox1.Location = new System.Drawing.Point(12, 183);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(522, 155);
+            this.groupBox1.TabIndex = 214;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Pair selection";
             // 
-            // label32
+            // chkLogSkipUpDownPairs
             // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(5, 15);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(256, 13);
-            this.label32.TabIndex = 205;
-            this.label32.Text = "Skip if Strategy and any Pair with base currency exist";
+            this.chkLogSkipUpDownPairs.AutoSize = true;
+            this.chkLogSkipUpDownPairs.Checked = true;
+            this.chkLogSkipUpDownPairs.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLogSkipUpDownPairs.Location = new System.Drawing.Point(292, 51);
+            this.chkLogSkipUpDownPairs.Name = "chkLogSkipUpDownPairs";
+            this.chkLogSkipUpDownPairs.Size = new System.Drawing.Size(83, 17);
+            this.chkLogSkipUpDownPairs.TabIndex = 224;
+            this.chkLogSkipUpDownPairs.Text = "show in Log";
+            this.chkLogSkipUpDownPairs.UseVisualStyleBackColor = true;
             // 
-            // chkLogCheckForExistingPairWithSameBaseCurrency
+            // chkSkipUpDownPairs
             // 
-            this.chkLogCheckForExistingPairWithSameBaseCurrency.AutoSize = true;
-            this.chkLogCheckForExistingPairWithSameBaseCurrency.Checked = true;
-            this.chkLogCheckForExistingPairWithSameBaseCurrency.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLogCheckForExistingPairWithSameBaseCurrency.Location = new System.Drawing.Point(353, 15);
-            this.chkLogCheckForExistingPairWithSameBaseCurrency.Name = "chkLogCheckForExistingPairWithSameBaseCurrency";
-            this.chkLogCheckForExistingPairWithSameBaseCurrency.Size = new System.Drawing.Size(15, 14);
-            this.chkLogCheckForExistingPairWithSameBaseCurrency.TabIndex = 206;
-            this.chkLogCheckForExistingPairWithSameBaseCurrency.UseVisualStyleBackColor = true;
+            this.chkSkipUpDownPairs.AutoSize = true;
+            this.chkSkipUpDownPairs.Checked = true;
+            this.chkSkipUpDownPairs.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSkipUpDownPairs.Location = new System.Drawing.Point(9, 51);
+            this.chkSkipUpDownPairs.Name = "chkSkipUpDownPairs";
+            this.chkSkipUpDownPairs.Size = new System.Drawing.Size(131, 17);
+            this.chkSkipUpDownPairs.TabIndex = 223;
+            this.chkSkipUpDownPairs.Text = "Skip UP/DOWN Pairs";
+            this.chkSkipUpDownPairs.UseVisualStyleBackColor = true;
             // 
-            // label33
+            // logSkipFirstTradeXDaysAgo
             // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(287, 15);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(67, 13);
-            this.label33.TabIndex = 207;
-            this.label33.Text = "show in Log:";
+            this.logSkipFirstTradeXDaysAgo.AutoSize = true;
+            this.logSkipFirstTradeXDaysAgo.Checked = true;
+            this.logSkipFirstTradeXDaysAgo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.logSkipFirstTradeXDaysAgo.Location = new System.Drawing.Point(289, 16);
+            this.logSkipFirstTradeXDaysAgo.Name = "logSkipFirstTradeXDaysAgo";
+            this.logSkipFirstTradeXDaysAgo.Size = new System.Drawing.Size(83, 17);
+            this.logSkipFirstTradeXDaysAgo.TabIndex = 222;
+            this.logSkipFirstTradeXDaysAgo.Text = "show in Log";
+            this.logSkipFirstTradeXDaysAgo.UseVisualStyleBackColor = true;
             // 
-            // chkLogCheckForExistingBots
+            // chkLogSkipMinVolume
             // 
-            this.chkLogCheckForExistingBots.AutoSize = true;
-            this.chkLogCheckForExistingBots.Checked = true;
-            this.chkLogCheckForExistingBots.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLogCheckForExistingBots.Location = new System.Drawing.Point(353, 40);
-            this.chkLogCheckForExistingBots.Name = "chkLogCheckForExistingBots";
-            this.chkLogCheckForExistingBots.Size = new System.Drawing.Size(15, 14);
-            this.chkLogCheckForExistingBots.TabIndex = 208;
-            this.chkLogCheckForExistingBots.UseVisualStyleBackColor = true;
+            this.chkLogSkipMinVolume.AutoSize = true;
+            this.chkLogSkipMinVolume.Checked = true;
+            this.chkLogSkipMinVolume.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLogSkipMinVolume.Location = new System.Drawing.Point(289, 34);
+            this.chkLogSkipMinVolume.Name = "chkLogSkipMinVolume";
+            this.chkLogSkipMinVolume.Size = new System.Drawing.Size(83, 17);
+            this.chkLogSkipMinVolume.TabIndex = 221;
+            this.chkLogSkipMinVolume.Text = "show in Log";
+            this.chkLogSkipMinVolume.UseVisualStyleBackColor = true;
             // 
-            // label34
+            // label24
             // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(287, 40);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(67, 13);
-            this.label34.TabIndex = 209;
-            this.label34.Text = "show in Log:";
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(153, 37);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(37, 13);
+            this.label24.TabIndex = 220;
+            this.label24.Text = "USDT";
+            // 
+            // numMinVolume
+            // 
+            this.numMinVolume.Location = new System.Drawing.Point(79, 33);
+            this.numMinVolume.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.numMinVolume.Name = "numMinVolume";
+            this.numMinVolume.Size = new System.Drawing.Size(69, 20);
+            this.numMinVolume.TabIndex = 219;
+            this.numMinVolume.ThousandsSeparator = true;
+            this.numMinVolume.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 34);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(62, 13);
+            this.label6.TabIndex = 218;
+            this.label6.Text = "Min Volume";
+            // 
+            // chkCheckForBaseStablecoin
+            // 
+            this.chkCheckForBaseStablecoin.AutoSize = true;
+            this.chkCheckForBaseStablecoin.Checked = true;
+            this.chkCheckForBaseStablecoin.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCheckForBaseStablecoin.Location = new System.Drawing.Point(9, 114);
+            this.chkCheckForBaseStablecoin.Name = "chkCheckForBaseStablecoin";
+            this.chkCheckForBaseStablecoin.Size = new System.Drawing.Size(105, 17);
+            this.chkCheckForBaseStablecoin.TabIndex = 217;
+            this.chkCheckForBaseStablecoin.Text = "Skip Stablecoins";
+            this.chkCheckForBaseStablecoin.UseVisualStyleBackColor = true;
             // 
             // chkLogSkipBlacklistedPairs
             // 
             this.chkLogSkipBlacklistedPairs.AutoSize = true;
             this.chkLogSkipBlacklistedPairs.Checked = true;
             this.chkLogSkipBlacklistedPairs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLogSkipBlacklistedPairs.Location = new System.Drawing.Point(353, 65);
+            this.chkLogSkipBlacklistedPairs.Location = new System.Drawing.Point(292, 138);
             this.chkLogSkipBlacklistedPairs.Name = "chkLogSkipBlacklistedPairs";
-            this.chkLogSkipBlacklistedPairs.Size = new System.Drawing.Size(15, 14);
-            this.chkLogSkipBlacklistedPairs.TabIndex = 210;
+            this.chkLogSkipBlacklistedPairs.Size = new System.Drawing.Size(83, 17);
+            this.chkLogSkipBlacklistedPairs.TabIndex = 216;
+            this.chkLogSkipBlacklistedPairs.Text = "show in Log";
             this.chkLogSkipBlacklistedPairs.UseVisualStyleBackColor = true;
             // 
-            // label35
+            // chkSkipBlacklistedPairs
             // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(287, 65);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(67, 13);
-            this.label35.TabIndex = 211;
-            this.label35.Text = "show in Log:";
+            this.chkSkipBlacklistedPairs.AutoSize = true;
+            this.chkSkipBlacklistedPairs.Checked = true;
+            this.chkSkipBlacklistedPairs.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSkipBlacklistedPairs.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.chkSkipBlacklistedPairs.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.chkSkipBlacklistedPairs.FlatAppearance.CheckedBackColor = System.Drawing.Color.Gold;
+            this.chkSkipBlacklistedPairs.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Goldenrod;
+            this.chkSkipBlacklistedPairs.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.chkSkipBlacklistedPairs.Location = new System.Drawing.Point(9, 133);
+            this.chkSkipBlacklistedPairs.Name = "chkSkipBlacklistedPairs";
+            this.chkSkipBlacklistedPairs.Size = new System.Drawing.Size(101, 17);
+            this.chkSkipBlacklistedPairs.TabIndex = 215;
+            this.chkSkipBlacklistedPairs.Text = "Skip Blacklisted";
+            this.chkSkipBlacklistedPairs.UseVisualStyleBackColor = true;
             // 
-            // chkLogCheckForBaseStablecoin
+            // label38
             // 
-            this.chkLogCheckForBaseStablecoin.AutoSize = true;
-            this.chkLogCheckForBaseStablecoin.Checked = true;
-            this.chkLogCheckForBaseStablecoin.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLogCheckForBaseStablecoin.Location = new System.Drawing.Point(353, 89);
-            this.chkLogCheckForBaseStablecoin.Name = "chkLogCheckForBaseStablecoin";
-            this.chkLogCheckForBaseStablecoin.Size = new System.Drawing.Size(15, 14);
-            this.chkLogCheckForBaseStablecoin.TabIndex = 212;
-            this.chkLogCheckForBaseStablecoin.UseVisualStyleBackColor = true;
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(231, 17);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(29, 13);
+            this.label38.TabIndex = 214;
+            this.label38.Text = "days";
             // 
-            // label36
+            // label37
             // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(287, 89);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(67, 13);
-            this.label36.TabIndex = 213;
-            this.label36.Text = "show in Log:";
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(15, 17);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(160, 13);
+            this.label37.TabIndex = 4;
+            this.label37.Text = "Only if first trade is not older than";
+            // 
+            // numFirstTradeXDaysAgo
+            // 
+            this.numFirstTradeXDaysAgo.Location = new System.Drawing.Point(177, 14);
+            this.numFirstTradeXDaysAgo.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.numFirstTradeXDaysAgo.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numFirstTradeXDaysAgo.Name = "numFirstTradeXDaysAgo";
+            this.numFirstTradeXDaysAgo.Size = new System.Drawing.Size(51, 20);
+            this.numFirstTradeXDaysAgo.TabIndex = 4;
+            this.numFirstTradeXDaysAgo.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // toolTipBlacklist
+            // 
+            this.toolTipBlacklist.ToolTipTitle = "Skip Bot Creation for blacklisted Pairs";
+            // 
+            // toolTipStablecoins
+            // 
+            this.toolTipStablecoins.ToolTipTitle = "Skip if base coin is a stablecoin";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1032, 813);
+            this.ClientSize = new System.Drawing.Size(1032, 696);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.panelMain);
@@ -1429,7 +1523,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txtOutput);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(1048, 590);
+            this.MinimumSize = new System.Drawing.Size(1046, 584);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bot Creator";
@@ -1460,6 +1554,10 @@
             this.groupBoxSettings.PerformLayout();
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinVolume)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numFirstTradeXDaysAgo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1532,11 +1630,6 @@
         private System.Windows.Forms.CheckBox chkBuyBase;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.CheckBox chkCheckForExistingBots;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckBox chkSkipBlacklistedPairs;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.CheckBox chkCheckForBaseStablecoin;
-        private System.Windows.Forms.Label label25;
         private System.Windows.Forms.NumericUpDown numStopLossPercentage;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.NumericUpDown numStopLossTimeout;
@@ -1562,15 +1655,25 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.CheckBox chkLogCheckForBaseStablecoin;
-        private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.CheckBox chkLogSkipBlacklistedPairs;
-        private System.Windows.Forms.Label label35;
         private System.Windows.Forms.CheckBox chkLogCheckForExistingBots;
-        private System.Windows.Forms.Label label34;
         private System.Windows.Forms.CheckBox chkLogCheckForExistingPairWithSameBaseCurrency;
         private System.Windows.Forms.CheckBox chkCheckForExistingPairWithSameBaseCurrency;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.NumericUpDown numFirstTradeXDaysAgo;
+        private System.Windows.Forms.ToolTip toolTipBlacklist;
+        private System.Windows.Forms.CheckBox chkLogSkipBlacklistedPairs;
+        private System.Windows.Forms.CheckBox chkSkipBlacklistedPairs;
+        private System.Windows.Forms.CheckBox chkCheckForBaseStablecoin;
+        private System.Windows.Forms.ToolTip toolTipStablecoins;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.NumericUpDown numMinVolume;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox chkLogSkipMinVolume;
+        private System.Windows.Forms.CheckBox logSkipFirstTradeXDaysAgo;
+        private System.Windows.Forms.CheckBox chkLogSkipUpDownPairs;
+        private System.Windows.Forms.CheckBox chkSkipUpDownPairs;
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _3Commas.BotCreator.ExchangeLayer.Entities;
@@ -22,12 +23,37 @@ namespace _3Commas.BotCreator.ExchangeLayer.Implementations
         {
             using (var binance = new BinanceClient())
             {
-                return (await binance.Spot.Market.Get24HPricesAsync()).Data.Where(x => x.Symbol.ToLower().Contains(quoteCurrency.ToLower())).Select(x => new Pair
+                var pairs = new List<Pair>();
+
+                var prices = (await binance.Spot.Market.Get24HPricesAsync()).Data.Where(x => x.Symbol.ToLower().Contains(quoteCurrency.ToLower()));
+
+                foreach (var price in prices)
                 {
-                    TotalTradedQuoteAssetVolume = x.QuoteVolume,
-                    QuoteCurrency = quoteCurrency,
-                    BaseCurrency = ExtractBaseCurrency(x.Symbol, quoteCurrency)
-                }).ToList();
+                    var pair = new Pair();
+                    pair.TotalTradedQuoteAssetVolume = price.QuoteVolume;
+                    pair.QuoteCurrency = quoteCurrency;
+                    pair.BaseCurrency = ExtractBaseCurrency(price.Symbol, quoteCurrency);
+
+                    try
+                    {
+                        var data = (await binance.Spot.Market.GetHistoricalSymbolTradesAsync(price.Symbol, limit: 1, fromId: 1)).Data;
+                        if (data != null)
+                        {
+                            pair.TradingStartedOn = data.FirstOrDefault()?.TradeTime;
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                    }
+                    
+                    pairs.Add(pair);
+                }
+
+                return pairs;
             }
         }
 

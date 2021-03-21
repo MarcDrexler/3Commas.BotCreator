@@ -32,11 +32,14 @@ namespace _3Commas.BotCreator.ExchangeLayer.Implementations
                             continue;
                         }
 
+                        var trades = await huobi.GetSymbolTradesAsync(null, huobiSymbol.Symbol, null, null, null, fromId: 1, HuobiFilterDirection.Next, limit: 1);
+
                         var pair = new Pair
                         {
                             TotalTradedQuoteAssetVolume = symbolDetails.Data.Volume.Value,
                             QuoteCurrency = quoteCurrency,
-                            BaseCurrency = ExtractBaseCurrency(huobiSymbol.Symbol, quoteCurrency)
+                            BaseCurrency = ExtractBaseCurrency(huobiSymbol.Symbol, quoteCurrency),
+                            TradingStartedOn = trades.Data.FirstOrDefault()?.CreatedAt
                         };
                         pairs.Add(pair);
                     }
