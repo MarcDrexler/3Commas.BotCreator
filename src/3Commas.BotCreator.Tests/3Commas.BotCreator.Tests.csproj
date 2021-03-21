@@ -17,10 +17,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="XCommas.Net" Version="1.0.25" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\3Commas.Net\XCommas.Net\XCommas.Net\XCommas.Net.csproj" />
     <ProjectReference Include="..\3Commas.BotCreator\3Commas.BotCreator.csproj" />
   </ItemGroup>
 

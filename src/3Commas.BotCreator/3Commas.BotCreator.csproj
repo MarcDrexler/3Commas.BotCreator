@@ -200,6 +200,9 @@
       <HintPath>..\packages\WebSocket4Net.0.15.2\lib\net45\WebSocket4Net.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="XCommas.Net, Version=1.0.25.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\XCommas.Net.1.0.25\lib\net472\XCommas.Net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExchangeLayer\Implementations\Binance.cs" />
@@ -336,12 +339,6 @@
     <None Include="Resources\ShowTestReport_16x16.png" />
     <None Include="Resources\Close_16x16.png" />
     <Content Include="robot.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\3Commas.Net\XCommas.Net\XCommas.Net\XCommas.Net.csproj">
-      <Project>{b72dafd2-d0c0-4749-84d6-4418b1e8476a}</Project>
-      <Name>XCommas.Net</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
