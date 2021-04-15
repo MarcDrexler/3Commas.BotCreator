@@ -61,11 +61,21 @@ namespace _3Commas.BotCreator
 
         private static void EncryptConfigFile()
         {
-            System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-            ConfigurationSection section = config.GetSection("userSettings/_3Commas.BotCreator.Properties.Settings");
-            section.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
-            section.SectionInformation.ForceSave = true;
-            config.Save(ConfigurationSaveMode.Full);
+            try
+            {
+                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                ConfigurationSection section = config.GetSection("userSettings/_3Commas.BotCreator.Properties.Settings");
+                if (!section.SectionInformation.IsProtected)
+                {
+                    section.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
+                    section.SectionInformation.ForceSave = true;
+                    config.Save(ConfigurationSaveMode.Full);
+                }
+            }
+            catch
+            {
+                // ignore
+            }
         }
     }
 }
