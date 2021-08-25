@@ -61,9 +61,9 @@ namespace _3Commas.BotCreator
 
         private static void EncryptConfigFile()
         {
+            System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
             try
             {
-                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
                 ConfigurationSection section = config.GetSection("userSettings/_3Commas.BotCreator.Properties.Settings");
                 if (!section.SectionInformation.IsProtected)
                 {
@@ -72,9 +72,9 @@ namespace _3Commas.BotCreator
                     config.Save(ConfigurationSaveMode.Full);
                 }
             }
-            catch
+            catch (Exception e)
             {
-                // ignore
+                MessageBox.Show($"Could not encrypt config file at {config.FilePath}!{Environment.NewLine}{Environment.NewLine}The Error was: {e.Message} {Environment.NewLine}{Environment.NewLine}Your api key might be stored in cleartext. Make sure to remove it from the config file if you don't need it anymore.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
