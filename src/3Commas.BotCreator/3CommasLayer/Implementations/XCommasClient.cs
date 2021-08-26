@@ -23,9 +23,9 @@ namespace _3Commas.BotCreator._3CommasLayer.Implementations
             return await _3CommasClient.UpdateBotAsync(botId, botUpdateData);
         }
 
-        public async Task<XCommasResponse<Bot[]>> GetBotsAsync(int limit, int offset, Strategy strategy, BotScope botScope)
+        public async Task<XCommasResponse<Bot[]>> GetBotsAsync(int limit, int offset)
         {
-            return await _3CommasClient.GetBotsAsync(limit, offset, strategy: strategy, botScope: botScope);
+            return await _3CommasClient.GetBotsAsync(limit, offset);
         }
 
         public async Task<XCommasResponse<Account[]>> GetAccountsAsync()

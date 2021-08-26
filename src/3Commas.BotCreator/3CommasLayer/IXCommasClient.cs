@@ -14,7 +14,7 @@ namespace _3Commas.BotCreator._3CommasLayer
 
         Task<XCommasResponse<Bot>> UpdateBotAsync(int botId, BotUpdateData botUpdateData);
 
-        Task<XCommasResponse<Bot[]>> GetBotsAsync(int limit, int offset, Strategy strategy, BotScope botScope);
+        Task<XCommasResponse<Bot[]>> GetBotsAsync(int limit, int offset);
 
         Task<XCommasResponse<Account[]>> GetAccountsAsync();
 

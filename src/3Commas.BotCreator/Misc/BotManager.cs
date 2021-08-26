@@ -308,14 +308,16 @@ namespace _3Commas.BotCreator.Misc
             return $"{quoteCurrency.ToUpper()}_{baseCurrency}";
         }
 
-        private async Task<List<Bot>> GetBotsByStrategyAndScope(Strategy strategy, BotScope scope)
+        private async Task<List<Bot>> GetAllBots()
         {
+            _logger.LogInformation("Retrieving existing Bots from 3commas...");
+
             var bots = new List<Bot>();
             int take = 100;
             int skip = 0;
             while (true)
             {
-                var result = await _xCommasClient.GetBotsAsync(limit: take, offset: skip, strategy: strategy, botScope: scope);
+                var result = await _xCommasClient.GetBotsAsync(limit: take, offset: skip);
                 if (!result.IsSuccess)
                 {
                     throw new Exception("3Commas Connection Issue: " + result.Error);
@@ -328,18 +330,6 @@ namespace _3Commas.BotCreator.Misc
                 bots.AddRange(result.Data);
                 skip += take;
             }
-
-            return bots;
-        }
-
-        private async Task<List<Bot>> GetAllBots()
-        {
-            _logger.LogInformation("Retrieving existing Bots from 3commas...");
-
-            var bots = await GetBotsByStrategyAndScope(Strategy.Long, BotScope.Enabled);
-            bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Long, BotScope.Disabled));
-            bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Short, BotScope.Enabled));
-            bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Short, BotScope.Disabled));
 
             _logger.LogInformation($"{bots.Count} Bots found");
             return bots;
