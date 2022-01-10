@@ -13,7 +13,8 @@ If short bots are created, the tool can buy base coins for you directly on your 
 
 ## Technical description
 
-The implementation is based on .Net Framework. I actually wanted to create it with .Net Core, but the View Designer isn't really ready for production yet. I will probably upgrade to .NET 5 in November.
+The implementation is based on .Net Framework, since the View Designer was not yet productive for NET5 at this point in time.
+
 Therefore I created the tool more or less quick & dirty because I needed this functionality quickly. Time was money in this case :)
 
 Implementation is build upon the CryptoExchange.Net, 3Commas.Net, Binance.Net and Huobi.Net libraries. Thanks for the brilliant work!
