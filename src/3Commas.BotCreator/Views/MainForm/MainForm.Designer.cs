@@ -123,6 +123,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnAbout = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.chkUsePaperTrading = new System.Windows.Forms.CheckBox();
+            this.label32 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numBaseOrderVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSafetyOrderVolume)).BeginInit();
@@ -715,7 +717,9 @@
             // 
             // groupBoxCredentials
             // 
+            this.groupBoxCredentials.Controls.Add(this.chkUsePaperTrading);
             this.groupBoxCredentials.Controls.Add(this.linkLabelHuobi);
+            this.groupBoxCredentials.Controls.Add(this.label32);
             this.groupBoxCredentials.Controls.Add(this.linkLabelBinance);
             this.groupBoxCredentials.Controls.Add(this.linkLabel3Commas);
             this.groupBoxCredentials.Controls.Add(this.pictureBox1);
@@ -723,7 +727,7 @@
             this.groupBoxCredentials.Controls.Add(this.rbHuobi);
             this.groupBoxCredentials.Location = new System.Drawing.Point(12, 12);
             this.groupBoxCredentials.Name = "groupBoxCredentials";
-            this.groupBoxCredentials.Size = new System.Drawing.Size(522, 89);
+            this.groupBoxCredentials.Size = new System.Drawing.Size(522, 110);
             this.groupBoxCredentials.TabIndex = 64;
             this.groupBoxCredentials.TabStop = false;
             this.groupBoxCredentials.Text = "API Credentials";
@@ -860,7 +864,7 @@
             this.panelBotSettings.Controls.Add(this.txtBotname);
             this.panelBotSettings.Location = new System.Drawing.Point(6, 64);
             this.panelBotSettings.Name = "panelBotSettings";
-            this.panelBotSettings.Size = new System.Drawing.Size(510, 548);
+            this.panelBotSettings.Size = new System.Drawing.Size(510, 529);
             this.panelBotSettings.TabIndex = 65;
             // 
             // lblLeverageCustomValue
@@ -1161,9 +1165,9 @@
             this.groupBoxSettings.Controls.Add(this.cmbTemplates);
             this.groupBoxSettings.Controls.Add(this.btnSave);
             this.groupBoxSettings.Controls.Add(this.btnDeleteTemplate);
-            this.groupBoxSettings.Location = new System.Drawing.Point(12, 183);
+            this.groupBoxSettings.Location = new System.Drawing.Point(12, 202);
             this.groupBoxSettings.Name = "groupBoxSettings";
-            this.groupBoxSettings.Size = new System.Drawing.Size(522, 618);
+            this.groupBoxSettings.Size = new System.Drawing.Size(522, 599);
             this.groupBoxSettings.TabIndex = 67;
             this.groupBoxSettings.TabStop = false;
             this.groupBoxSettings.Text = "Bot Settings";
@@ -1211,7 +1215,7 @@
             this.panelMain.Controls.Add(this.chkEnable);
             this.panelMain.Controls.Add(this.label1);
             this.panelMain.Controls.Add(this.numAmount);
-            this.panelMain.Location = new System.Drawing.Point(12, 107);
+            this.panelMain.Location = new System.Drawing.Point(12, 126);
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(522, 70);
             this.panelMain.TabIndex = 69;
@@ -1294,6 +1298,26 @@
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // chkUsePaperTrading
+            // 
+            this.chkUsePaperTrading.AutoSize = true;
+            this.chkUsePaperTrading.Checked = true;
+            this.chkUsePaperTrading.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkUsePaperTrading.Location = new System.Drawing.Point(16, 89);
+            this.chkUsePaperTrading.Name = "chkUsePaperTrading";
+            this.chkUsePaperTrading.Size = new System.Drawing.Size(15, 14);
+            this.chkUsePaperTrading.TabIndex = 204;
+            this.chkUsePaperTrading.UseVisualStyleBackColor = true;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(33, 89);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(96, 13);
+            this.label32.TabIndex = 205;
+            this.label32.Text = "Use Paper Trading";
             // 
             // MainForm
             // 
@@ -1441,6 +1465,8 @@
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.CheckBox chkUsePaperTrading;
+        private System.Windows.Forms.Label label32;
     }
 }
 

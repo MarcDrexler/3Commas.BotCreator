@@ -112,6 +112,7 @@ namespace _3Commas.BotCreator.Views.MainForm
 
         public List<BotStrategy> SelectedStartConditions => listViewStartConditions.SelectedItems.Cast<ListViewItem>().Select(selectedItem => (BotStrategy)selectedItem.Tag).ToList();
         public BotSettings SelectedTemplate => (BotSettings)cmbTemplates.SelectedItem;
+        public bool UsePaperTrading => chkUsePaperTrading.Checked;
         public bool IsBinanceSelected => rbBinance.Checked;
         public bool IsHuobiSelected => rbHuobi.Checked;
         public int StartConditionsCount => listViewStartConditions.Items.Count;

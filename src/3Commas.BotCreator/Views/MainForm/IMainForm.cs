@@ -15,6 +15,7 @@ namespace _3Commas.BotCreator.Views.MainForm
         bool Enable { get; }
         List<BotStrategy> SelectedStartConditions { get;}
         BotSettings SelectedTemplate { get; }
+        bool UsePaperTrading { get; }
         void SetNamePreview(string name);
         void BindAccountsAndSetSelection(List<Account> accounts, int? account);
         void ClearLog();

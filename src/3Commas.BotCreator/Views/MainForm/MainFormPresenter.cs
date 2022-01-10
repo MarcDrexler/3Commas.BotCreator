@@ -127,7 +127,7 @@ namespace _3Commas.BotCreator.Views.MainForm
             if (!String.IsNullOrWhiteSpace(_keys.Secret3Commas) && !String.IsNullOrWhiteSpace(_keys.ApiKey3Commas))
             {
                 var selection = _settings.ExchangeAccountId;
-                var botMgr = new BotManager(_logger, new XCommasClient(_keys), null);
+                var botMgr = new BotManager(_logger, new XCommasClient(_keys, View.UsePaperTrading), null);
                 _accounts = await botMgr.RetrieveAccounts();
                 View.BindAccountsAndSetSelection(_accounts, selection);
             }
@@ -147,6 +147,11 @@ namespace _3Commas.BotCreator.Views.MainForm
             else if (_settings.ExchangeAccountId == null)
             {
                 errors.Add("3Commas Exchange Account not selected.");
+            }
+
+            if (_settings.BuyBaseCurrency && View.UsePaperTrading)
+            {
+                errors.Add("The option to buy base coins is not allowed in combination with paper trading.");
             }
 
             if (!View.IsBinanceSelected && !View.IsHuobiSelected)
@@ -244,7 +249,7 @@ namespace _3Commas.BotCreator.Views.MainForm
                         exchange = new ExchangeLayer.Implementations.Huobi(_keys);
                     }
 
-                    var botMgr = new BotManager(_logger, new XCommasClient(_keys), exchange);
+                    var botMgr = new BotManager(_logger, new XCommasClient(_keys, View.UsePaperTrading), exchange);
 
                     try
                     {
@@ -284,7 +289,7 @@ namespace _3Commas.BotCreator.Views.MainForm
                     exchange = new ExchangeLayer.Implementations.Huobi(_keys);
                 }
 
-                var botMgr = new BotManager(_logger, new XCommasClient(_keys), exchange);
+                var botMgr = new BotManager(_logger, new XCommasClient(_keys, View.UsePaperTrading), exchange);
 
                 try
                 {
